@@ -28,6 +28,8 @@ wersja gotowa do udostępnienia
 
 **TeX** jest systemem składu tekstu stworzonym przez Donalda Knutha.
 
+**Link do manuala:** [Wprowadzenie do LaTeX-a](https://tug.ctan.org/info/lshort/polish/lshort-pl.pdf)
+
 **LaTeX** jest zestawem makr i konwencji zbudowanych na TeX-u, który znacznie upraszcza przygotowywanie dokumentów.
 
 W praktyce użytkownik najczęściej pisze plik:
@@ -295,9 +297,9 @@ Energia dana jest wzorem $E=mc^2$.
 Źródło:
 
 ~~~latex
-\[
+$$
 E = mc^2
-\]
+$$
 ~~~
 
 W PDF otrzymamy wyśrodkowany wzór:
@@ -307,6 +309,16 @@ E=mc^2
 $$
 
 W samych plikach Markdown tego kursu stosujemy reguły opisane w `hints.md`. W źródle LaTeX dokumentu można używać normalnej składni LaTeX-a.
+
+Pamiętaj, że stosowany jest też drugi sposób (znany z problemów w markdown), czyli używanie znaków `\[` i `\]` do wyodrębnienia wzorów.
+
+~~~latex
+\[
+E = mc^2
+\]
+~~~
+
+Stosuj dolary `$$` do wyodrębnienia wzorów w trybie wyśrodkowanym by uniknąć problemów przy konwersji do różnych rozszerzeń plików.
 
 ---
 
@@ -702,7 +714,11 @@ Najczęstsze problemy w bibliografii:
 
 ## Co to jest Overleaf?
 
-**Overleaf** jest internetowym środowiskiem do pracy z LaTeX-em.
+**Overleaf** jest internetowym środowiskiem do pracy z LaTeX-em. Wchodzi się do niego przez przeglądarkę internetową, bez potrzeby instalowania czegokolwiek lokalnie. Po prostu otwieramy stronę [https://www.overleaf.com](https://www.overleaf.com) i zaczynamy pracę.
+
+Lewy panel zawiera listę plików projektu oraz strukturę katalogów. Środkowy panel to edytor źródła, a prawy panel pokazuje wynikowy PDF.
+
+- [Overleaf — Learn LaTeX in 30 minutes](https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes)
 
 Typowy widok zawiera:
 
@@ -764,7 +780,6 @@ methods.tex
 
 ## Dobre materiały
 
-- [Overleaf — Learn LaTeX in 30 minutes](https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes)
 - [Overleaf — Mathematical expressions](https://www.overleaf.com/learn/latex/Mathematical_expressions)
 - [Overleaf — Bibliography management with BibTeX](https://www.overleaf.com/learn/latex/Bibliography_management_with_bibtex)
 
