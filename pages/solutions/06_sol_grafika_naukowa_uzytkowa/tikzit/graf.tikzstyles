@@ -1,0 +1,3 @@
+\tikzstyle{stage}=[draw=blue,fill=blue!8,rounded corners,minimum width=2.4cm,minimum height=0.9cm,align=center]
+\tikzstyle{conclusion}=[draw=green!50!black,fill=green!8,rounded corners,minimum width=2.4cm,minimum height=0.9cm,align=center]
+\tikzstyle{flow}=[->,thick,draw=blue]

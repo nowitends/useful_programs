@@ -1,0 +1,24 @@
+\section{Procedura przekazania projektu}\label{sec:procedura}
+\begin{enumerate}
+\item Ustal plik główny, na przykład \texttt{main.tex}, i zapisz w
+  \texttt{README.md} polecenie kompilacji.
+\item Dodaj wszystkie pliki wczytywane przez \texttt{\textbackslash input},
+  \texttt{\textbackslash includegraphics} i polecenia bibliografii.
+\item Uruchom kompilację co najmniej dwa razy, a przy BibTeX użyj
+  kolejności LaTeX -- BibTeX -- LaTeX -- LaTeX.
+\item Otwórz PDF, sprawdź podpisy, numery odwołań, źródła i marginesy.
+\item Pobierz lub skopiuj wyłącznie pliki źródłowe do nowego folderu,
+  uruchom te same polecenia i porównaj wynik.
+\end{enumerate}
+
+Pliki pomocnicze takie jak \texttt{.aux}, \texttt{.log} czy
+\texttt{.toc} nie muszą trafiać do repozytorium. Ich brak nie powinien
+zmienić treści dokumentu, jeżeli komplet źródeł i polecenia są poprawne.
+Gdy po skopiowaniu projekt przestaje się kompilować, sprawdź najpierw
+ścieżki do grafik oraz pisownię nazw plików. Pomaga też przejrzenie
+pierwszego istotnego błędu w pliku \texttt{.log}, zamiast poprawiania
+wszystkich komunikatów po kolei.
+
+Archiwizacja służy kontroli i dalszej edycji. Dla przykładu z
+rozdziału~\ref{sec:cel} gotowy PDF ułatwia szybki podgląd, a pliki
+źródłowe pozwalają zweryfikować, jak powstał.

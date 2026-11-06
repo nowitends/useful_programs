@@ -1,22 +1,4 @@
-# 4. Interaktywne materiały i publikacja w sieci
-
-W poprzednim bloku potrafiliśmy już policzyć wynik, zapisać dane do pliku i przygotować wykres.
-
-Teraz zrobimy kolejny krok:
-
-~~~text
-obliczenie
-   ↓
-wynik
-   ↓
-wykres / animacja
-   ↓
-interaktywny HTML
-   ↓
-strona projektu
-   ↓
-publikacja w sieci
-~~~
+# WWW, Interaktywne materiały i publikacja w sieci
 
 W tym bloku poznamy:
 
@@ -25,10 +7,10 @@ W tym bloku poznamy:
 | **HTML** | budowa strony internetowej |
 | **CSS** | wygląd strony |
 | **JavaScript** | zachowanie i interakcja |
-| **Matplotlib** | animacje i grafika z Pythona |
-| **Plotly** | interaktywne wykresy |
-| **GitHub Pages** | publikacja statycznej strony |
 | **MkDocs** | tworzenie stron dokumentacji z plików Markdown |
+| **GitHub Pages** | publikacja statycznej strony |
+| **Chatgpt Sites** | tworzenie stron z wykorzystaniem ChatGPT |
+| **Interaktywne materiały** | tworzenie interaktywnychaplikacji, wizualizacji i eksperymentów (Matplotlib, Plotly) |
 
 ---
 
@@ -36,7 +18,7 @@ W tym bloku poznamy:
 
 ## Co właściwie otwiera przeglądarka?
 
-Przeglądarka potrafi wyświetlić plik HTML.
+Przeglądarka potrafi wyświetlić plik HTML. HTML jest przede wszystkim językiem opisującym **strukturę dokumentu internetowego**.
 
 Najprostszy przykład:
 
@@ -48,14 +30,14 @@ Najprostszy przykład:
     <title>Moja pierwsza strona</title>
 </head>
 <body>
-    <h1>Wyniki obliczeń</h1>
+    <h1>Ogłoszenia</h1>
 
     <p>To jest moja pierwsza strona HTML.</p>
 </body>
 </html>
 ~~~
 
-Jeżeli zapiszemy ten tekst jako:
+Jeżeli zapiszemy ten tekst w pliku tekstowym (ze zmianą rozszerzenia na `.html`) jako:
 
 ~~~text
 index.html
@@ -63,7 +45,7 @@ index.html
 
 i otworzymy plik w przeglądarce, zobaczymy stronę z nagłówkiem i akapitem.
 
-HTML nie jest językiem do wykonywania obliczeń takich jak Python. Jest przede wszystkim językiem opisującym **strukturę dokumentu internetowego**.
+Plik html musisz wysłać na serwer WWW, aby był dostępny w sieci. Inaczej będzie można go otworzyć tylko lokalnie na swoim komputerze lub po przesłaniu mejlem lub komunikatorami na komputer innej osoby.
 
 ---
 
@@ -200,7 +182,7 @@ Najważniejsze znaczniki:
 
 # CSS — wygląd strony
 
-HTML opisuje strukturę. **CSS** opisuje wygląd.
+HTML skupia się na strukturze i zawartościstrony. **CSS** odpowiada za wygląd strony. Podobnie jak LaTeX oddziela treść od formatu, HTML oddziela strukturę od wyglądu.
 
 Przykład:
 
@@ -323,8 +305,6 @@ Taki zestaw plików nazywamy tutaj **stroną statyczną**.
 „Statyczna” nie oznacza, że strona nie może być interaktywna. JavaScript może wykonywać się w przeglądarce.
 
 Oznacza raczej, że serwer nie musi przy każdym wejściu użytkownika wykonywać kodu generującego stronę.
-
-GitHub Pages jest właśnie usługą do publikacji takich stron.
 
 ---
 
@@ -902,57 +882,6 @@ Oficjalna dokumentacja:
 
 ---
 
-# AI i tworzenie dokumentacji
-
-MkDocs jest dobrym przykładem miejsca, w którym AI może bardzo przyspieszyć pracę.
-
-Możemy przekazać agentowi:
-
-~~~text
-Przeczytaj README.md oraz pliki z wynikami.
-
-Przygotuj dokumentację MkDocs.
-
-Wymagania:
-- nie zmieniaj plików z wynikami,
-- utwórz docs/index.md,
-- utwórz docs/results.md,
-- dodaj nawigację w mkdocs.yml,
-- użyj linków względnych,
-- nie publikuj strony,
-- po zmianach uruchom mkdocs build,
-- pokaż mi wynik i diff.
-~~~
-
-To jest dobry przykład pracy agentowej, ponieważ:
-
-1. agent musi przeczytać kilka istniejących plików,
-2. ma jasno określony wynik,
-3. ma ograniczenia,
-4. może uruchomić test,
-5. człowiek może obejrzeć diff.
-
----
-
-# Co należy publikować?
-
-Przed publikacją strony warto zadać pytanie:
-
-> Czy każdy plik, który znajduje się na stronie, może być publiczny?
-
-Nie należy publikować przypadkowo:
-
-- danych osobowych,
-- kluczy API,
-- haseł,
-- prywatnych notatek,
-- danych poufnych,
-- plików, do których nie mamy prawa publikacji.
-
-Publikacja internetowa zmienia charakter materiału. Plik przestaje być tylko elementem lokalnego projektu.
-
----
-
 # Zadania dla studenta
 
 Wszystkie pliki z tego bloku umieść w folderze:
@@ -1201,64 +1130,6 @@ Będzie można sprawdzić:
 - możliwość wykonania `mkdocs build`.
 
 ---
-
-## Zadanie 5. Kontrolowane użycie AI do dokumentacji
-
-Poproś narzędzie AI o przejrzenie:
-
-~~~text
-index.html
-create_plot.py
-animation.py
-docs/index.md
-docs/results.md
-mkdocs.yml
-~~~
-
-i zaproponowanie ulepszeń dokumentacji.
-
-AI **nie może zmieniać wyników matematycznych ani nazw wymaganych plików**.
-
-Po wykonaniu zmian utwórz:
-
-~~~text
-mkdocs_review.md
-~~~
-
-ze strukturą:
-
-~~~markdown
-# Review zmian AI
-
-## Użyty prompt
-
-...
-
-## Co zostało zmienione?
-
-...
-
-## Co sprawdziłem?
-
-...
-
-## Co odrzuciłem lub poprawiłem?
-
-...
-~~~
-
-Następnie ponownie uruchom:
-
-~~~bash
-mkdocs build
-~~~
-
-### Sprawdzenie
-
-Będzie można sprawdzić strukturę `mkdocs_review.md` i ponownie zbudować stronę.
-
----
-
 ## Zadanie 6. Publikacja na GitHub Pages
 
 Opublikuj przygotowaną dokumentację jako GitHub Pages.
@@ -1320,50 +1191,3 @@ Można sprawdzić:
 - strukturę lokalnego projektu niezależnie od publikacji.
 
 ---
-
-## Zadanie 7. README bloku
-
-Utwórz `README.md`.
-
-Powinien zawierać:
-
-- krótkie wyjaśnienie różnicy między HTML, CSS i JavaScript,
-- różnicę między wykresem PNG a interaktywnym HTML,
-- listę wygenerowanych artefaktów,
-- link do `interactive.html`,
-- osadzoną `animation.gif`,
-- link do `publication.md`,
-- checklistę wszystkich zadań.
-
-Dodaj tabelę:
-
-~~~markdown
-| Artefakt | Format | Interaktywny? |
-| --- | --- | --- |
-| strona | HTML | tak |
-| wykres Plotly | HTML | tak |
-| animacja | GIF | częściowo |
-| dokumentacja | Markdown / HTML | linki i multimedia |
-~~~
-
----
-
-# Checklista końcowa
-
-Przed zgłoszeniem bloku sprawdź:
-
-- [ ] `index.html` otwiera się w przeglądarce,
-- [ ] kalkulator dla `x=5` zwraca `25`,
-- [ ] `create_plot.py` uruchamia się bez błędu,
-- [ ] `interactive.html` jest interaktywny,
-- [ ] `docs/assets/interactive_plot.html` istnieje,
-- [ ] `animation.py` uruchamia się bez błędu,
-- [ ] `animation.gif` otwiera się poprawnie,
-- [ ] `docs/assets/animation.gif` istnieje,
-- [ ] `mkdocs.yml` ma poprawną nawigację,
-- [ ] `docs/index.md` i `docs/results.md` istnieją,
-- [ ] `mkdocs build` kończy się powodzeniem,
-- [ ] lokalny podgląd MkDocs działa,
-- [ ] `mkdocs_review.md` opisuje użycie i kontrolę AI,
-- [ ] `publication.md` zawiera wynik próby publikacji,
-- [ ] `README.md` zawiera linki, animację i checklistę.

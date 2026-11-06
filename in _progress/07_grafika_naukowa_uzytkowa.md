@@ -1,16 +1,13 @@
-# 7. Grafika naukowa i użytkowa
+# Grafika naukowa i użytkowa
 
-Grafika w pracy naukowej może być wykresem danych, schematem aparatury, diagramem zależności, ilustracją koncepcyjną albo elementem prezentacji.
-
-Nie każdą grafikę tworzymy tym samym narzędziem.
+Grafika w pracy naukowej może być wykresem danych, schematem aparatury, diagramem zależności, ilustracją koncepcyjną albo elementem prezentacji. Nie każdą grafikę tworzymy tym samym narzędziem.
 
 | Narzędzie | Zastosowanie |
 | --- | --- |
 | **Inkscape** | grafika wektorowa, schematy, diagramy |
-| **AI image tools** | ilustracje koncepcyjne, warianty i infografiki |
 | **IrfanView** | konwersja, skalowanie i operacje wsadowe |
-| **TikZ** | diagramy zintegrowane z LaTeX-em |
-| **TikZiT** | wizualna edycja wybranych diagramów TikZ |
+| **AI image tools** | ilustracje koncepcyjne, warianty i infografiki |
+| **TikZ** oraz **TikZiT**| diagramy zintegrowane z LaTeX-em oraz wizualna edycja wybranych diagramów TikZ |
 
 ---
 
@@ -991,22 +988,3 @@ Powinien zawierać:
 - checklistę zadań.
 
 Dodaj zdanie wyjaśniające, dlaczego grafiki AI nie należy przedstawiać jako wyniku pomiaru lub obliczenia.
-
----
-
-# Checklista końcowa
-
-Przed zgłoszeniem bloku sprawdź:
-
-- [ ] `diagram.svg` otwiera się poprawnie,
-- [ ] `diagram.pdf` istnieje,
-- [ ] `diagram.png` ma co najmniej `1200 px` szerokości,
-- [ ] trzy obrazy w `batch/` mają szerokość `800 px`,
-- [ ] `raster_report.md` zawiera tabelę wymiarów,
-- [ ] `ai_prompt.md` zawiera faktycznie użyty prompt,
-- [ ] `ai_image.png` został zastąpiony wynikiem,
-- [ ] `ai_review.md` zawiera wszystkie wymagane sekcje,
-- [ ] `tikz_diagram.tex` zawiera trzy węzły i dwie strzałki,
-- [ ] `tikz_diagram.pdf` został wygenerowany,
-- [ ] `comparison.md` porównuje oba podejścia,
-- [ ] `README.md` zawiera oba rodzaje grafiki i checklistę.

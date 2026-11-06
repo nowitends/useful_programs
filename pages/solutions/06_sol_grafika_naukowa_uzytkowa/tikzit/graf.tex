@@ -1,0 +1,12 @@
+\documentclass[border=12pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage{lmodern}
+\usepackage{tikz}
+\pgfdeclarelayer{edgelayer}
+\pgfdeclarelayer{nodelayer}
+\pgfsetlayers{edgelayer,nodelayer,main}
+\input{graf.tikzstyles}
+\begin{document}
+\input{graf.tikz}
+\end{document}

@@ -1,24 +1,8 @@
-# 5. LaTeX i dokumenty naukowe
+# LaTeX i dokumenty naukowe
 
 LaTeX jest jednym z podstawowych narzędzi do przygotowywania tekstów naukowych, szczególnie tam, gdzie pojawiają się wzory matematyczne, odwołania, bibliografia, tabele i duże dokumenty.
 
-W tym bloku przejdziemy przez pełny, ale niewielki projekt:
-
-~~~text
-źródło .tex
-   ↓
-kompilacja
-   ↓
-PDF
-   ↓
-bibliografia
-   ↓
-grafika i odwołania
-   ↓
-prezentacja
-   ↓
-wersja gotowa do udostępnienia
-~~~
+Wszystko to jest realizowane przez tekstowy plik źródłowy, który następnie kompilowany jest do postaci PDF.
 
 ---
 
@@ -47,14 +31,14 @@ dokument.pdf
 Najważniejsza idea jest podobna do pracy z kodem:
 
 ~~~text
-źródło
+źródło (plik tekstowy *.tex)
    ↓
 kompilator
    ↓
-wynik
+wynik (plik *.pdf)
 ~~~
 
-Nie ustawiamy ręcznie każdej czcionki i odstępu. Opisujemy **strukturę dokumentu**, a LaTeX zajmuje się składem.
+Nie ustawiamy ręcznie każdej czcionki, numerowania równań czy odstępu. Opisujemy **strukturę dokumentu**, a LaTeX zajmuje się składem.
 
 ---
 
@@ -134,6 +118,28 @@ Popularne klasy:
 | `book` | książka |
 | `beamer` | prezentacja |
 
+Klasa może przyjmować **opcje**, które zmieniają wygląd lub układ dokumentu. Wpisuje się je w nawiasach kwadratowych, przed nazwą klasy, oddzielając przecinkami:
+
+~~~latex
+\documentclass[12pt,a4paper,twocolumn]{article}
+~~~
+
+W tym przykładzie:
+
+- `12pt` ustawia podstawowy rozmiar pisma na 12 punktów. Typowe wartości to `10pt`, `11pt` i `12pt`; domyślnie wiele klas używa `10pt`.
+- `a4paper` wybiera format papieru A4. Inne spotykane opcje to `letterpaper` (format popularny w USA) i `legalpaper`.
+- `twocolumn` składa tekst w dwóch kolumnach. Bez tej opcji dokument jest jednokolumnowy.
+
+Opcje zależą od klasy — nie każda klasa obsługuje wszystkie z nich. Niektóre zmieniają układ strony (np. `twoside` dla składu dwustronnego), a inne zachowanie dokumentu (np. `draft`, tryb roboczy). Jeśli LaTeX zgłasza, że opcja jest nieznana lub nieobsługiwana, sprawdź dokumentację wybranej klasy.
+
+Do typowego raportu lub pracy w języku polskim często wystarczy:
+
+~~~latex
+\documentclass[12pt,a4paper]{article}
+~~~
+
+Opcji `twocolumn` używaj tylko wtedy, gdy taki układ jest wymagany — zmienia on szerokość tekstu i rozmieszczenie elementów, takich jak tabele czy rysunki.
+
 ---
 
 # Pakiety
@@ -152,6 +158,19 @@ Pakiet `amsmath` daje rozbudowane narzędzia matematyczne.
 Pakiet `graphicx` pozwala umieszczać grafiki.
 
 Współczesne instalacje LaTeX-a zawierają bardzo dużą liczbę pakietów. Nie trzeba znać ich wszystkich. Ważniejsze jest nauczenie się wyszukiwania odpowiedniego pakietu do konkretnego zadania.
+
+---
+
+# Polska składnia i kodowanie
+
+W dokumentach w języku polskim warto ustawić odpowiednie kodowanie i język. Najczęściej używa się pakietów `inputenc` i `babel`:
+
+~~~latex
+\usepackage[utf8]{inputenc}
+\usepackage[polish]{babel}
+~~~
+
+Pakiet `inputenc` ustawia kodowanie pliku źródłowego (UTF-8 jest obecnie standardem), a `babel` dostosowuje składnię i reguły typograficzne do języka polskiego.    
 
 ---
 
@@ -495,17 +514,91 @@ W dokumentach naukowych warto rozróżniać grafikę rastrową i wektorową.
 
 Dla wykresu naukowego grafika wektorowa jest zwykle bardzo wygodna, ponieważ zachowuje ostrość przy powiększaniu.
 
-Matplotlib może zapisać ten sam wykres jako PDF:
+Matplotlib może zapisać ten sam wykres jako PDF. W kompilowanym pliku texowym można potem osadzić inny plik PDF (ten z wykresem) poprzez użycie `\include{inny_plik.pdf}`. Daje to też możliwość łączenia róznych pdfów razem. Podobnie używamy `\input{plik.tex}` do wstawienia zawartości innego pliku LaTeX wewnątrz naszego.
 
-~~~python
-plt.savefig("fit.pdf", bbox_inches="tight")
+W przypadku obrazków i screenów staraj się używać plików `obrazek.PNG` używając kommendy `\includegraphics{obrazek.PNG}`. Nie zapomnij w preambule o pakiecie `graphicx`:
+
+~~~latex
+\usepackage{graphicx}
+
+\begin{document}
+
+\includegraphics{obrazek.PNG}
+
+\end{document}
 ~~~
 
 ---
 
 # Kompilacja
 
-## `pdflatex`
+Plik `plik.tex` jest zwykłym plikiem tekstowym, więc możesz go napisać nawet w Notatniku. Aby jednak zamienić go na PDF, potrzebujesz **kompilatora** (programu, który przetwarza kod LaTeX-a na dokument) oraz — dla wygody — **edytora**, który pozwala kompilować jednym kliknięciem i od razu pokazuje podgląd PDF-a.
+
+Do dyspozycji masz trzy drogi:
+
+1. **Overleaf (online)** — nic nie instalujesz, wszystko działa w przeglądarce. **To środowisko będzie preferowane na zajęciach** (opisane w osobnym rozdziale poniżej).
+2. **Lokalna instalacja** — dystrybucja LaTeX-a (kompilator + pakiety) i edytor na Twoim komputerze. Działa bez internetu.
+3. **VS Code** — edytor, który możesz połączyć z lokalną dystrybucją LaTeX-a.
+
+## Lokalna instalacja
+
+Dystrybucja LaTeX-a zawiera kompilator (`pdflatex`, `xelatex`, `lualatex`, `bibtex`/`biber`) oraz tysiące pakietów. Jest duża (od kilkuset MB do kilku GB), więc instalacja może chwilę potrwać.
+
+### Windows
+
+- Dystrybucja: [MiKTeX](https://miktex.org/download) — instaluje tylko podstawę, a brakujące pakiety doinstalowuje automatycznie przy pierwszej kompilacji (warto zgodzić się na to w ustawieniach: *Install missing packages on-the-fly → Yes*). Alternatywa: [TeX Live](https://tug.org/texlive/windows.html) (pełna, duża instalacja).
+- Edytor: [TeXstudio](https://www.texstudio.org/) — kompilacja i podgląd PDF-a po kliknięciu zielonej strzałki (lub klawiszem `F5`); dobrze podpowiada komendy i wskazuje błędy. Popularne alternatywy: [TeXworks](https://www.tug.org/texworks/) (instaluje się razem z MiKTeX-iem), [VS Code](#vs-code).
+
+### Linux
+
+Dystrybucję instalujemy z menedżera pakietów, np. w Ubuntu/Debianie:
+
+~~~bash
+sudo apt install texlive-full
+~~~
+
+`texlive-full` jest bardzo duży (kilka GB). Wersja lżejsza, zwykle wystarczająca:
+
+~~~bash
+sudo apt install texlive-latex-extra texlive-lang-polish texlive-fonts-recommended latexmk
+~~~
+
+W innych dystrybucjach szukaj pakietów `texlive` (Fedora: `sudo dnf install texlive-scheme-full`, Arch: `sudo pacman -S texlive`). Więcej: [TeX Live — instalacja](https://tug.org/texlive/).
+
+Edytor: [TeXstudio](https://www.texstudio.org/) (`sudo apt install texstudio`), a także np. [Kile](https://kile.sourceforge.io/) lub [VS Code](#vs-code).
+
+### macOS
+
+(Uwaga: nazwa „iOS” dotyczy telefonów — na komputerach Apple system to macOS.)
+
+- Dystrybucja: [MacTeX](https://www.tug.org/mactex/) (oparty na TeX Live) lub mniejszy BasicTeX; instalacja także przez Homebrew: `brew install --cask mactex`.
+- Edytor: [TeXstudio](https://www.texstudio.org/), [TeXShop](https://pages.uoregon.edu/koch/texshop/) (dołączony do MacTeX-a) albo [VS Code](#vs-code).
+
+### Sprawdzenie instalacji
+
+W terminalu wpisz:
+
+~~~bash
+pdflatex --version
+~~~
+
+Jeżeli zobaczysz numer wersji, kompilator jest poprawnie zainstalowany i dostępny w ścieżce systemowej (po instalacji może być potrzebne ponowne uruchomienie terminala).
+
+## VS Code
+
+[Visual Studio Code](https://code.visualstudio.com/) też nadaje się do pracy z LaTeX-em. Potrzebujesz:
+
+1. lokalnej dystrybucji LaTeX-a (patrz wyżej) oraz Perla (wymagany przez `latexmk`; na Windowsie np. [Strawberry Perl](https://strawberryperl.com/)),
+2. rozszerzenia [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop) (instalacja: `Ctrl+Shift+X`, wyszukaj *LaTeX Workshop*).
+
+Po otwarciu pliku `.tex` kompilujesz przyciskiem *Build LaTeX project* (zielona strzałka na pasku bocznym *TeX*) lub skrótem `Ctrl+Alt+B`, a podgląd PDF-a otwierasz przez *View LaTeX PDF* (`Ctrl+Alt+V`). Kompilacja może też uruchamiać się automatycznie przy zapisie pliku.
+
+## Overleaf
+
+[Overleaf](https://www.overleaf.com) to edytor online z wbudowanym kompilatorem i podglądem PDF-a. Nie wymaga instalacji, dobrze nadaje się do pracy zespołowej i będzie używany na zajęciach — szczegóły w rozdziale **Overleaf** poniżej.
+
+
+## `pdflatex` czyli kompilacja w terminalu
 
 Jeżeli mamy lokalną instalację LaTeX-a:
 
@@ -520,24 +613,6 @@ report.pdf
 ~~~
 
 Przy odwołaniach numerowanych czasem trzeba wykonać kompilację więcej niż raz.
-
----
-
-## `latexmk`
-
-Bardzo wygodnym narzędziem jest `latexmk`:
-
-~~~bash
-latexmk -pdf report.tex
-~~~
-
-Program automatycznie wykonuje tyle kroków kompilacji, ile potrzeba.
-
-Usuwanie plików pomocniczych:
-
-~~~bash
-latexmk -c
-~~~
 
 ---
 
@@ -1038,384 +1113,40 @@ To już jest mały dokument naukowy z:
 - grafiką,
 - odwołaniami.
 
----
+## Galerie szablonów
 
-# Zadania dla studenta
+Ogólna galeria:
 
-Wszystkie rozwiązania umieść w folderze:
+- [https://latextemplates.com/](https://latextemplates.com/)
+- [https://www.overleaf.com/gallery](https://www.overleaf.com/gallery)
 
-~~~text
-zadania/05_latex_dokumenty_naukowe/
-~~~
+Prezentacje:
 
-Po wykonaniu zadań folder powinien zawierać:
+- [https://deic.uab.cat/~iblanes/beamer_gallery/](https://deic.uab.cat/~iblanes/beamer_gallery/)
+- [https://latex-beamer.com/tutorials/beamer-themes/](https://latex-beamer.com/tutorials/beamer-themes/)
+- [https://letx.app/templates/presentations/](https://letx.app/templates/presentations/)
 
-~~~text
-zadania/05_latex_dokumenty_naukowe/
-├── README.md
-├── report.tex
-├── references.bib
-├── fit.pdf
-├── report.pdf
-├── beamer.tex
-├── beamer.pdf
-├── overleaf.md
-├── arxiv.md
-└── source_check.md
-~~~
+CV:
 
-Nie zmieniaj nazw wymaganych plików.
+- [https://www.overleaf.com/gallery/tagged/cv](https://www.overleaf.com/gallery/tagged/cv)
+- [https://www.livecareer.pl/cv/latex-cv](https://www.livecareer.pl/cv/latex-cv)
+- [https://latextemplates.com/cat/curricula-vitae/](https://latextemplates.com/cat/curricula-vitae/)
 
----
 
-## Zadanie 1. Raport LaTeX
+# Zadania
 
-Utwórz:
+Idea jest taka, aby wykonać całą pracę w Overleafie, a na koniec przenieść wyniki do odpowiednich miejsc na GitHubie (szczegóły w toku).
 
-~~~text
-report.tex
-~~~
+1. Załóż konto na [Overleaf](https://www.overleaf.com/). Poza tym **w domu (!) postaraj się o lokalną instalację LaTeX-a** oraz edytora TeXstudio lub skonfiguruj możliwość pracy w VS Code.
 
-Dokument ma zawierać:
+2. Stwórz projekt `Start` z plikiem `start.tex`. Otwórz plik `.md` z listy zadań `01_Markdown`, który prezentował możliwości Markdowna. Teraz masz dokładnie te same elementy wyrazić za pomocą składni LaTeX-a. Zadbaj o poprawne formatowanie, strukturę dokumentu oraz bezbłędną kompilację.
 
-- klasę `article`,
-- pakiet `amsmath`,
-- pakiet `graphicx`,
-- tytuł,
-- autora,
-- datę,
-- `\maketitle`,
-- co najmniej trzy sekcje,
-- co najmniej jeden wzór inline,
-- co najmniej jedno numerowane równanie,
-- macierz `2\times2`,
-- tabelę,
-- grafikę `fit.pdf`,
-- podpis grafiki,
-- `\label` i `\ref`,
-- co najmniej jedno cytowanie `\cite`.
+3. Stwórz projekt `CV` z plikiem `cv.tex`. Korzystając z AI oraz galerii szablonów Overleaf, stwórz eleganckie CV fikcyjnej postaci z książki, filmu lub gry, ubiegającej się o wybrane stanowisko pracy.
 
-Możesz wykorzystać wyniki z bloku 03:
+4. Stwórz projekt `Publikacja`. Ściągnij z arXiv artykuł [https://arxiv.org/abs/1110.6812](https://arxiv.org/abs/1110.6812) (pliki źródłowe LaTeX!). Zmień autorów na fikcyjne postacie z fikcyjnego uniwersytetu! Skompiluj dokument, a następnie, korzystając z AI, przeprowadź audyt, aby znaleźć wszystkie błędy językowe (**zaznacz poprawki kolorem niebieskim**) i ulepszyć artykuł merytorycznie (**kolor czerwony**). Postaraj się rozszerzyć artykuł o analizę numeryczną (a może nawet rozwiązać analitycznie problem postawiony na końcu artykułu?) i dopisać końcowy rozdział. Wszystkie poprawki zaznacz odpowiednimi kolorami: **niebieskim** — językowe, **czerwonym** — merytoryczne, **zielonym** — fragmenty proponowane do usunięcia.
 
-~~~text
-a=2.01143
-b=1.03810
-~~~
+5. Stwórz projekt `Prezentacja`. Wykonaj prezentację na **10 slajdów**, wybierając jeden z trzech tematów: fizyka, matematyka lub algorytmy. Użyj klasy `beamer` i stwórz slajdy o odpowiedniej strukturze, zawierające listy, wzory i grafiki. Prezentacja powinna mieć slajd tytułowy, spis treści (`\tableofcontents`), tytuły slajdów (`\frametitle`), bloki (`block`, `alertblock`, `exampleblock`), przynajmniej jeden slajd z dwiema kolumnami, wzory matematyczne oraz listy punktowane i numerowane.
 
-W raporcie napisz krótko, czego dotyczył model liniowy i jakie otrzymano parametry.
+6. Stwórz projekt `Praca domowa`. Wybierz dowolną listę z aktualnych zadań na studiach i przygotuj ich rozwiązania w LaTeX-u. Zadbaj o poprawne formatowanie treści zadań, wzorów i kolejnych kroków rozwiązania.
 
-### Sprawdzenie
-
-Będzie można sprawdzić strukturę źródła LaTeX oraz spróbować skompilować dokument.
-
----
-
-## Zadanie 2. Grafika wektorowa
-
-Wygeneruj wykres danych i dopasowania z bloku 03 ponownie, ale zapisz go jako:
-
-~~~text
-fit.pdf
-~~~
-
-W Pythonie wystarczy użyć:
-
-~~~python
-plt.savefig(
-    "fit.pdf",
-    bbox_inches="tight"
-)
-~~~
-
-Umieść `fit.pdf` w tym samym folderze co `report.tex`.
-
-W raporcie grafika ma być wstawiona przez:
-
-~~~latex
-\includegraphics{fit.pdf}
-~~~
-
-### Sprawdzenie
-
-Będzie można sprawdzić:
-
-- istnienie `fit.pdf`,
-- czy plik nie jest pusty,
-- czy `report.tex` odwołuje się do właściwej nazwy.
-
----
-
-## Zadanie 3. Bibliografia BibTeX
-
-Utwórz:
-
-~~~text
-references.bib
-~~~
-
-Dodaj co najmniej dwa poprawne wpisy bibliograficzne:
-
-1. jedną publikację naukową,
-2. jedno źródło dokumentacji technicznej lub książkę.
-
-Każdy wpis powinien mieć sensowny klucz.
-
-Przykłady kluczy:
-
-~~~text
-einstein1905
-numpy2020
-~~~
-
-W `report.tex` użyj obu źródeł przez `\cite{...}`.
-
-Na końcu dokumentu dodaj bibliografię.
-
-### Sprawdzenie
-
-Będzie można sprawdzić:
-
-- liczbę wpisów w `references.bib`,
-- obecność wymaganych pól,
-- zgodność kluczy z `\cite` w `report.tex`.
-
----
-
-## Zadanie 4. Kompilacja do PDF
-
-Skompiluj raport i zapisz wynik jako:
-
-~~~text
-report.pdf
-~~~
-
-Możesz użyć Overleaf albo lokalnie:
-
-~~~bash
-latexmk -pdf report.tex
-~~~
-
-Jeżeli używasz klasycznego BibTeX:
-
-~~~bash
-pdflatex report.tex
-bibtex report
-pdflatex report.tex
-pdflatex report.tex
-~~~
-
-Przed oddaniem sprawdź:
-
-- czy nie ma pustych odwołań typu `??`,
-- czy bibliografia jest widoczna,
-- czy grafika się wyświetla,
-- czy numery tabel i rysunków są poprawne.
-
-### Sprawdzenie
-
-Będzie można porównać istnienie PDF ze źródłami i ponownie spróbować kompilacji.
-
----
-
-## Zadanie 5. Overleaf i współpraca
-
-Utwórz:
-
-~~~text
-overleaf.md
-~~~
-
-Plik ma mieć strukturę:
-
-~~~markdown
-# Overleaf
-
-## Import projektu
-
-...
-
-## Kompilacja
-
-...
-
-## Współpraca
-
-...
-
-## Historia zmian
-
-...
-
-## Jedna praktyczna zaleta
-
-...
-
-## Jedno ograniczenie
-
-...
-~~~
-
-Zaimportuj projekt zawierający:
-
-~~~text
-report.tex
-references.bib
-fit.pdf
-~~~
-
-do Overleaf i sprawdź, czy kompiluje się bez zmian źródła.
-
-W części **Historia zmian** opisz krótko różnicę między historią projektu w Overleaf a historią commitów w Git.
-
-To zadanie jest częściowo narracyjne.
-
----
-
-## Zadanie 6. Krótka prezentacja Beamer
-
-Utwórz:
-
-~~~text
-beamer.tex
-~~~
-
-oraz wynik:
-
-~~~text
-beamer.pdf
-~~~
-
-Prezentacja ma mieć dokładnie cztery slajdy:
-
-1. tytuł,
-2. problem,
-3. wynik,
-4. wniosek.
-
-Na slajdzie **Wynik** umieść:
-
-- parametry `a` i `b`,
-- grafikę `fit.pdf`.
-
-Na jednym ze slajdów użyj listy `itemize`.
-
-### Sprawdzenie
-
-Będzie można:
-
-- policzyć liczbę środowisk `frame`,
-- sprawdzić odwołanie do `fit.pdf`,
-- spróbować skompilować `beamer.tex`,
-- sprawdzić istnienie `beamer.pdf`.
-
----
-
-## Zadanie 7. Paczka źródłowa do publikacji
-
-Utwórz:
-
-~~~text
-source_check.md
-~~~
-
-Wyobraź sobie, że `report.tex` ma zostać wysłany do innej osoby albo do systemu publikacyjnego.
-
-W pliku zapisz checklistę:
-
-~~~markdown
-# Source check
-
-- [ ] report.tex
-- [ ] references.bib
-- [ ] fit.pdf
-- [ ] dokument kompiluje się od początku
-- [ ] brak brakujących cytowań
-- [ ] brak brakujących odwołań
-- [ ] brak prywatnych danych
-- [ ] brak zbędnych plików
-~~~
-
-Zaznacz elementy dopiero po sprawdzeniu.
-
-Następnie utwórz:
-
-~~~text
-arxiv.md
-~~~
-
-ze strukturą:
-
-~~~markdown
-# arXiv
-
-## Co to jest preprint?
-
-...
-
-## Jakie pliki byłyby potrzebne?
-
-...
-
-## Co trzeba sprawdzić przed wysłaniem?
-
-...
-
-## Czego nie należy publikować?
-
-...
-~~~
-
-Każda sekcja ma zawierać krótki własny opis, nie kopię dokumentacji.
-
----
-
-## Zadanie 8. README bloku
-
-Utwórz `README.md`.
-
-Powinien zawierać:
-
-- krótkie wyjaśnienie różnicy między źródłem `.tex` a wynikowym PDF,
-- listę wszystkich artefaktów,
-- link do `report.tex`,
-- link do `references.bib`,
-- link do `overleaf.md`,
-- link do `arxiv.md`,
-- informację, czy raport kompilował się lokalnie, w Overleaf czy w obu miejscach,
-- checklistę wykonania zadań.
-
-Dodaj tabelę:
-
-~~~markdown
-| Plik | Rola |
-| --- | --- |
-| report.tex | źródło raportu |
-| references.bib | bibliografia |
-| fit.pdf | grafika |
-| report.pdf | wynik kompilacji |
-| beamer.tex | źródło prezentacji |
-| beamer.pdf | prezentacja |
-~~~
-
----
-
-# Checklista końcowa
-
-Przed zgłoszeniem bloku sprawdź:
-
-- [ ] `report.tex` ma poprawną strukturę dokumentu,
-- [ ] raport zawiera wzór, macierz, tabelę i grafikę,
-- [ ] istnieją działające `\label` i `\ref`,
-- [ ] `references.bib` zawiera co najmniej dwa wpisy,
-- [ ] w raporcie występują co najmniej dwa cytowania,
-- [ ] `fit.pdf` istnieje i otwiera się poprawnie,
-- [ ] `report.pdf` został wygenerowany,
-- [ ] w PDF nie ma brakujących odwołań,
-- [ ] bibliografia jest widoczna,
-- [ ] projekt kompiluje się w Overleaf,
-- [ ] `overleaf.md` zawiera wymagane sekcje,
-- [ ] `beamer.tex` zawiera cztery slajdy,
-- [ ] `beamer.pdf` został wygenerowany,
-- [ ] `source_check.md` zawiera sprawdzoną checklistę,
-- [ ] `arxiv.md` zawiera opis procesu przygotowania źródeł,
-- [ ] `README.md` zawiera linki i podsumowanie.
+7. Stwórz projekt `Egzamin` i przygotuj opracowanie (minimum pół strony za zagdnienie!) tematów na egzamin licencjacki z fizyki. Lista zagadnień: [https://wfa.uwr.edu.pl/wp-content/uploads/sites/216/2025/10/Pytania-lic-Fizyka-I-st.pdf](https://wfa.uwr.edu.pl/wp-content/uploads/sites/216/2025/10/Pytania-lic-Fizyka-I-st.pdf).

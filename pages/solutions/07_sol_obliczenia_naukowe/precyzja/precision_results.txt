@@ -1,0 +1,5 @@
+0.1+0.2=0.30000000000000004
+exact_equality=False
+isclose_default=True
+large_scale_default=True
+large_scale_1mm=False

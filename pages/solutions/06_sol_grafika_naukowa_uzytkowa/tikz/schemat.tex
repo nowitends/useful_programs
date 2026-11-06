@@ -1,0 +1,24 @@
+\documentclass[border=12pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+
+\begin{document}
+\begin{tikzpicture}[
+  box/.style={draw=blue!60!black,fill=blue!7,rounded corners=3pt,
+    minimum width=2.7cm,minimum height=1.1cm,align=center,font=\sffamily},
+  last/.style={box,draw=green!45!black,fill=green!8},
+  link/.style={-{Stealth[length=3mm]},thick,draw=blue!60!black},
+  node distance=1.35cm
+]
+  \node[box] (question) {Pytanie};
+  \node[box,right=of question] (data) {Dane};
+  \node[box,right=of data] (analysis) {Analiza};
+  \node[last,right=of analysis] (result) {Wniosek};
+  \draw[link] (question) -- (data);
+  \draw[link] (data) -- (analysis);
+  \draw[link] (analysis) -- (result);
+\end{tikzpicture}
+\end{document}

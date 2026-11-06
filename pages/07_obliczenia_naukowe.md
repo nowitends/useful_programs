@@ -1,18 +1,20 @@
-# 3. Obliczenia naukowe
+# Obliczenia naukowe
 
 Komputer może pomagać w obliczeniach na kilka różnych sposobów. Czasem chcemy szybko sprawdzić wynik. Czasem potrzebujemy policzyć tysiące wartości. Innym razem zależy nam na **dokładnym wzorze**, a nie tylko liczbie.
 
 W tym bloku poznamy kilka narzędzi i nauczymy się dobierać je do problemu.
 
+Punktem wyjścia są znane już z Colaba i VS Code pliki Pythona oraz notebooki. Wynik obliczenia powinien dać się odtworzyć z zapisanych danych i kodu w forku GitHub, a nie tylko ze zrzutu ekranu.
+
 | Narzędzie | Najlepiej nadaje się do |
 | --- | --- |
 | **Wolfram Alpha** | szybkiego sprawdzania obliczeń i własności obiektów matematycznych |
-| **Wolfram Cloud** | pracy z Wolfram Language w notebooku |
+| **Wolfram Mathematica / Cloud** | pracy z Wolfram Language w notebooku |
 | **Python** | uniwersalnych obliczeń, automatyzacji i analizy danych |
-| **NumPy** | szybkich obliczeń numerycznych na wektorach i macierzach |
-| **SymPy** | obliczeń symbolicznych |
-| **Octave** | obliczeń numerycznych w stylu MATLAB-a |
+| **NumPy** | szybkich obliczeń numerycznych, obliczeń na wektorach i macierzach w Pythonie |
+| **SymPy** | obliczeń symbolicznych w Pythonie |
 | **Matplotlib** | tworzenia wykresów w Pythonie |
+| **Octave** | obliczeń numerycznych w stylu MATLAB-a |
 | **OEIS** | rozpoznawania ciągów liczbowych |
 | **Gnuplot** | szybkiego rysowania danych i dopasowywania funkcji |
 
@@ -446,6 +448,8 @@ Efekt:
 10
 ~~~
 
+Domyślnie `np.std(data)` liczy odchylenie standardowe całego zestawu (`ddof=0`). Jeżeli traktujesz dane jako próbę i potrzebujesz estymatora z mianownikiem $n-1$, użyj `np.std(data, ddof=1)`. W raporcie napisz, którą definicję zastosowano.
+
 ---
 
 # Wektory i macierze
@@ -558,6 +562,8 @@ czyli:
 $$
 x=2,\qquad y=1
 $$
+
+Możemy sprawdzić wynik przez podstawienie: `np.allclose(A @ v, b)`. Jeśli macierz jest osobliwa albo dane pomiarowe tworzą układ nadokreślony, samo `solve` nie jest właściwym rozwiązaniem; wtedy trzeba zbadać problem i ewentualnie użyć metody najmniejszych kwadratów.
 
 ---
 
@@ -736,6 +742,8 @@ CSV jest bardzo popularny, ponieważ można go otworzyć w:
 - Gnuplocie,
 - wielu narzędziach laboratoryjnych.
 
+W przykładach tego kursu separatorem pól jest **przecinek**, a separatorem części dziesiętnej **kropka**. Plik eksportowany przez polski arkusz kalkulacyjny może używać średnika i przecinka dziesiętnego. Przed wczytaniem sprawdź pierwsze linie pliku; dobierz `delimiter` do rzeczywistej zawartości, zamiast zakładać jeden format dla wszystkich CSV.
+
 ---
 
 ## Wczytanie CSV w NumPy
@@ -784,20 +792,23 @@ x = data[:, 0]
 y = data[:, 1]
 ~~~
 
+Ścieżka `measurements.csv` jest liczona względem bieżącego katalogu pracy programu. Jeśli uruchamiasz skrypt z innego folderu, podaj właściwą ścieżkę albo zbuduj ją względem lokalizacji pliku `.py`.
+
 ---
 
 # Dopasowanie prostej
 
-Mamy dane pomiarowe i chcemy dopasować model:
+Kontynuujemy przykład z `measurements.csv`: tablice `x` i `y` zostały utworzone w poprzedniej sekcji. Chcemy dopasować model:
 
 $$
 y=ax+b
 $$
 
-NumPy:
+W nowym kodzie NumPy zaleca interfejs `numpy.polynomial`. Dopasowanie prostej metodą najmniejszych kwadratów:
 
 ~~~python
-a, b = np.polyfit(x, y, 1)
+model = np.polynomial.Polynomial.fit(x, y, deg=1)
+b, a = model.convert().coef
 
 print(a)
 print(b)
@@ -806,8 +817,8 @@ print(b)
 Otrzymamy w przybliżeniu:
 
 ~~~text
-2.011428571428571
-1.038095238095238
+2.01143
+1.03810
 ~~~
 
 czyli:
@@ -816,11 +827,25 @@ $$
 y \approx 2.01143x+1.03810
 $$
 
-To przykład obliczenia numerycznego: parametry nie są „ładnymi” liczbami całkowitymi, ale opisują dane najlepiej w sensie dopasowania liniowego.
+`Polynomial.fit` zwraca wielomian w przeskalowanej dziedzinie. Po `.convert()` współczynniki odpowiadają zwykłemu zapisowi $b+ax$, w tej właśnie kolejności. Starsze przykłady często używają `np.polyfit(x, y, 1)`; wtedy wyniki zwracane są w kolejności `a, b`.
+
+To przykład obliczenia numerycznego: parametry minimalizują sumę kwadratów różnic między modelem a podanymi wartościami $y$. Samo dopasowanie nie dowodzi, że zależność fizyczna naprawdę jest liniowa. Obejrzyj wykres i reszty $y_i-(ax_i+b)$.
+
+Reszty i średni błąd kwadratowy można policzyć bez dodatkowego pakietu:
+
+~~~python
+reszty = y - model(x)
+rmse = np.sqrt(np.mean(reszty**2))
+print(round(float(rmse), 4))
+~~~
+
+W tych przykładowych danych otrzymamy około `0.1232` jednostki osi $y$. Liczba ta opisuje rozrzut względem prostej, ale nie zastępuje informacji o niepewności pomiarowej.
 
 ---
 
 # Wykres w Matplotlib
+
+Ten fragment korzysta z `x`, `y`, `a`, `b` i `np` z poprzednich sekcji. W osobnym pliku `.py` trzeba dołączyć również wczytanie CSV i dopasowanie prostej.
 
 ~~~python
 import matplotlib.pyplot as plt
@@ -1037,10 +1062,15 @@ Przykład pliku `plot.gp`:
 
 ~~~gnuplot
 set datafile separator ","
+set datafile columnheaders
 set key left top
 set grid
+set xlabel "x"
+set ylabel "y"
+set terminal pngcairo size 1200,800
+set output "fit_gnuplot.png"
 
-plot "measurements.csv" using 1:2 every ::1 with points title "dane"
+plot "measurements.csv" using 1:2 with points title "dane"
 ~~~
 
 Gnuplot może również dopasowywać funkcje.
@@ -1049,14 +1079,17 @@ Przykład:
 
 ~~~gnuplot
 set datafile separator ","
+set datafile columnheaders
+set terminal pngcairo size 1200,800
+set output "fit_gnuplot.png"
 
 f(x) = a*x + b
 a = 1
 b = 0
 
-fit f(x) "measurements.csv" using 1:2 every ::1 via a,b
+fit f(x) "measurements.csv" using 1:2 via a,b
 
-plot "measurements.csv" using 1:2 every ::1 with points title "dane", \
+plot "measurements.csv" using 1:2 with points title "dane", \
      f(x) with lines title "fit"
 ~~~
 
@@ -1072,6 +1105,31 @@ Gnuplot jest dobrym przykładem narzędzia, które robi jedną rzecz i robi ją 
 Źródło:
 
 - [Gnuplot — dokumentacja](http://www.gnuplot.info/documentation.html)
+
+---
+
+# Kontrola wyniku i odtwarzalność
+
+Obliczenie jest bardziej wiarygodne, gdy można je sprawdzić **drugą metodą**. Rozwiązanie układu równań podstaw do równań wejściowych. Pochodną symboliczną porównaj z prostym rachunkiem ręcznym. Dopasowaną prostą obejrzyj razem z punktami i resztami. Przy konwersji jednostek sprawdź wymiar fizyczny wyniku.
+
+Liczby zmiennoprzecinkowe są przybliżeniami. Dlatego nie porównuj dwóch wyników obliczeń naukowych wyłącznie przez dokładną równość bitów. Przykład:
+
+~~~python
+import math
+
+print(0.1 + 0.2 == 0.3)
+print(math.isclose(0.1 + 0.2, 0.3))
+~~~
+
+Pierwszy wynik to `False`, drugi `True`. Tolerancję porównania dobiera się do skali problemu i oczekiwanej dokładności; nie służy do ukrywania dużych błędów.
+
+W projekcie GitHub zachowaj:
+
+~~~text
+dane wejściowe + kod + opis uruchomienia + wynik
+~~~
+
+Podaj jednostki i źródło danych, nie zaokrąglaj ich nadmiernie przed obliczeniem, a wynik zaokrąglij dopiero przy prezentacji. Jeśli używasz liczb losowych, ustaw i zapisz ziarno generatora. Przed oddaniem uruchom skrypt od początku w czystym folderze lub notebook po restarcie środowiska.
 
 ---
 
@@ -1100,405 +1158,15 @@ ale najpierw:
 
 ---
 
-# Zadania dla studenta
+# Sprawdzenie przed oddaniem obliczeń
 
-Wszystkie rozwiązania umieść w folderze:
+- [ ] Dane wejściowe i ich jednostki są jawne.
+- [ ] Kod działa od początku w opisanym środowisku.
+- [ ] Wyniki liczbowe zostały sprawdzone przez podstawienie, oszacowanie lub drugie narzędzie.
+- [ ] Wynik dokładny i przybliżony są wyraźnie rozróżnione.
+- [ ] Wykres odpowiada danym i ma podpisane osie.
+- [ ] Pliki wynikowe można odtworzyć ze źródeł zapisanych w forku GitHub.
 
-~~~text
-zadania/03_obliczenia_naukowe/
-~~~
-
-Po wykonaniu zadań folder powinien zawierać:
-
-~~~text
-zadania/03_obliczenia_naukowe/
-├── README.md
-├── wolfram.md
-├── python_calc.py
-├── python_results.txt
-├── symbolic.py
-├── symbolic_results.txt
-├── measurements.csv
-├── analyze_data.py
-├── fit_results.txt
-├── fit.png
-├── solve_system.m
-├── octave_results.txt
-└── oeis.md
-~~~
-
-Nie zmieniaj nazw wymaganych plików.
+[Zadania do tego wykładu](tasks/07_task_obliczenia_naukowe.md) znajdują się w osobnym pliku.
 
 ---
-
-## Zadanie 1. Wolfram Alpha jako niezależna kontrola
-
-Utwórz plik `wolfram.md`.
-
-Sprawdź w Wolfram Alpha cztery problemy:
-
-~~~text
-factor x^3 - 6x^2 + 11x - 6
-solve x^2 - 5x + 6 = 0
-integrate x^2 from 0 to 1
-72 km/h to m/s
-~~~
-
-Plik ma mieć strukturę:
-
-~~~markdown
-# Wolfram Alpha
-
-## Faktoryzacja
-
-Zapytanie:
-
-...
-
-Wynik:
-
-...
-
-## Równanie
-
-Zapytanie:
-
-...
-
-Wynik:
-
-...
-
-## Całka
-
-Zapytanie:
-
-...
-
-Wynik:
-
-...
-
-## Jednostki
-
-Zapytanie:
-
-...
-
-Wynik:
-
-...
-
-## Komentarz
-
-...
-~~~
-
-Oczekiwane najważniejsze wartości:
-
-- pierwiastki wielomianu: `1, 2, 3`,
-- rozwiązania równania: `2, 3`,
-- całka: `1/3`,
-- przeliczenie: `20 m/s`.
-
-W sekcji **Komentarz** napisz 2–4 zdania: do czego Wolfram Alpha jest wygodny, a czego nie powinno się przyjmować bez sprawdzenia.
-
----
-
-## Zadanie 2. Python jako kalkulator
-
-Utwórz `python_calc.py`.
-
-Program ma policzyć dla:
-
-~~~python
-g = 9.81
-h = 20.0
-~~~
-
-czas swobodnego spadku z wysokości $h$:
-
-$$
-t=\sqrt{\frac{2h}{g}}
-$$
-
-oraz prędkość końcową:
-
-$$
-v=gt
-$$
-
-Program ma zapisać do `python_results.txt`:
-
-~~~text
-g=9.81
-h=20.0
-t=...
-v=...
-~~~
-
-Wartości `t` i `v` zapisz z dokładnością do czterech miejsc po przecinku.
-
-Dla kontroli powinieneś otrzymać w przybliżeniu:
-
-~~~text
-t=2.0193
-v=19.8091
-~~~
-
-### Sprawdzenie
-
-Będzie można uruchomić `python_calc.py` i porównać wynik numeryczny z oczekiwaną wartością z odpowiednią tolerancją.
-
----
-
-## Zadanie 3. SymPy — wynik dokładny
-
-Utwórz `symbolic.py`.
-
-Dla wielomianu:
-
-$$
-p(x)=x^3-6x^2+11x-6
-$$
-
-program ma:
-
-1. wykonać faktoryzację,
-2. znaleźć pierwiastki,
-3. policzyć pochodną,
-4. policzyć całkę $\int_0^1 x^2\,dx$.
-
-Zapisz wyniki do `symbolic_results.txt` w formie:
-
-~~~text
-factor=...
-roots=...
-derivative=...
-integral=...
-~~~
-
-Plik powinien zawierać informacje równoważne:
-
-~~~text
-factor=(x - 3)*(x - 2)*(x - 1)
-roots=[1, 2, 3]
-derivative=3*x**2 - 12*x + 11
-integral=1/3
-~~~
-
-Kolejność pierwiastków lub czynników może się różnić.
-
-### Sprawdzenie
-
-Automat może uruchomić skrypt i sprawdzić, czy wyniki są matematycznie równoważne oczekiwanym.
-
----
-
-## Zadanie 4. CSV, NumPy i dopasowanie danych
-
-Utwórz dokładnie taki plik `measurements.csv`:
-
-~~~csv
-x,y
-0,1.1
-1,2.9
-2,5.2
-3,7.1
-4,8.9
-5,11.2
-~~~
-
-Następnie utwórz `analyze_data.py`.
-
-Program ma:
-
-1. wczytać `measurements.csv`,
-2. rozdzielić kolumny `x` i `y`,
-3. dopasować model liniowy $y=ax+b$ za pomocą `np.polyfit`,
-4. zapisać parametry do `fit_results.txt`,
-5. narysować dane i dopasowaną prostą,
-6. zapisać wykres jako `fit.png`.
-
-`fit_results.txt` ma mieć format:
-
-~~~text
-a=2.01143
-b=1.03810
-~~~
-
-Dopuszczalne są drobne różnice ostatnich cyfr wynikające z zaokrąglenia.
-
-### Sprawdzenie
-
-Będzie można:
-
-- sprawdzić dokładną zawartość CSV,
-- uruchomić `analyze_data.py`,
-- odczytać parametry dopasowania,
-- sprawdzić istnienie i rozmiar `fit.png`.
-
----
-
-## Zadanie 5. Ten sam układ równań w Octave
-
-Utwórz `solve_system.m` rozwiązujący układ:
-
-$$
-\begin{cases}
-2x+y=5, \\
-x+3y=5.
-\end{cases}
-$$
-
-Skrypt ma również zapisać wynik do `octave_results.txt` w formie:
-
-~~~text
-x=2.000000
-y=1.000000
-~~~
-
-Możesz wykorzystać:
-
-~~~octave
-A = [2 1; 1 3];
-b = [5; 5];
-
-v = A \ b;
-
-fid = fopen("octave_results.txt", "w");
-fprintf(fid, "x=%.6f\n", v(1));
-fprintf(fid, "y=%.6f\n", v(2));
-fclose(fid);
-~~~
-
-Uruchomienie z terminala:
-
-~~~bash
-octave solve_system.m
-~~~
-
-### Sprawdzenie
-
-Jeżeli Octave jest dostępny w środowisku sprawdzającym, skrypt można uruchomić ponownie. Niezależnie od tego można sprawdzić zawartość `octave_results.txt`.
-
----
-
-## Zadanie 6. OEIS — rozpoznaj ciąg
-
-Wyszukaj w OEIS ciąg:
-
-~~~text
-1, 2, 6, 24, 120, 720
-~~~
-
-Utwórz `oeis.md` ze strukturą:
-
-~~~markdown
-# OEIS
-
-## Wyszukiwany ciąg
-
-...
-
-## Numer OEIS
-
-...
-
-## Interpretacja
-
-...
-
-## Trzy kolejne wyrazy
-
-...
-~~~
-
-W pliku powinien pojawić się identyfikator:
-
-~~~text
-A000142
-~~~
-
-oraz trzy kolejne wartości:
-
-~~~text
-5040
-40320
-362880
-~~~
-
-W sekcji **Interpretacja** napisz własnymi słowami, jaki znany obiekt matematyczny opisuje ten ciąg.
-
----
-
-## Zadanie 7. README bloku
-
-Utwórz `README.md`.
-
-Powinien zawierać:
-
-- krótkie wyjaśnienie różnicy między obliczeniami numerycznymi i symbolicznymi,
-- tabelę wszystkich użytych narzędzi,
-- linki do `wolfram.md` i `oeis.md`,
-- wynik obliczenia spadku swobodnego,
-- dokładny wynik całki z SymPy,
-- parametry dopasowania `a` i `b`,
-- wynik układu liniowego z Octave,
-- osadzony obraz `fit.png`,
-- checklistę wszystkich zadań.
-
-Dodaj tabelę:
-
-~~~markdown
-| Problem | Narzędzie | Typ wyniku |
-| --- | --- | --- |
-| szybkie sprawdzenie | Wolfram Alpha | wynik obliczeniowy |
-| spadek swobodny | Python | numeryczny |
-| całka | SymPy | symboliczny |
-| dopasowanie danych | NumPy | numeryczny |
-| układ równań | Octave | numeryczny |
-| rozpoznanie ciągu | OEIS | identyfikacja |
-~~~
-
----
-
-# Zadanie dodatkowe. Gnuplot
-
-To zadanie jest opcjonalne.
-
-Jeżeli masz dostęp do Gnuplota, wykorzystaj `measurements.csv` i przygotuj skrypt `fit.gp`, który:
-
-1. dopasuje prostą $y=ax+b$,
-2. narysuje dane,
-3. narysuje dopasowaną prostą,
-4. zapisze wykres do `gnuplot_fit.png`.
-
-Parametry powinny być bliskie:
-
-~~~text
-a=2.01143
-b=1.03810
-~~~
-
-Celem zadania nie jest zastąpienie Pythona Gnuplotem. Chodzi o zobaczenie, że te same dane można analizować różnymi narzędziami.
-
----
-
-# Checklista końcowa
-
-Przed zgłoszeniem bloku sprawdź:
-
-- [ ] `wolfram.md` zawiera cztery wymagane obliczenia,
-- [ ] `python_calc.py` uruchamia się bez błędu,
-- [ ] `python_results.txt` zawiera `t` i `v`,
-- [ ] `symbolic.py` uruchamia się bez błędu,
-- [ ] `symbolic_results.txt` zawiera dokładną całkę `1/3`,
-- [ ] `measurements.csv` ma poprawną zawartość,
-- [ ] `analyze_data.py` odczytuje dane z CSV,
-- [ ] `fit_results.txt` zawiera parametry bliskie `2.01143` i `1.03810`,
-- [ ] `fit.png` otwiera się poprawnie,
-- [ ] `solve_system.m` zawiera rozwiązanie macierzowe,
-- [ ] `octave_results.txt` zawiera `x=2` i `y=1`,
-- [ ] `oeis.md` zawiera `A000142`,
-- [ ] `README.md` zawiera osadzony wykres i podsumowanie wyników.

@@ -1,0 +1,14 @@
+\begin{tikzpicture}
+  \begin{pgfonlayer}{nodelayer}
+    \node [style=stage] (0) at (0,0) {Dane};
+    \node [style=stage] (1) at (4,1.5) {Analiza A};
+    \node [style=stage] (2) at (4,-1.5) {Analiza B};
+    \node [style=conclusion] (3) at (8,0) {Wniosek};
+  \end{pgfonlayer}
+  \begin{pgfonlayer}{edgelayer}
+    \draw [style=flow] (0) to (1);
+    \draw [style=flow] (0) to (2);
+    \draw [style=flow] (1) to (3);
+    \draw [style=flow] (2) to (3);
+  \end{pgfonlayer}
+\end{tikzpicture}

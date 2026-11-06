@@ -8,12 +8,15 @@ Wykład ma przede wszystkim pokazywać możliwości, dobre praktyki i powiązani
 
 ## Notatki wykładowe i zadania
 
-Materiały do pierwszych czterech bloków kursu:
+Materiały do kolejnych bloków kursu:
 
 1. [Markdown](pages/01_markdown.md) oraz dedykowane [zadania](pages/tasks/01_task_markdown.md)
 2. [Google Colab](pages/02_colab.md) oraz dedykowane [zadania](pages/tasks/02_task_colab.md)
 3. [Git i GitHub, Codespaces](pages/03_github.md) oraz dedykowane [zadania](pages/tasks/03_task_github.md)
 4. [VS Code i GitHub Codespaces](pages/04_vscode.md) oraz dedykowane [zadania](pages/tasks/04_task_vscode.md)
+5. [LaTeX i dokumenty naukowe](pages/05_latex_dokumenty_naukowe.md) oraz proponowane [zadania](pages/tasks/05_task_latex_dokumenty_naukowe.md)
+6. [Grafika naukowa i użytkowa](pages/06_grafika_naukowa_uzytkowa.md) oraz proponowane [zadania](pages/tasks/06_task_grafika_naukowa_uzytkowa.md)
+7. [Obliczenia naukowe](pages/07_obliczenia_naukowe.md) oraz proponowane [zadania](pages/tasks/07_task_obliczenia_naukowe.md)
 
 ## Foldery
 
