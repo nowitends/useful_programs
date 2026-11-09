@@ -1,6 +1,6 @@
 # WWW — interaktywne materiały i publikacja w sieci
 
-W tym bloku przejdziemy od **prostego pliku HTML** do **interaktywnej strony edukacyjnej opublikowanej w internecie**. Będziemy korzystać z HTML, CSS, JavaScript, GitHuba, GitHub Pages, MkDocs (* tylko dla zaawansowanych) oraz narzędzi AI.
+W tym bloku przejdziemy od **prostego pliku HTML** do **interaktywnej strony edukacyjnej opublikowanej w internecie**. Będziemy korzystać z HTML, CSS, JavaScript, GitHuba, GitHub Pages, MkDocs (tylko dla zaawansowanych) oraz narzędzi AI.
 
 Nie jest to kurs profesjonalnego programowania frontendu. Celem jest zrozumienie podstaw, umiejętność współpracy z AI przy tworzeniu stron oraz samodzielne sprawdzanie, poprawianie i publikowanie gotowych rezultatów.
 
@@ -177,7 +177,7 @@ Zmieniaj kolory, odstępy i szerokość strony, aby zobaczyć, jak jeden plik CS
 
 JavaScript pozwala reagować na działania użytkownika, wykonywać obliczenia i aktualizować elementy strony bez jej ponownego wczytywania.
 
-Poniższy przykład wyświetla aktualną wartość suwaka
+Poniższy przykład wyświetla aktualną wartość suwaka.
 
 ```html
 <label for="parametr">Parametr a: <output id="wartosc">2</output></label>
@@ -221,13 +221,13 @@ Pełna strona:
 </html>
 ```
 
-Zobacz przykład: [java_index.html](../assets/examples/html/java_index.html)
+Zobacz przykład: [java_index.html](examples/java_index.html).
 
 ### Statyczna strona a interaktywność
 
-**Tak.** „Statyczna” oznacza, że serwer udostępnia gotowe pliki, np. `index.html`, `style.css` i `script.js`. JavaScript działa następnie w przeglądarce użytkownika i może obsługiwać animacje, quizy, symulacje, a nawet pobierać aktualne dane z zewnętrznego API.
+„Statyczna” oznacza, że serwer udostępnia gotowe pliki, np. `index.html`, `style.css` i `script.js`. JavaScript działa następnie w przeglądarce użytkownika i może obsługiwać animacje, quizy, symulacje, a nawet pobierać aktualne dane z zewnętrznego API.
 
-GitHub Pages, które użyjemy do publikacji strony, **nie uruchamia po stronie serwera** aplikacji napisanych w Pythonie, PHP ani systemów wymagających własnej bazy danych i backendu.
+Usługa GitHub Pages, z której skorzystamy do publikacji strony, **nie uruchamia po stronie serwera** aplikacji napisanych w Pythonie, PHP ani systemów wymagających własnej bazy danych i backendu.
 
 Dynamiczne strony wymagają zazwyczaj backendu, który generuje treść w odpowiedzi na żądania użytkownika. Dostępne darmowe rozwiązania to np. serwery w chmurze, platformy typu Heroku czy Vercel, które umożliwiają uruchamianie aplikacji z backendem.
 
@@ -261,9 +261,9 @@ Nie umieszczaj w publicznym kodzie haseł, prywatnych danych ani tajnych kluczy 
 
 * Podróż w czasie: [https://remigiuszdurka.github.io/waipages/novikov.html](https://remigiuszdurka.github.io/waipages/novikov.html)
 
-* LateX ćwiczenia:[https://remigiuszdurka.github.io/latex_drill/](https://remigiuszdurka.github.io/latex_drill/)
+* LaTeX — ćwiczenia: [https://remigiuszdurka.github.io/latex_drill/](https://remigiuszdurka.github.io/latex_drill/)
 
-* Prompting: [https://prompt-engineering-a59a57.gitlab.io/](https://prompt-engineering-a59a57.gitlab.io/) (gitlab zamiast github)
+* Prompting: [https://prompt-engineering-a59a57.gitlab.io/](https://prompt-engineering-a59a57.gitlab.io/) (GitLab zamiast GitHuba)
   
 * Warsztaty "n-body": [https://remigiuszdurka.github.io/fizykatomniefascynuje/fizyka-Alicja/Alicja-n-body(e=0,01).html](https://remigiuszdurka.github.io/fizykatomniefascynuje/fizyka-Alicja/Alicja-n-body(e=0,01).html)
 
@@ -271,7 +271,7 @@ Nie umieszczaj w publicznym kodzie haseł, prywatnych danych ani tajnych kluczy 
 
 * Slider: [https://remigiuszdurka.github.io/waipages/slider.html](https://remigiuszdurka.github.io/waipages/slider.html)
 
-* Markdown jako strona: [https://remigiuszdurka.github.io/waipages/markdown_example.md](https://remigiuszdurka.github.io/waipages/markdown_example.md) - jak widać tylko kod Markdown jest renderowany jako strona HTML
+* Markdown jako strona: [https://remigiuszdurka.github.io/waipages/markdown_example.md](https://remigiuszdurka.github.io/waipages/markdown_example.md) — przeglądarka wyświetla plik Markdown jako tekst.
 
 ---
 
@@ -279,7 +279,7 @@ Nie umieszczaj w publicznym kodzie haseł, prywatnych danych ani tajnych kluczy 
 
 GitHub Pages umożliwia publikację gotowych plików strony z repozytorium GitHub.
 
-Kiedy tworzysz nowe repozytorium to masz adres strony w postaci:
+Kiedy tworzysz nowe repozytorium na GitHub, otrzymuje ono adres w postaci:
 
 ```text
 https://github.com/NAZWA-UZYTKOWNIKA/nazwa-repozytorium/
@@ -291,38 +291,36 @@ https://github.com/NAZWA-UZYTKOWNIKA/nazwa-repozytorium/
 https://NAZWA-UZYTKOWNIKA.github.io/nazwa-repozytorium/
 ```
 
-
-
-### Dwie rzeczy, których nie należy mylić przy robieniu zadań!!!
+### Dwie rzeczy, których nie należy mylić przy robieniu zadań
 
 - **Fork repozytorium przedmiotu** — miejsce, w którym oddajesz zadania i pliki wskazane przez prowadzącego.
 - **Nowe repozytorium projektu** — osobne publiczne repozytorium na Twoim koncie, z którego publikujesz swoją stronę WWW. W zadaniach stworzysz serię nowych repozytoriów dla kolejnych projektów, które skończą się publikacją jako pełnoprawne strony WWW. Następnie w forkowanym kursowym repozytorium będziesz oddawać pliki oraz wskazywać link do opublikowanej strony.
 
 ### Najprostsza publikacja krok po kroku
 
-1. Utwórz nowe **publiczne** repozytorium z nazwą opisującą projekt, np. `motion`.
+1. Utwórz nowe **publiczne** (!) repozytorium z nazwą opisującą projekt, np. `motion`.
 2. Dodaj plik `index.html` (wygenerowany wcześniej lub utworzony ręcznie). Dla najprostszego projektu `index.html` umieść w katalogu głównym.
-3. Otwórz w nowopowstałym repozytorium **Settings → Pages** (które znajdziesz w lewym menu).
-4. W sekcji **Build and deployment** wybierz **Deploy from a branch**, gałąź `main` i folder `/(root)`, a następnie zapisz ustawienia klikając przycisk **Save**. 
-5. Tworzenie strony chwilę trwa. Wychodząc do repozytorium możesz w zakładce **Actions** śledzić postęp procesu publikacji.
-6. Otwórz (po jakieś minucie) **Settings → Pages** i sprawdź adres strony (powinien się on pojawić na górze) i sprawdź, czy strona faktycznie działa.
-7. Warto w repozytorium dodać plik `README.md` z linkiem do opublikowanej strony, aby łatwo było znaleźć adres strony bezpośrednio z repozytorium. Ten link będzie ci też potrzebny by rozliczyć się z tworzonych zadań.
+3. W nowym repozytorium otwórz **Settings → Pages**.
+4. W sekcji **Build and deployment** wybierz **Deploy from a branch**, gałąź `main` i folder `/(root)`, a następnie zapisz ustawienia, klikając przycisk **Save**.
+5. Tworzenie strony chwilę trwa. Postęp publikacji możesz śledzić w zakładce **Actions** repozytorium.
+6. Po około minucie otwórz **Settings → Pages**, odczytaj adres strony i sprawdź, czy działa.
+7. Warto dodać do repozytorium plik `README.md` z linkiem do opublikowanej strony. Link przyda Ci się też do oddania zadania.
 
-**Uwaga na ścieżki:** w stronach projektów GitHub Pages odwołania typu `images/wykres.png` lub `./style.css` są zwykle bezpieczniejsze od odwołań zaczynających się od `/`, które wskazują katalog główny domeny, a nie katalog projektu. Poruszanie się po strukturze katalogów projektu za pomocą względnych ścieżek przećwiczymy później przy okazji Basha. Teraz zdaj się na AI by poprawnie poorganizować pliki w folderach i zapewnić dobre ścieżki do zasobów w projekcie.
+**Uwaga na ścieżki:** w stronach projektów GitHub Pages odwołania typu `images/wykres.png` lub `./style.css` są zwykle bezpieczniejsze od odwołań zaczynających się od `/`, które wskazują katalog główny domeny, a nie katalog projektu. Poruszanie się po strukturze katalogów projektu za pomocą względnych ścieżek przećwiczymy później przy okazji Basha. Na razie skorzystaj z AI, aby uporządkować pliki i sprawdzić ścieżki do zasobów.
 
 Dokumentacja: [GitHub Pages](https://docs.github.com/en/pages) · [Konfiguracja źródła publikacji](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
 
 ---
 
-## 6. Markdown → MkDocs → strona WWW 
+## 6. Markdown → MkDocs → strona WWW
 
 ### Zagadnienie tylko dla zaawansowanych użytkowników
 
 Markdown dobrze nadaje się do pisania treści, ale nie zapewnia samodzielnie całego serwisu z menu, motywem i wyszukiwarką. **MkDocs** tworzy z plików `.md` gotową, statyczną stronę dokumentacyjną.
 
-Jako przykład podam stronę wykładową powstałą z serii markdownów, która następnie została przekształcona w statyczną stronę WWW za pomocą MkDocs.
+Jako przykład podam stronę wykładową powstałą z serii plików Markdown, przekształconą następnie w statyczną stronę WWW za pomocą MkDocs.
 
-- link do repozytorrium: [https://github.com/RemigiuszDurka/port_issp](https://github.com/RemigiuszDurka/port_issp)
+- link do repozytorium: [https://github.com/RemigiuszDurka/port_issp](https://github.com/RemigiuszDurka/port_issp)
 
 - link do opublikowanej strony MkDocs: [https://remigiuszdurka.github.io/port_issp/](https://remigiuszdurka.github.io/port_issp/)
 
@@ -426,13 +424,13 @@ Dokumentacja: [MkDocs](https://www.mkdocs.org/) · [Publikacja MkDocs](https://w
 
 ---
 
-## 7. Uwagi odnośnie zadań
+## 7. Uwagi dotyczące zadań
 
 Ważne:
 
-**Zadania 1–3:** wykonujesz lokalne strony html i zapisujesz je w odpowiednich folderach **swojego forka repozytorium przedmiotu**. Nie publikujesz ich jeszcze przez GitHub Pages.
+**Zadania 1–3:** wykonujesz lokalne strony HTML i zapisujesz je w odpowiednich folderach **swojego forka repozytorium przedmiotu**. Nie publikujesz ich jeszcze przez GitHub Pages.
 
-**Zadania 4–8:** publikujesz projekty w internecie w swoich osobistych repozytoriach (muszą być publiczne). W odpowiednim folderze **forka repozytorium przedmiotu** umieszczasz tylko info o swoich repozytoriach i opublikowanych stronach (w plikach `LINK.md` podając adres **działającej strony** oraz **repozytorium projektu**).
+**Zadania 4–7:** publikujesz projekty w internecie w swoich osobistych repozytoriach (muszą być publiczne). W odpowiednim folderze **forka repozytorium przedmiotu** umieszczasz tylko informacje o swoich repozytoriach i opublikowanych stronach (w plikach `LINK.md` podając adres **działającej strony** oraz **repozytorium projektu**).
 
 W forku repozytorium przedmiotu zachowaj przygotowaną strukturę katalogów:
 
@@ -480,19 +478,19 @@ Utwórz `01_sol_html/index.html`. Strona ma zawierać nagłówek, co najmniej dw
 
 Przygotuj w folderze `02_sol_html/` nową wersję strony z zadania 1. Dodaj oddzielny `style.css`, jakiś niewielki obrazek w formacie PNG lub JPG w podfolderze `images/` oraz użyj go w treści strony.
 
-### Zadanie 3. Interaktywna strona I - rzut ukośny
+### Zadanie 3. Interaktywna strona I — rzut ukośny
 
-Z pomocą AI stwórz jedną interaktywną stronę html (z przyciskami i suwakami) dotyczącą **rzutu ukośnego**. Mają być **co najmniej trzy suwaki**, przyciski sterujące oraz reagujący na zmiany parametrów wykres, animację lub symulację. Dodaj by pokazywane były wektory prędkości i przyspieszenia. Preferowany jest **jeden samodzielny plik** który powinien znajdować się w `03_sol_html/index.html`.
+Z pomocą AI stwórz jedną interaktywną stronę HTML (z przyciskami i suwakami) dotyczącą **rzutu ukośnego**. Mają być **co najmniej trzy suwaki**, przyciski sterujące oraz reagujący na zmiany parametrów wykres, animację lub symulację. Dodaj wyświetlanie wektorów prędkości i przyspieszenia. Preferowany jest **jeden samodzielny plik**, który powinien znajdować się w `03_sol_html/index.html`.
 
-Uwaga: czasem zamiast samodzielnego pliku do ściągniecia AI może zaoferować Ci kod html w formie tekstu, który trzeba samemu wkleić do pliku txt i następnie zmienić jego rozszerzenie na `.html`. Podobnie AI może otworzyć ci stronę w trybie już działającego podglądu i wtedy trzeba ręcznie zapisać kod do pliku.
+Uwaga: czasem zamiast pliku do pobrania AI podaje kod HTML jako tekst. Wklej go wtedy do pliku `.txt` i zmień rozszerzenie na `.html`. Jeśli AI otworzy działający podgląd strony, zapisz jej kod do pliku.
 
 ### Zadanie 4. Publikacja przez GitHub Pages
 
-Utwórz na swoim koncie **nowe publiczne repozytorium** o nazwie `rzut`. Umieść w nim wcześniej stworzoną w **zadaniu 3** stronę html i opublikuj ją przez GitHub Pages. W pliku `04_sol_html/LINK.md` na forku przedmiotu podaj link do działającej strony oraz do nowego repozytorium.
+Utwórz na swoim koncie **nowe publiczne repozytorium** o nazwie `rzut`. Umieść w nim stronę HTML z **zadania 3** i opublikuj ją przez GitHub Pages. W pliku `04_sol_html/LINK.md` na forku przedmiotu podaj link do działającej strony oraz do nowego repozytorium.
 
 ### Zadanie 5. Profesjonalna strona edukacyjna z AI
 
-Utwórz na swoim koncie **nowe publiczne repozytorium** o nazwie `edukacja`. Wykorzystaj najbardziej zaawansowane narzędzia AI jakie masz do stworzenia **nowoczesnej, estetycznej i rozbudowanej strony edukacyjnej** o wybranym zagadnieniu z **matematyki, fizyki lub algorytmiki**. Oczekiwane są: atrakcyjna sekcja powitalna, spójna stylistyka, animacja w bannerze strony, animacje, interaktywne wykresy lub symulacje, suwaki oraz dość wygodna i dynamiczna nawigacja. Strona powinna poprawnie działać również na telefonie. Opublikuj stronę i wpisz jej **adres** oraz **adres repozytorium** do `05_sol_html/LINK.md`.
+Utwórz na swoim koncie **nowe publiczne repozytorium** o nazwie `edukacja`. Wykorzystaj najbardziej zaawansowane narzędzia AI, jakie masz, do stworzenia **nowoczesnej, estetycznej i rozbudowanej strony edukacyjnej** o wybranym zagadnieniu z **matematyki, fizyki lub algorytmiki**. Oczekiwane są: atrakcyjna sekcja powitalna, spójna stylistyka, animacja w banerze strony, inne animacje, interaktywne wykresy lub symulacje, suwaki oraz wygodna i dynamiczna nawigacja. Strona powinna poprawnie działać również na telefonie. Opublikuj stronę i wpisz jej **adres** oraz **adres repozytorium** do `05_sol_html/LINK.md`.
 
 ### Zadanie 6. Interaktywny quiz
 
@@ -502,4 +500,4 @@ Utwórz na swoim koncie **nowe publiczne repozytorium** o nazwie `quiz`. Przygot
 
 API to interfejs umożliwiający pobieranie danych z zewnętrznych źródeł w sposób ustandaryzowany. Akronim pochodzi od angielskiego terminu **Application Programming Interface**. Jest to sposób komunikacji między różnymi aplikacjami, który pozwala na korzystanie z funkcji lub danych udostępnionych przez inne systemy.
 
-Stwórz stronę pobierającą **rzeczywiste dane** z publicznego API (np. OpenWeatherMap, NASA, lub GUS, czyli pogodowego, astronomicznego lub statystycznego, itd.). Zaprezentuj je na wykresie lub w tabeli, dodaj interaktywne filtry i obsłuż błędy pobierania danych. Korzystaj z API dostępnego z przeglądarki, bez ujawniania tajnych kluczy. Opublikuj stronę i dodaj linki do `07_sol_html/LINK.md`.
+Stwórz stronę pobierającą **rzeczywiste dane** (np. pogodowe, astronomiczne lub statystyczne, itd.) z publicznego API (np. OpenWeatherMap, NASA lub GUS). Zaprezentuj je na wykresie lub w tabeli, dodaj interaktywne filtry i obsłuż błędy pobierania danych. Korzystaj z API dostępnego z przeglądarki, bez ujawniania tajnych kluczy. Opublikuj stronę i dodaj linki do `07_sol_html/LINK.md`.
