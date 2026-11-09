@@ -1,0 +1,6 @@
+% Paleta stylów dla TikZiT. Otwórz ten plik jako TikZiT Style File.
+\tikzstyle{state}=[circle, draw=black, line width=1.2pt, fill=cyan!15, minimum size=14mm]
+\tikzstyle{stable}=[circle, draw=black, line width=1.3pt, fill=green!22, minimum size=15mm]
+\tikzstyle{process}=[rectangle, rounded corners=3pt, draw=black, line width=1pt, fill=orange!16, minimum height=11mm, minimum width=22mm]
+\tikzstyle{flow}=[->, >=Stealth, line width=1pt]
+\tikzstyle{note}=[rectangle, rounded corners=2pt, draw=gray, fill=gray!10]

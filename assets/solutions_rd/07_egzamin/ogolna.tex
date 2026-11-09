@@ -1,0 +1,422 @@
+\topic{1}{Zasady dynamiki Newtona, pęd i jego zachowanie}{
+W układzie inercjalnym ciało zachowuje stan spoczynku lub ruchu
+jednostajnego prostoliniowego, jeżeli siła wypadkowa jest zerowa.
+Druga zasada ma ogólną postać $\mathbf F_{\rm wyp}=d\mathbf p/dt$;
+przy stałej masie redukuje się do $m\mathbf a$.
+Trzecia zasada mówi, że siły wzajemnego oddziaływania dwóch ciał
+mają przeciwne zwroty i tę samą wartość, ale działają na różne ciała.
+
+Dla układu ciał sumujemy pędy: $\mathbf P=\sum_i\mathbf p_i$.
+Siły wewnętrzne znoszą się parami w bilansie całego układu,
+więc $d\mathbf P/dt=\mathbf F_{\rm zewn}$. Gdy zewnętrzny impuls
+jest pomijalny, $\mathbf P$ pozostaje stały. Dotyczy to także
+zderzeń niesprężystych, w których energia kinetyczna może maleć.
+Przed zastosowaniem zasady trzeba jasno określić granice układu
+i sprawdzić, czy impuls sił zewnętrznych jest rzeczywiście mały.}
+\topic{2}{Układy inercjalne i nieinercjalne, siły bezwładności}{
+Układ inercjalny to taki, w którym swobodne ciało porusza się
+jednostajnie po prostej. Układ poruszający się względem niego
+ze stałą prędkością także jest inercjalny. W układzie
+przyspieszającym równanie Newtona wymaga dodania sił pozornych.
+Dla układu przesuwającego się z przyspieszeniem $\mathbf A$
+pojawia się siła $-m\mathbf A$.
+
+W układzie obracającym się z prędkością kątową $\boldsymbol\Omega$
+występują między innymi siła Coriolisa
+$-2m\boldsymbol\Omega\times\mathbf v'$ i odśrodkowa
+$-m\boldsymbol\Omega\times(\boldsymbol\Omega\times\mathbf r)$.
+Jeżeli $\boldsymbol\Omega$ się zmienia, dochodzi siła Eulera.
+Siły bezwładności nie wynikają z oddziaływania z innym ciałem;
+są skutkiem wyboru współrzędnych. Przykładem jest odchylenie
+toru długiego ruchu na obracającej się Ziemi.}
+\newpage
+\topic{3}{Praca, energia i siły zachowawcze}{
+Praca siły na drodze $C$ jest całką
+$W=\int_C\mathbf F\cdot d\mathbf r$.
+Z twierdzenia o pracy i energii kinetycznej wynika
+$W_{\rm wyp}=\Delta K$, gdzie $K=mv^2/2$ dla ruchu
+nierelatywistycznego. Siła zachowawcza ma pracę niezależną
+od drogi i można ją zapisać jako $\mathbf F=-\nabla U$.
+Przykładami są grawitacja Newtonowska i idealna sprężyna.
+
+Gdy działają tylko siły zachowawcze, $E=K+U$ jest stałe.
+Jeśli działa tarcie, $\Delta(K+U)=W_{\rm niezach}$; utracona
+energia mechaniczna przechodzi zwykle w energię wewnętrzną.
+W zadaniu trzeba określić poziom zerowy energii potencjalnej
+i rozróżnić zachowanie energii całkowitej od zachowania
+energii mechanicznej. Moc chwilowa wynosi
+$P=dW/dt=\mathbf F\cdot\mathbf v$.}
+\topic{4}{Dynamika bryły sztywnej i moment pędu}{
+Bryła sztywna zachowuje odległości między punktami.
+Jej ruch można rozłożyć na translację środka masy oraz obrót.
+Dla obrotu wokół ustalonej osi moment bezwładności jest
+$I=\sum_i m_i r_{\perp i}^2$, a energia kinetyczna obrotu
+$K_{\rm obr}=I\omega^2/2$. Moment siły to
+$\boldsymbol\tau=\mathbf r\times\mathbf F$.
+
+Równanie dynamiki obrotowej ma postać
+$d\mathbf L/dt=\boldsymbol\tau_{\rm zewn}$.
+Przy zerowym zewnętrznym momencie siły moment pędu
+$\mathbf L$ jest zachowany. Dla obrotu wokół osi głównej
+$L=I\omega$, więc zmniejszenie $I$ zwiększa $\omega$.
+W ogólnym ruchu przestrzennym $\mathbf L$ i
+$\boldsymbol\omega$ nie muszą być równoległe, ponieważ
+moment bezwładności jest tensorem.}
+\newpage
+\topic{5}{Oscylator harmoniczny, tłumienie, wymuszenie i rezonans}{
+Idealny oscylator spełnia $m\ddot x+kx=0$.
+Rozwiązanie ma postać $x=A\cos(\omega_0t+\phi)$,
+gdzie $\omega_0=\sqrt{k/m}$. Po dodaniu oporu lepkiego
+$b\dot x$ otrzymujemy $m\ddot x+b\dot x+kx=0$.
+W zależności od $b^2-4mk$ odpowiedź jest oscylacyjna
+tłumiona, krytyczna albo aperiodyczna.
+
+Przy wymuszeniu $F_0\cos\Omega t$ rozwiązanie zawiera
+zanikający stan przejściowy i stan ustalony. Jego amplituda to
+$A(\Omega)=F_0/\sqrt{(k-m\Omega^2)^2+b^2\Omega^2}$.
+Dla słabego tłumienia maksimum występuje blisko
+$\omega_0$; dokładne położenie maksimum wychylenia zależy
+od $b$. W rezonansie energia dostarczana w kolejnych okresach
+kompensuje straty. Należy odróżniać rezonans amplitudy
+wychylenia od rezonansu mocy.}
+\topic{6}{Grawitacja Newtona, prawa Keplera i energia potencjalna}{
+Dwie masy punktowe przyciągają się siłą
+$F=Gm_1m_2/r^2$ skierowaną wzdłuż prostej łączącej ciała.
+Przy zerze energii w nieskończoności
+$U(r)=-Gm_1m_2/r$. Ujemna energia całkowita w problemie
+dwóch ciał odpowiada orbicie związanej.
+
+Pierwsze prawo Keplera mówi o elipsie ze Słońcem
+w jednym ognisku. Drugie, o równych polach zakreślanych
+w równych czasach, wynika z zachowania momentu pędu.
+Trzecie daje $T^2=4\pi^2a^3/[G(M+m)]$ dla półosi wielkiej
+$a$ w problemie dwóch ciał. Prawo odwrotnych kwadratów
+wyjaśnia te zależności przy założeniu izolowanego układu.
+W pobliżu powierzchni Ziemi przy małych zmianach wysokości
+można stosować przybliżenie $U\simeq mgh$.}
+\newpage
+\topic{7}{Statyka i dynamika płynów}{
+W cieczy spoczywającej ciśnienie rośnie z głębokością:
+$p=p_0+\rho gh$. Prawo Pascala opisuje przekazywanie
+zmiany ciśnienia w cieczy zamkniętej. Prawo Archimedesa
+daje siłę wyporu równą ciężarowi wypartego płynu,
+$F_w=\rho_{\mathrm{plyn}}gV_{\rm wyparte}$.
+
+Dla ustalonego przepływu nieściśliwego równanie ciągłości
+ma postać $Av=\mathrm{const}$ w pojedynczym przewodzie.
+Wzdłuż linii prądu płynu idealnego zachodzi
+$p+\rho v^2/2+\rho gz=\mathrm{const}$.
+Równanie Bernoulliego wynika z bilansu energii, lecz wymaga
+braku istotnych strat lepkości i braku pomp między
+porównywanymi punktami. W praktyce przepływ turbulentny
+i tarcie wymagają dodatkowego członu strat.}
+\topic{8}{Transformacje Galileusza i Lorentza}{
+Transformacja Galileusza dla względnej prędkości $V$
+ma postać $x'=x-Vt$, $t'=t$. Zakłada wspólny czas i działa
+dobrze, gdy prędkości są małe względem $c$.
+Transformacja Lorentza to
+$x'=\gamma(x-Vt)$,
+$t'=\gamma(t-Vx/c^2)$, gdzie
+$\gamma=(1-V^2/c^2)^{-1/2}$.
+
+Z niej wynikają dylatacja czasu własnego
+$\Delta t=\gamma\Delta\tau$ i skrócenie długości
+w kierunku ruchu $L=L_0/\gamma$. Prędkości wzdłuż
+tej osi składają się według
+$u'=(u-V)/(1-uV/c^2)$. Pęd relatywistyczny
+to $\mathbf p=\gamma m\mathbf v$, energia całkowita
+$E=\gamma mc^2$, a kinetyczna $K=(\gamma-1)mc^2$.
+W granicy $v\ll c$ wracamy do $mv^2/2$.}
+\newpage
+\topic{9}{Gaz doskonały i jego przemiany}{
+Model gazu doskonałego zakłada cząstki o zaniedbywalnej
+objętości i oddziaływaniach poza zderzeniami.
+Równanie stanu $pV=nRT=Nk_BT$ wiąże wielkości
+makroskopowe. Temperatura jest związana ze średnią
+energią ruchu cząstek, a ciśnienie wynika z przekazu
+pędu ścianom.
+
+W przemianie izotermicznej gazu doskonałego $pV$
+jest stałe. W izochorycznej stała jest objętość,
+w izobarycznej ciśnienie. Dla odwracalnej przemiany
+adiabatycznej $pV^\gamma=\mathrm{const}$, gdzie
+$\gamma=C_p/C_V$; wzór nie opisuje dowolnego procesu
+z izolacją cieplną, jeśli jest on silnie nieodwracalny.
+Praca wykonana przez gaz wynosi
+$W=\int p\,dV$, a pole pod wykresem $p(V)$
+ma interpretację energetyczną.}
+\topic{10}{Pierwsza zasada termodynamiki i ekwipartycja}{
+Pierwsza zasada to bilans energii wewnętrznej.
+Przy konwencji, że $W$ jest pracą wykonaną przez układ,
+$\Delta U=Q-W$. Dla gazu doskonałego energia wewnętrzna
+zależy tylko od temperatury; w przemianie izotermicznej
+$\Delta U=0$. W przemianie adiabatycznej $Q=0$,
+więc rozprężanie kosztem pracy obniża $U$.
+
+Klasyczna zasada ekwipartycji przyznaje średnio
+$k_BT/2$ każdemu niezależnemu kwadratowemu składnikowi
+energii w równowadze. Dla gazu jednoatomowego
+$U=3Nk_BT/2$ i $C_V=3Nk_B/2$.
+Nie wolno jednak bezkrytycznie stosować jej do wszystkich
+stopni swobody przy niskich temperaturach: wzbudzenia
+rotacyjne i drganiowe mogą być zamrożone kwantowo.
+Rozróżniaj pojemność cieplną całego układu od molowej.}
+\newpage
+\topic{11}{Druga zasada, ciepło zredukowane i entropia}{
+Druga zasada wyznacza kierunek przemian: w izolowanym
+układzie całkowita entropia nie maleje.
+Dla odwracalnej drogi $\Delta S=\int\delta Q_{\rm rev}/T$;
+iloraz $\delta Q/T$ nazywa się ciepłem zredukowanym.
+Entropia $S$ jest funkcją stanu, choć samo ciepło
+zależy od drogi.
+
+Nierówność Clausiusa
+$\oint\delta Q/T\leq0$ odróżnia proces odwracalny
+od nieodwracalnego. W samorzutnym przepływie ciepła
+od ciała ciepłego do zimnego suma zmian entropii
+jest dodatnia. Maszyna cieplna nie może zamienić
+całego ciepła pobranego z jednego zbiornika na pracę
+w cyklu. Przy obliczeniach entropii procesu
+nieodwracalnego wybieramy dogodną hipotetyczną drogę
+odwracalną między tymi samymi stanami.}
+\topic{12}{Napięcie powierzchniowe, włoskowatość i ruchy Browna}{
+Siły spójności między cząsteczkami powodują, że
+utworzenie nowej powierzchni cieczy wymaga energii.
+Napięcie powierzchniowe $\sigma$ jest energią na
+jednostkę powierzchni albo siłą na jednostkę długości
+w odpowiedniej geometrii. Dla kulistej kropli różnica
+ciśnień wynosi $\Delta p=2\sigma/R$.
+
+W cienkiej rurce kapilarnej wysokość podciągania
+jest w przybliżeniu
+$h=2\sigma\cos\theta/(\rho gr)$.
+Znak $\cos\theta$ rozstrzyga, czy ciecz podnosi się,
+czy opada. Ruchy Browna to losowe ruchy zawieszonych
+drobnych cząstek pod wpływem uderzeń cząsteczek
+płynu. Dla dyfuzji jednowymiarowej
+$\langle x^2\rangle=2Dt$; jest to średnia
+po wielu realizacjach, a nie tor pojedynczej cząstki.}
+\newpage
+\topic{13}{Transport w gazach: dyfuzja, ciepło, lepkość i prąd}{
+Dyfuzja jest przepływem cząstek wywołanym gradientem
+stężenia; pierwsze prawo Ficka zapisujemy
+$\mathbf J=-D\nabla n$. Przewodnictwo cieplne
+ma analogiczną postać $\mathbf q=-\kappa\nabla T$.
+Lepkość przenosi pęd między warstwami gazu,
+a dla prostego ścinania naprężenie jest proporcjonalne
+do gradientu prędkości.
+
+W kinetycznym obrazie współczynniki transportu zależą
+od średniej drogi swobodnej i średniej szybkości cząstek.
+Przewodnictwo elektryczne wymaga nośników ładunku:
+$\mathbf J_e=\sigma_e\mathbf E$ w zakresie prawa Ohma.
+Nie należy utożsamiać przewodnictwa elektrycznego
+gazu z przewodnictwem cieplnym; pierwsze silnie zależy
+od jonizacji. Relacje liniowe obowiązują blisko
+równowagi i przy niezbyt dużych gradientach.}
+\topic{14}{Potencjał, pole elektryczne, strumień i prawo Gaussa}{
+Natężenie pola jest siłą na jednostkowy dodatni
+ładunek próbny: $\mathbf E=\mathbf F/q$.
+W elektrostatyce $\mathbf E=-\nabla\varphi$,
+a różnica potencjałów odpowiada pracy pola
+na jednostkę ładunku ze zmienionym znakiem.
+Strumień przez powierzchnię to
+$\Phi_E=\int_S\mathbf E\cdot d\mathbf S$.
+
+Prawo Gaussa w próżni mówi
+$\oint_S\mathbf E\cdot d\mathbf S
+=Q_{\rm wew}/\varepsilon_0$.
+Jest zawsze prawdziwe dla zamkniętej powierzchni,
+ale praktycznie pozwala wyliczyć pole tylko przy
+odpowiedniej symetrii, np. sferycznej, cylindrycznej
+lub płaskiej. W postaci lokalnej
+$\nabla\cdot\mathbf E=\rho/\varepsilon_0$.
+Zewnętrzne ładunki mogą dawać pole na powierzchni,
+lecz ich całkowity wkład do strumienia zamkniętego jest zerowy.}
+\newpage
+\topic{15}{Dielektryki, polaryzacja i zjawiska pokrewne}{
+W dielektryku pole przesuwa ładunki związane lub
+ustawia dipole. Wektor polaryzacji $\mathbf P$
+jest momentem dipolowym na jednostkę objętości,
+a $\mathbf D=\varepsilon_0\mathbf E+\mathbf P$.
+Prawo Gaussa dla $\mathbf D$ obejmuje tylko ładunek
+swobodny. W liniowym, izotropowym materiale
+$\mathbf D=\varepsilon\mathbf E$.
+
+Dla kondensatora płaskiego wypełnionego jednorodnym
+dielektrykiem $C=\varepsilon A/d$, jeśli pomijamy
+efekty brzegowe. Elektrostrykcja opisuje odkształcenie
+wywołane polem; piezoelektryczność wiąże naprężenie
+z polaryzacją w kryształach o odpowiedniej symetrii.
+Ferroelektryki mają spontaniczną polaryzację
+i pętlę histerezy. Trzeba odróżniać ich nieliniową
+odpowiedź od prostego prawa $\mathbf P=\chi\varepsilon_0\mathbf E$.}
+\topic{16}{Klasyczny model przewodnictwa elektrycznego}{
+W modelu Drudego elektrony przewodnictwa są
+nośnikami o średnim czasie relaksacji $\tau$.
+W stałym polu ich średnia prędkość dryfu
+spełnia $\mathbf v_d=-e\tau\mathbf E/m$.
+Dla koncentracji $n$ prąd ma postać
+$\mathbf J=-ne\mathbf v_d=\sigma\mathbf E$,
+gdzie $\sigma=ne^2\tau/m$.
+
+Model wyjaśnia prawo Ohma i jakościowo efekt Halla,
+ale nie opisuje poprawnie wszystkich własności
+metali, ponieważ pomija statystykę Fermiego
+i strukturę pasmową. Czas relaksacji jest parametrem
+efektywnym zależnym od rozpraszania na drganiach
+sieci i defektach. Wartość dryfu jest mała
+w porównaniu z typowymi mikroskopowymi szybkościami
+elektronów; sygnał elektryczny rozchodzi się
+znacznie szybciej niż pojedynczy nośnik.}
+\newpage
+\topic{17}{Prawo Ohma, SEM, Kirchhoff, praca i moc}{
+Lokalne prawo Ohma to $\mathbf J=\sigma\mathbf E$.
+Dla jednorodnego przewodnika o długości $L$
+i przekroju $A$ mamy $R=\rho L/A$, a na jego
+końcach $U=IR$. Siła elektromotoryczna źródła
+jest pracą sił nieelektrostatycznych na jednostkę
+ładunku w pełnym obiegu.
+
+Pierwsze prawo Kirchhoffa wynika z zachowania
+ładunku: suma prądów wpływających do węzła
+równa się sumie wypływających. Drugie, w obwodzie
+skupionym bez zmiennego strumienia magnetycznego,
+sumuje napięcia w oczku do zera. Moc na oporniku
+$P=UI=I^2R=U^2/R$, a energia wydzielona
+w czasie $t$ przy stałej mocy wynosi $Pt$.
+Przy zmiennym strumieniu trzeba uwzględnić
+indukowaną SEM.}
+\topic{18}{Prawo Ampère'a, siła przewodników i indukcja}{
+W magnetostatyce prawo Ampère'a ma postać
+$\oint\mathbf B\cdot d\boldsymbol\ell=\mu_0I_{\rm wew}$.
+Pole długiego prostego przewodnika wynosi
+$B=\mu_0I/(2\pi r)$. Dwa równoległe przewodniki
+z prądami w tym samym kierunku przyciągają się;
+siła na jednostkę długości to
+$F/L=\mu_0I_1I_2/(2\pi d)$.
+
+Prawo Faradaya mówi, że zmiana strumienia
+magnetycznego indukuje siłę elektromotoryczną
+$\mathcal E=-d\Phi_B/dt$. Znak minus wyraża
+regułę Lenza: prąd indukowany przeciwdziała
+zmianie strumienia. Strumień może się zmieniać
+przez ruch obwodu, zmianę pola lub powierzchni.
+Przy polu zależnym od czasu pełne prawo
+Ampère'a wymaga dodatkowego członu Maxwella.}
+\newpage
+\topic{19}{Materia w polu magnetycznym}{
+Magnetyzacja $\mathbf M$ to moment magnetyczny
+na jednostkę objętości. Diamagnetyki mają
+zwykle małą ujemną podatność: pole indukuje
+moment przeciwny do pola. Paramagnetyki mają
+dodatnią podatność, bo momenty atomowe
+częściowo ustawiają się z polem.
+
+Ferromagnetyki mogą mieć spontaniczne uporządkowanie
+momentów poniżej temperatury Curie. Ich odpowiedź
+jest nieliniowa i zależy od historii pola,
+co daje histerezę oraz domeny magnetyczne.
+W prostych materiałach liniowych
+$\mathbf B=\mu_0(\mathbf H+\mathbf M)$
+i $\mathbf M=\chi_m\mathbf H$, lecz nie należy
+stosować stałej $\chi_m$ do całej pętli ferromagnetyka.
+Mikroskopowe pochodzenie ferromagnetyzmu wymaga
+kwantowej energii wymiany, której klasyczny
+obraz małych magnesów nie wyjaśnia.}
+\topic{20}{Drgania w obwodach LC i RLC}{
+W idealnym obwodzie LC ładunek kondensatora
+spełnia $L\ddot q+q/C=0$ i oscyluje z częstością
+$\omega_0=1/\sqrt{LC}$. Energia przechodzi
+między polem elektrycznym kondensatora
+$q^2/(2C)$ a polem magnetycznym cewki
+$Li^2/2$. W szeregowym RLC dochodzi tłumienie:
+$L\ddot q+R\dot q+q/C=0$.
+
+Przy sinusoidalnym wymuszeniu prądu zmiennego
+moduł impedancji szeregowego obwodu wynosi
+$|Z|=\sqrt{R^2+(\omega L-1/\omega C)^2}$.
+Maksymalny prąd występuje przy
+$\omega=1/\sqrt{LC}$ w tym idealizowanym modelu.
+Dobroć $Q=\omega_0L/R$ opisuje ostrość rezonansu
+przy małym tłumieniu. Trzeba podać, czy mówimy
+o obwodzie szeregowym czy równoległym.}
+\newpage
+\topic{21}{Superpozycja fal, fale stojące i dudnienia}{
+W ośrodku liniowym wychylenia fal sumują się.
+Dwie fale o tej samej częstości i zgodnych fazach
+mogą dać wzmocnienie, a o fazach przeciwnych
+wygaszenie. Dwie przeciwbieżne fale o tej samej
+amplitudzie tworzą falę stojącą,
+$y=2A\sin(kx)\cos(\omega t)$.
+Węzły pozostają nieruchome, a strzałki drgają
+z największą amplitudą.
+
+Przy bliskich częstościach $f_1$ i $f_2$
+amplituda wypadkowa zmienia się wolno,
+a częstość dudnień wynosi $|f_1-f_2|$.
+W rurach i strunach warunki brzegowe wybierają
+dozwolone długości fal i częstości własne.
+Superpozycja zakłada liniowość równania falowego;
+przy dużych amplitudach w ośrodku nieliniowym
+proste dodawanie rozwiązań może zawieść.}
+\topic{22}{Interferencja, doświadczenie Younga i Michelsona}{
+Dla dwóch spójnych źródeł różnica dróg $\Delta$
+określa różnicę faz $2\pi\Delta/\lambda$.
+Wzmocnienie zachodzi przy $\Delta=m\lambda$,
+a wygaszenie przy $\Delta=(m+1/2)\lambda$
+dla źródeł zgodnych w fazie. W dalekim polu
+dwu szczelin o odległości $d$ mamy
+$\Delta\simeq d\sin\theta$.
+
+W doświadczeniu Younga rozstaw prążków
+na ekranie odległym o $L$ jest przy małych
+kątach $\Delta x\simeq\lambda L/d$.
+Natężenie dwóch jednakowych fal wynosi
+$I=4I_0\cos^2(\Delta\phi/2)$.
+Interferometr Michelsona rozdziela wiązkę
+na dwa ramiona i łączy ją ponownie.
+Przesunięcie zwierciadła o $\delta$ zmienia
+drogę optyczną o $2\delta$, co umożliwia
+precyzyjne pomiary długości i zmian refrakcji.}
+\newpage
+\topic{23}{Efekt Dopplera i fala uderzeniowa}{
+Efekt Dopplera jest zmianą obserwowanej
+częstotliwości wskutek ruchu źródła lub odbiorcy.
+Dla dźwięku w nieruchomym ośrodku
+$f'=f(v+v_o)/(v-v_s)$ przy odpowiednio
+ustalonych dodatnich kierunkach zbliżania.
+Wzór zależy od prędkości względem ośrodka.
+
+Dla światła w próżni obowiązuje relatywistyczny
+efekt Dopplera; przy oddalaniu wzdłuż linii
+widzenia $f'=f\sqrt{(1-\beta)/(1+\beta)}$.
+Nie wymaga on materialnego ośrodka.
+Gdy źródło dźwięku przekracza prędkość fali,
+fronty tworzą stożek Macha z
+$\sin\theta=v_{\rm fala}/v_{\mathrm{zrodla}}$.
+Przechodząca przez obserwatora fala uderzeniowa
+powoduje skok ciśnienia. Nie jest to po prostu
+przypadek graniczny zwykłego wzoru na ton
+odbierany od poddźwiękowego źródła.}
+\topic{24}{Widmo fal elektromagnetycznych}{
+Fale elektromagnetyczne w próżni mają
+$c=\lambda f$ i przenoszą energię; foton ma
+$E=hf$. Od małych do dużych częstości
+wyróżnia się fale radiowe, mikrofale,
+podczerwień, światło widzialne, ultrafiolet,
+promieniowanie rentgenowskie i gamma.
+Granice pasm są umowne i częściowo zachodzą
+na siebie.
+
+Różnice praktyczne wynikają z energii fotonów
+i oddziaływań z materią. Mikrofale silnie
+oddziałują z pewnymi dipolami i strukturami,
+widzialne pobudza receptory oka, a promieniowanie
+UV, X oraz gamma może jonizować materię,
+zależnie od energii. Rentgenowskie i gamma
+często rozróżnia się także według sposobu
+powstania: pierwsze wiąże się z elektronami,
+drugie z przemianami jądrowymi.
+Wszystkie te pasma podlegają równaniom Maxwella.}
+\newpage

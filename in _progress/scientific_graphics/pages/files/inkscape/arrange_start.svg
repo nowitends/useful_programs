@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1000" height="750" viewBox="0 0 1000 750">
+<rect width="1000" height="750" fill="#fafafa"/>
+<text x="70" y="74" font-family="DejaVu Sans" font-size="31" font-weight="bold" fill="#24364b">OBJECTS — ARRANGE &amp; DISTRIBUTE</text>
+<text x="70" y="108" font-family="DejaVu Sans" font-size="17" fill="#607285">Group A, B and C; align rows; put a background behind all tokens.</text>
+<g id="object-C2"><rect x="100" y="165" width="128" height="76" rx="16" fill="#ffe6d2" stroke="#ae6235" stroke-width="5"/><text x="164" y="213" text-anchor="middle" font-family="DejaVu Sans" font-size="30" font-weight="bold" fill="#ae6235">C2</text></g>
+<g id="object-A3"><rect x="570" y="320" width="128" height="76" rx="16" fill="#d4f1ec" stroke="#147e76" stroke-width="5"/><text x="634" y="368" text-anchor="middle" font-family="DejaVu Sans" font-size="30" font-weight="bold" fill="#147e76">A3</text></g>
+<g id="object-B2"><rect x="320" y="520" width="128" height="76" rx="16" fill="#e4e6fc" stroke="#5758a8" stroke-width="5"/><text x="384" y="568" text-anchor="middle" font-family="DejaVu Sans" font-size="30" font-weight="bold" fill="#5758a8">B2</text></g>
+<g id="object-C4"><rect x="760" y="155" width="128" height="76" rx="16" fill="#ffe6d2" stroke="#ae6235" stroke-width="5"/><text x="824" y="203" text-anchor="middle" font-family="DejaVu Sans" font-size="30" font-weight="bold" fill="#ae6235">C4</text></g>
+<g id="object-A1"><rect x="90" y="465" width="128" height="76" rx="16" fill="#d4f1ec" stroke="#147e76" stroke-width="5"/><text x="154" y="513" text-anchor="middle" font-family="DejaVu Sans" font-size="30" font-weight="bold" fill="#147e76">A1</text></g>
+<g id="object-B4"><rect x="620" y="540" width="128" height="76" rx="16" fill="#e4e6fc" stroke="#5758a8" stroke-width="5"/><text x="684" y="588" text-anchor="middle" font-family="DejaVu Sans" font-size="30" font-weight="bold" fill="#5758a8">B4</text></g>
+<g id="object-A2"><rect x="340" y="235" width="128" height="76" rx="16" fill="#d4f1ec" stroke="#147e76" stroke-width="5"/><text x="404" y="283" text-anchor="middle" font-family="DejaVu Sans" font-size="30" font-weight="bold" fill="#147e76">A2</text></g>
+<g id="object-B1"><rect x="810" y="430" width="128" height="76" rx="16" fill="#e4e6fc" stroke="#5758a8" stroke-width="5"/><text x="874" y="478" text-anchor="middle" font-family="DejaVu Sans" font-size="30" font-weight="bold" fill="#5758a8">B1</text></g>
+<g id="object-C1"><rect x="455" y="140" width="128" height="76" rx="16" fill="#ffe6d2" stroke="#ae6235" stroke-width="5"/><text x="519" y="188" text-anchor="middle" font-family="DejaVu Sans" font-size="30" font-weight="bold" fill="#ae6235">C1</text></g>
+<g id="object-C3"><rect x="170" y="610" width="128" height="76" rx="16" fill="#ffe6d2" stroke="#ae6235" stroke-width="5"/><text x="234" y="658" text-anchor="middle" font-family="DejaVu Sans" font-size="30" font-weight="bold" fill="#ae6235">C3</text></g>
+<g id="object-A4"><rect x="670" y="675" width="128" height="76" rx="16" fill="#d4f1ec" stroke="#147e76" stroke-width="5"/><text x="734" y="723" text-anchor="middle" font-family="DejaVu Sans" font-size="30" font-weight="bold" fill="#147e76">A4</text></g>
+<g id="object-B3"><rect x="430" y="395" width="128" height="76" rx="16" fill="#e4e6fc" stroke="#5758a8" stroke-width="5"/><text x="494" y="443" text-anchor="middle" font-family="DejaVu Sans" font-size="30" font-weight="bold" fill="#5758a8">B3</text></g>
+</svg>

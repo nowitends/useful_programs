@@ -1,0 +1,90 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage[polish]{babel}
+\usepackage{amsmath,amssymb,amsthm,hyperref}
+\usepackage[margin=2.5cm]{geometry}
+\newtheorem{theorem}{Twierdzenie}
+\newtheorem{lemma}[theorem]{Lemat}
+\theoremstyle{definition}
+\newtheorem{definition}{Definicja}[section]
+\numberwithin{equation}{section}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\title{Rozwiązania listy 12 z przedmiotu Programy użytkowe}
+\author{Przykładowe opracowanie}
+\date{\today}
+\begin{document}
+\maketitle
+\noindent\textbf{Źródło zadań:} plik \texttt{old/lista12.tex} w tym
+repozytorium. Jest to archiwalna lista; aktualnej listy student nie
+dostarczył. Rozwiązanie pokazuje komplet techniczny trzech poleceń.
+
+\section{Środowiska, liczniki i przykład użycia}
+\noindent\textbf{Treść zadania 1.} Zdefiniuj środowiska Definicja,
+Twierdzenie i Lemat. Twierdzenia oraz lematy mają wspólny licznik.
+Definicje i równania numeruj w obrębie sekcji.
+
+\medskip
+\noindent\textbf{Rozwiązanie.} W preambule \texttt{lemma} dzieli licznik
+z \texttt{theorem}, zaś \texttt{definition} ma licznik resetowany
+na początku sekcji. Polecenie \verb|\numberwithin{equation}{section}|
+ustawia numer równania w postaci numer sekcji.numer równania.
+\begin{definition}
+Normą euklidesową wektora $x=(x_1,\ldots,x_n)$ jest
+$\norm{x}_2=\sqrt{\sum_{i=1}^{n}x_i^2}$.
+\end{definition}
+\begin{definition}
+Iloczynem skalarnym wektorów $x,y\in\mathbb R^n$ jest
+$\langle x,y\rangle=\sum_{i=1}^{n}x_i y_i$.
+\end{definition}
+\begin{lemma}
+Dla każdego $x\in\mathbb R^n$ mamy $\norm{x}_2\geq 0$.
+\end{lemma}
+\begin{proof}
+Każdy składnik $x_i^2$ jest nieujemny, a pierwiastek
+z liczby nieujemnej jest nieujemny.
+\end{proof}
+\begin{theorem}
+Dla $x,y\in\mathbb R^n$ zachodzi nierówność trójkąta
+$\norm{x+y}_2\leq\norm{x}_2+\norm{y}_2$.
+\end{theorem}
+\begin{proof}
+Z nierówności Cauchy'ego--Schwarza otrzymujemy
+\begin{equation}
+\norm{x+y}_2^2
+=\norm{x}_2^2+2\langle x,y\rangle+\norm{y}_2^2
+\leq(\norm{x}_2+\norm{y}_2)^2.
+\end{equation}
+Pierwiastkowanie obu nieujemnych stron kończy dowód.
+\end{proof}
+Numeracja lematów i twierdzeń jest wspólna, a definicje i równania
+mają numery przypisane do sekcji.
+
+\section{Własna komenda}
+\noindent\textbf{Treść zadania 2.} Zdefiniuj własną komendę z argumentem,
+która upraszcza zapis wyrażenia.
+
+\medskip
+\noindent\textbf{Rozwiązanie.} W preambule zdefiniowano
+\verb|\norm{#1}|. Użycie \verb|\norm{x-y}| daje $\norm{x-y}$.
+Komenda opakowuje argument w skalowalne znaki normy, więc
+unikamy powtarzania dwóch poleceń: \verb|\left\lVert|
+oraz \verb|\right\rVert|. Przykład:
+\begin{equation}
+\norm{x-y}_2^2=\sum_{i=1}^{n}(x_i-y_i)^2.
+\end{equation}
+
+\section{Bibliografia}
+\noindent\textbf{Treść zadania 3.} Utwórz plik z przykładową
+bibliografią i dołącz go do dokumentu za pomocą BibTeX-a
+lub \texttt{biblatex}.
+
+\medskip
+\noindent\textbf{Rozwiązanie.} Plik \texttt{references.bib} zawiera wpis
+książkowy. Cytowanie w tekście: \cite{lamport1994}.
+Kompilacja: \texttt{pdflatex}, \texttt{bibtex},
+\texttt{pdflatex}, \texttt{pdflatex}.
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}

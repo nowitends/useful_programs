@@ -1,0 +1,19 @@
+# Zadania
+
+Idea jest taka, aby **wykonać całą pracę** w Overleafie, a na koniec **przenieść wyniki do odpowiednich miejsc na GitHubie**. Wynikiem jest wynikowy **pdf** oraz **pliki źródłowe LaTeX**.
+
+1. Załóż konto na [Overleaf](https://www.overleaf.com/). Poza tym **w domu (!) postaraj się o lokalną instalację LaTeX-a** oraz edytora TeXstudio lub skonfiguruj możliwość pracy nad LaTeX-em w VS Code (rozszerzenie LaTeX Workshop).
+
+2. Stwórz projekt `Start` z plikiem `start.tex`. Otwórz plik `.md` z listy zadań `01_Markdown`, który prezentował możliwości Markdowna. Teraz masz dokładnie te same elementy wyrazić za pomocą składni LaTeX-a. Zadbaj o poprawne formatowanie, strukturę dokumentu oraz bezbłędną kompilację.
+
+3. Stwórz projekt `CV` z plikiem `cv.tex`. Korzystając z AI oraz galerii szablonów Overleaf , stwórz eleganckie CV fikcyjnej postaci z książki, filmu lub gry, ubiegającej się o wybrane stanowisko pracy.
+
+4. Stwórz projekt `Publikacja`. Ściągnij z arXiv artykuł [https://arxiv.org/abs/1110.6812](https://arxiv.org/abs/1110.6812) (pliki źródłowe LaTeX!). Zmień autorów na fikcyjne postacie z fikcyjnego uniwersytetu! Skompiluj dokument, a następnie, korzystając z AI, przeprowadź audyt, aby znaleźć wszystkie błędy językowe (**zaznacz poprawki kolorem niebieskim**) i ulepszyć artykuł merytorycznie (**kolor czerwony**). Postaraj się rozszerzyć artykuł o analizę numeryczną (a może nawet rozwiązać analitycznie problem postawiony na końcu artykułu?) i dopisać końcowy rozdział. Wszystkie poprawki zaznacz odpowiednimi kolorami: **niebieskim** — językowe, **czerwonym** — merytoryczne, **zielonym** — fragmenty proponowane do usunięcia.
+
+5. Stwórz projekt `Prezentacja`. Wykonaj prezentację na **10 slajdów**, wybierając jeden z trzech tematów: fizyka, matematyka lub algorytmy. Użyj klasy `beamer` i stwórz slajdy o odpowiedniej strukturze, zawierające listy, wzory i grafiki. Prezentacja powinna mieć slajd tytułowy, spis treści (`\tableofcontents`), tytuły slajdów (`\frametitle`), bloki (`block`, `alertblock`, `exampleblock`), przynajmniej jeden slajd z dwiema kolumnami, wzory matematyczne oraz listy punktowane i numerowane. Prezentacja musi też mieć przynajmniej jeden załączony obrazek.
+
+6. Stwórz projekt `Praca domowa`. Wybierz dowolną listę z aktualnych zadań na studiach i przygotuj ich rozwiązania w LaTeX-u. Zadbaj o poprawne formatowanie treści zadań, wzorów i kolejnych kroków rozwiązania. Najlepiej by każde zadanie zaczynało się od przypomnienia treści zadania, a potem miało najważniejsze wzory i teorię. Dopiero wtedy przedstawiaj kolejne kroki rozwiązania.
+
+7. Stwórz projekt `Egzamin` i przygotuj opracowanie **tematów na egzamin licencjacki z fizyki** (minimum pół strony na każde zagadnienie!). Lista zagadnień: [https://wfa.uwr.edu.pl/wp-content/uploads/sites/216/2025/10/Pytania-lic-Fizyka-I-st.pdf](https://wfa.uwr.edu.pl/wp-content/uploads/sites/216/2025/10/Pytania-lic-Fizyka-I-st.pdf).
+
+8. Przejdź stronę [https://remigiuszdurka.github.io/latex_drill/](https://remigiuszdurka.github.io/latex_drill/), wpisz swoje inicjały oraz kod dostępu `0000`. Wprowadź swoje odpowiedzi, **wygeneruj i ściągnij plik końcowy** i załącz go do odpowiedniego folderu na GitHubie. W kolejnych 18 zadaniach uzupełniaj wyłącznie brakującą część kodu LaTeX-a. Reszta pozostaje widoczna i nie wymaga przepisywania. Kliknij Dalej lub naciśnij Enter. Możesz popełnić maksymalnie pięć błędów na zadanie; po piątym zadanie zostanie pominięte. Jeśli nie znasz odpowiedzi, pozostaw lukę pustą i wybierz Dalej. Takie pominięcie nie zużywa próby. Możesz wybrać Cofnij, aby wrócić do wcześniejszego pytania. Liczba prób pozostaje zachowana; możesz też poprawiać zadania wcześniej pominięte pustą odpowiedzią.

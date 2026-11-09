@@ -215,75 +215,35 @@ JavaScript → zachowanie
 
 # JavaScript — prosta interakcja
 
-HTML sam w sobie opisuje dokument. Jeśli strona ma reagować na użytkownika, często potrzebny jest JavaScript.
+HTML opisuje strukturę dokumentu. JavaScript pozwala dodać do strony reakcje na działania użytkownika.
 
-Przykład:
+Poniższy fragment łączy HTML z JavaScriptem. Po kliknięciu przycisku licznik zwiększy się o 1:
 
 ~~~html
 <p id="wynik">0</p>
 
-<button onclick="zwieksz()">Kliknij</button>
+<button id="przycisk" type="button">Kliknij</button>
 
 <script>
 let licznik = 0;
+const wynik = document.getElementById("wynik");
 
-function zwieksz() {
+document.getElementById("przycisk").addEventListener("click", function () {
     licznik = licznik + 1;
-    document.getElementById("wynik").textContent = licznik;
-}
+    wynik.textContent = licznik;
+});
 </script>
 ~~~
 
-Po kliknięciu przycisku liczba na stronie zwiększa się o 1.
+Obsługa zdarzenia `click` uruchamia funkcję po kliknięciu przycisku. Funkcja zwiększa wartość zmiennej `licznik` i wyświetla nową wartość w akapicie.
 
 Mamy tu trzy elementy:
 
-1. akapit z identyfikatorem `wynik`,
-2. przycisk,
-3. funkcję JavaScript zmieniającą zawartość akapitu.
+1. akapit, w którym wyświetlamy licznik,
+2. przycisk, któremu przypisujemy obsługę kliknięcia,
+3. kod JavaScript, który zwiększa licznik i aktualizuje akapit.
 
 Nie trzeba teraz szczegółowo poznawać JavaScriptu. Ważne jest zrozumienie, skąd bierze się interaktywność strony.
-
----
-
-# Prosty kalkulator w HTML
-
-Możemy połączyć formularz i JavaScript.
-
-~~~html
-<label>
-    x:
-    <input id="x" type="number" value="2">
-</label>
-
-<button onclick="policz()">Policz x²</button>
-
-<p id="wynik"></p>
-
-<script>
-function policz() {
-    const x = Number(document.getElementById("x").value);
-    const y = x * x;
-
-    document.getElementById("wynik").textContent =
-        "Wynik: " + y;
-}
-</script>
-~~~
-
-Dla:
-
-~~~text
-x = 5
-~~~
-
-po kliknięciu otrzymamy:
-
-~~~text
-Wynik: 25
-~~~
-
-To już jest bardzo mała aplikacja działająca całkowicie w przeglądarce.
 
 ---
 
@@ -300,304 +260,17 @@ script.js
 
 może działać bez serwera wykonującego Python czy PHP.
 
-Taki zestaw plików nazywamy tutaj **stroną statyczną**.
-
-„Statyczna” nie oznacza, że strona nie może być interaktywna. JavaScript może wykonywać się w przeglądarce.
-
-Oznacza raczej, że serwer nie musi przy każdym wejściu użytkownika wykonywać kodu generującego stronę.
+Taki zestaw plików nazywamy tutaj **stroną statyczną**. Dynamiczna strona wymagałaby serwera generującego zawartość w locie.  „Statyczna” nie oznacza, że strona nie może być interaktywna. JavaScript może wykonywać się w przeglądarce. Oznacza raczej, że serwer nie musi przy każdym wejściu użytkownika wykonywać kodu generującego stronę.
 
 ---
 
-# Animacje w Colabie i Pythonie
+# Od pliku index.html do strony internetowej
 
-## Po co animacja?
+Strona internetowa zaczyna się od pliku `index.html`. To on jest otwierany jako pierwszy przez przeglądarkę.
 
-Niektóre wyniki są trudne do pokazania pojedynczym wykresem.
+Pozostałe pliki, takie jak obrazy, arkusze stylów CSS czy skrypty JavaScript, są dołączane do tego pliku i tworzą kompletną stronę.
 
-Przykłady:
-
-- ruch punktu,
-- oscylacja,
-- ewolucja układu w czasie,
-- propagacja fali,
-- zmieniający się rozkład danych.
-
-Możemy wtedy przygotować serię klatek i zapisać ją jako GIF.
-
----
-
-## Prosta animacja
-
-Pokażmy punkt poruszający się po wykresie funkcji:
-
-$$
-y=\sin x
-$$
-
-Kod:
-
-~~~python
-import numpy as np
-import matplotlib.pyplot as plt
-
-from matplotlib.animation import FuncAnimation, PillowWriter
-
-x = np.linspace(0, 2*np.pi, 200)
-y = np.sin(x)
-
-fig, ax = plt.subplots()
-
-ax.plot(x, y)
-point, = ax.plot([], [], "o")
-
-ax.set_xlim(0, 2*np.pi)
-ax.set_ylim(-1.2, 1.2)
-ax.set_xlabel("x")
-ax.set_ylabel("sin(x)")
-ax.grid()
-
-def update(frame):
-    point.set_data([x[frame]], [y[frame]])
-    return point,
-
-animation = FuncAnimation(
-    fig,
-    update,
-    frames=range(0, len(x), 4),
-    interval=80
-)
-
-animation.save(
-    "animation.gif",
-    writer=PillowWriter(fps=12)
-)
-
-plt.close(fig)
-~~~
-
-Powstaje plik:
-
-~~~text
-animation.gif
-~~~
-
-GIF można otworzyć w przeglądarce, umieścić w Markdown albo osadzić na stronie internetowej.
-
----
-
-## GIF w Markdown
-
-Źródło:
-
-~~~markdown
-![Animacja ruchu punktu](animation.gif)
-~~~
-
-Jeżeli GitHub obsługuje dany plik poprawnie, animacja będzie odtwarzana bezpośrednio na stronie dokumentu.
-
----
-
-# Interaktywny wykres
-
-## Wykres statyczny a interaktywny
-
-Zwykły plik PNG jest obrazem.
-
-Możemy go:
-
-- otworzyć,
-- wydrukować,
-- umieścić w publikacji.
-
-Nie możemy jednak na nim naturalnie:
-
-- powiększyć wybranego fragmentu danych,
-- odczytać wartości po najechaniu myszą,
-- ukryć jednej serii,
-- przesuwać zakresu osi.
-
-Do takich zastosowań wygodne są wykresy interaktywne.
-
----
-
-# Plotly
-
-**Plotly** jest biblioteką do tworzenia interaktywnych wykresów.
-
-Przykład:
-
-~~~python
-import numpy as np
-import plotly.express as px
-
-x = np.linspace(0, 2*np.pi, 200)
-
-fig = px.line(
-    x=x,
-    y=np.sin(x),
-    labels={
-        "x": "x",
-        "y": "sin(x)"
-    },
-    title="Funkcja sin(x)"
-)
-
-fig.show()
-~~~
-
-W notebooku pojawi się wykres, który można m.in. powiększać i odczytywać wartości kursorem.
-
----
-
-## Kilka serii
-
-~~~python
-import numpy as np
-import plotly.graph_objects as go
-
-x = np.linspace(0, 2*np.pi, 200)
-
-fig = go.Figure()
-
-fig.add_scatter(
-    x=x,
-    y=np.sin(x),
-    mode="lines",
-    name="sin(x)"
-)
-
-fig.add_scatter(
-    x=x,
-    y=np.cos(x),
-    mode="lines",
-    name="cos(x)"
-)
-
-fig.update_layout(
-    title="Dwie funkcje",
-    xaxis_title="x",
-    yaxis_title="wartość"
-)
-
-fig.show()
-~~~
-
-Legenda pozwala włączać i wyłączać poszczególne serie.
-
----
-
-# Eksport interaktywnego wykresu do HTML
-
-Jedna z bardzo praktycznych cech Plotly to możliwość zapisania wykresu jako pliku HTML.
-
-~~~python
-fig.write_html("interactive_plot.html")
-~~~
-
-Powstanie:
-
-~~~text
-interactive_plot.html
-~~~
-
-Po otwarciu w przeglądarce wykres pozostaje interaktywny.
-
-Domyślnie Plotly może umieścić potrzebny kod JavaScript bezpośrednio w pliku. Taki plik jest większy, ale może działać samodzielnie bez dodatkowych plików.
-
-Można też użyć zewnętrznego CDN:
-
-~~~python
-fig.write_html(
-    "interactive_plot.html",
-    include_plotlyjs="cdn"
-)
-~~~
-
-Wtedy plik jest dużo mniejszy, ale do załadowania biblioteki Plotly potrzebuje połączenia z Internetem.
-
-Warto więc rozróżnić:
-
-| Wariant | Zaleta | Ograniczenie |
-| --- | --- | --- |
-| biblioteka wewnątrz HTML | plik działa samodzielnie | większy rozmiar |
-| `include_plotlyjs="cdn"` | mały plik | wymaga Internetu |
-
-Oficjalna dokumentacja:
-
-- [Plotly — Interactive HTML Export](https://plotly.com/python/interactive-html-export/)
-
----
-
-# HTML jako artefakt obliczenia
-
-To ważny moment.
-
-Kod:
-
-~~~text
-create_plot.py
-~~~
-
-może wygenerować:
-
-~~~text
-interactive_plot.html
-~~~
-
-Podobnie jak wcześniej kod generował:
-
-~~~text
-fit.png
-~~~
-
-Różnica polega na tym, że HTML może zawierać zachowanie i interakcję.
-
-Możemy więc traktować HTML jako **wynik obliczenia**, a nie tylko ręcznie napisaną stronę.
-
----
-
-# Mała strona wyników
-
-Załóżmy, że mamy:
-
-~~~text
-index.html
-animation.gif
-interactive_plot.html
-~~~
-
-Możemy przygotować stronę:
-
-~~~html
-<!doctype html>
-<html lang="pl">
-<head>
-    <meta charset="utf-8">
-    <title>Wyniki symulacji</title>
-</head>
-
-<body>
-    <h1>Wyniki symulacji</h1>
-
-    <h2>Animacja</h2>
-
-    <img
-        src="animation.gif"
-        alt="Animacja ruchu punktu"
-    >
-
-    <h2>Wykres interaktywny</h2>
-
-    <p>
-        <a href="interactive_plot.html">
-            Otwórz interaktywny wykres
-        </a>
-    </p>
-</body>
-</html>
-~~~
-
-Mamy teraz mały serwis składający się z kilku zwykłych plików.
+Taką stronę możemy odpalić lokalnie na swoim komputerze, otwierając plik `index.html` w przeglądarce. W następnych sekcjach pokażemy, jak opublikować ją w Internecie za pomocą GitHub Pages.
 
 ---
 
@@ -605,9 +278,7 @@ Mamy teraz mały serwis składający się z kilku zwykłych plików.
 
 ## Co to jest GitHub Pages?
 
-**GitHub Pages** pozwala opublikować statyczną stronę internetową bezpośrednio na podstawie plików znajdujących się w repozytorium GitHub.
-
-Strona projektu może otrzymać adres w rodzaju:
+**GitHub Pages** pozwala opublikować statyczną stronę internetową bezpośrednio na podstawie plików znajdujących się w repozytorium GitHub. Strona projektu może otrzymać adres w rodzaju:
 
 ~~~text
 https://nazwa-uzytkownika.github.io/nazwa-repozytorium/
@@ -882,40 +553,7 @@ Oficjalna dokumentacja:
 
 ---
 
-# Zadania dla studenta
-
-Wszystkie pliki z tego bloku umieść w folderze:
-
-~~~text
-zadania/04_interaktywne_materialy_www/
-~~~
-
-Po wykonaniu zadań struktura powinna wyglądać:
-
-~~~text
-zadania/04_interaktywne_materialy_www/
-├── README.md
-├── index.html
-├── interactive.html
-├── create_plot.py
-├── animation.py
-├── animation.gif
-├── mkdocs.yml
-├── docs/
-│   ├── index.md
-│   ├── results.md
-│   └── assets/
-│       ├── interactive_plot.html
-│       └── animation.gif
-├── mkdocs_review.md
-└── publication.md
-~~~
-
-Nie zmieniaj nazw wymaganych plików.
-
----
-
-## Zadanie 1. Mała interaktywna strona HTML
+## Zadanie 1. Mała strona HTML
 
 Utwórz:
 
@@ -931,203 +569,8 @@ Strona ma zawierać:
 - nagłówek `h1`,
 - co najmniej dwa akapity,
 - listę,
-- link,
-- prostą sekcję CSS,
-- pole typu number,
-- przycisk,
-- JavaScript liczący $x^2$.
-
-Dla:
-
-~~~text
-x = 5
-~~~
-
-po kliknięciu przycisku strona ma pokazać:
-
-~~~text
-Wynik: 25
-~~~
-
-Nie kopiuj ślepo przykładu z notatek. Dodaj własny tytuł i krótki opis strony.
-
-### Sprawdzenie
-
-Będzie można sprawdzić strukturę HTML, obecność wymaganych elementów i kod funkcji JavaScript.
-
----
-
-## Zadanie 2. Interaktywny wykres Plotly
-
-Utwórz:
-
-~~~text
-create_plot.py
-~~~
-
-Program ma przygotować $200$ punktów w zakresie:
-
-$$
-0\le x\le 2\pi
-$$
-
-oraz dwie serie:
-
-$$
-y_1=\sin x
-$$
-
-$$
-y_2=\cos x
-$$
-
-Wykres ma zawierać:
-
-- tytuł,
-- podpis osi $x$,
-- podpis osi $y$,
-- legendę,
-- obie funkcje.
-
-Zapisz go dwukrotnie.
-
-Wersja samodzielna:
-
-~~~text
-interactive.html
-~~~
-
-oraz kopia używana przez MkDocs:
-
-~~~text
-docs/assets/interactive_plot.html
-~~~
-
-Przykład zapisu:
-
-~~~python
-fig.write_html("interactive.html")
-fig.write_html("docs/assets/interactive_plot.html")
-~~~
-
-Po otwarciu HTML w przeglądarce sprawdź:
-
-- możliwość powiększania,
-- odczytywanie wartości kursorem,
-- możliwość ukrycia jednej serii z legendy.
-
-### Sprawdzenie
-
-Będzie można uruchomić `create_plot.py` i sprawdzić:
-
-- czy oba pliki HTML powstają,
-- czy nie są puste,
-- czy skrypt zawiera zarówno `sin`, jak i `cos`.
-
----
-
-## Zadanie 3. Animacja GIF
-
-Utwórz:
-
-~~~text
-animation.py
-~~~
-
-Przygotuj animację punktu poruszającego się po:
-
-$$
-y=\sin x
-$$
-
-w zakresie:
-
-$$
-0\le x\le 2\pi
-$$
-
-Skrypt ma zapisać wynik jako:
-
-~~~text
-animation.gif
-~~~
-
-oraz skopiować tę samą animację do:
-
-~~~text
-docs/assets/animation.gif
-~~~
-
-Możesz wykorzystać `FuncAnimation` i `PillowWriter` z przykładu w notatkach.
-
-Po wygenerowaniu sprawdź plik w przeglądarce.
-
-### Sprawdzenie
-
-Będzie można:
-
-- uruchomić `animation.py`,
-- sprawdzić istnienie obu plików GIF,
-- sprawdzić, czy pliki mają niezerowy rozmiar.
-
----
-
-## Zadanie 4. Dokumentacja MkDocs
-
-Utwórz:
-
-~~~text
-mkdocs.yml
-~~~
-
-oraz:
-
-~~~text
-docs/index.md
-docs/results.md
-~~~
-
-`mkdocs.yml` ma zawierać nazwę strony i menu z dwiema pozycjami:
-
-- Start,
-- Wyniki.
-
-`docs/index.md` ma zawierać:
-
-- tytuł,
-- krótki opis projektu,
-- listę użytych technologii,
-- link do strony z wynikami.
-
-`docs/results.md` ma zawierać:
-
-- krótkie wyjaśnienie funkcji sinus i cosinus,
-- osadzoną animację,
-- link do interaktywnego wykresu.
-
-Następnie uruchom:
-
-~~~bash
-mkdocs build
-~~~
-
-oraz:
-
-~~~bash
-mkdocs serve
-~~~
-
-Otwórz lokalny podgląd w przeglądarce i sprawdź wszystkie linki.
-
-### Sprawdzenie
-
-Będzie można sprawdzić:
-
-- strukturę `mkdocs.yml`,
-- istnienie obu dokumentów Markdown,
-- link do `assets/interactive_plot.html`,
-- osadzenie `assets/animation.gif`,
-- możliwość wykonania `mkdocs build`.
+- link
+- obrazek
 
 ---
 ## Zadanie 6. Publikacja na GitHub Pages
@@ -1191,3 +634,87 @@ Można sprawdzić:
 - strukturę lokalnego projektu niezależnie od publikacji.
 
 ---
+
+# Zadania
+
+# Lista zadań — Strony internetowe
+
+Celem zadań jest poznanie podstaw HTML, CSS i JavaScript, a następnie tworzenie i publikowanie stron internetowych z wykorzystaniem GitHub Pages, MkDocs oraz narzędzi AI.
+
+## Zadanie 1. Prosta strona HTML
+
+Stwórz prostą stronę internetową zawierającą nagłówki, tekst, listy, tabelę i odnośniki. Całość zapisz w podfolderze `01_sol_html` w jednym pliku `index.html`, bez CSS i JavaScript.
+
+## Zadanie 2. HTML + CSS
+
+Rozbuduj stronę z zadania 1, dodając:
+- Oddzielny plik `style.css` odpowiedzialny za wygląd strony.
+- Obraz zapisany lokalnie w podfolderze `images`.
+- Obraz z Wikipedii lub Wikimedia Commons wyświetlany bezpośrednio z internetu.
+
+Zadbaj o estetykę i poprawne formatowanie. Umieść nową wersję `index.html` w podfolderze `02_sol_html` w repozytorium.
+
+## Zadanie 3. Interaktywna strona edukacyjna
+
+Wykorzystując AI, stwórz interaktywną stronę dotyczącą zagadnienia z **matematyki, fizyki lub algorytmiki**.
+
+Strona powinna zawierać liczne suwaki, przyciski, przełączniki, dynamiczne wykresy i animacje. Użytkownik musi mieć możliwość zmieniania parametrów i obserwowania efektów.
+
+Preferowany jest pojedynczy plik `index.html` zawierający HTML, CSS i JavaScript. Umieść go w podfolderze `03_sol_html` w repozytorium.
+
+## Zadanie 4. Publikacja na GitHub Pages
+
+Utwórz **nowe, publiczne repozytorium GitHub** o nazwie związanej z tematyką projektu (nie `Strona1`, `Zadanie4` itp.).
+
+Przenieś do niego stronę z zadania 3 i opublikuj ją za pomocą GitHub Pages. Umieść ją w podfolderze `04_sol_html` w repozytorium.
+
+W przygotowanym folderze zadania 4 na forku repozytorium przedmiotu umieść w pliku `LINK.md` (w podfolderze `04_sol_html`):
+
+- Link do działającej strony.
+
+- Link do repozytorium z kodem.
+
+## Zadanie 6. Profesjonalna strona edukacyjna z AI
+
+Wykorzystaj najbardziej zaawansowane narzędzia AI, do których masz dostęp, aby stworzyć **nowoczesną, efektowną i profesjonalną stronę edukacyjną**.
+
+Strona powinna zawierać animacje, atrakcyjne banery, interaktywne wizualizacje, suwaki, wykresy oraz dobrze przygotowane treści edukacyjne. Zadbaj o estetykę, funkcjonalność i działanie na urządzeniach mobilnych.
+
+**Przykładowe strony, na których należy się wzorować:**
+- [PRZYKŁAD 1 — LINK]
+- [PRZYKŁAD 2 — LINK]
+- [PRZYKŁAD 3 — LINK]
+
+Stwórz stronę o podobnym poziomie wizualnym i funkcjonalnym, ale dotyczącą własnego zagadnienia.
+
+Opublikuj ją przez GitHub Pages i umieść odpowiednie linki w `LINK.md`.
+
+## Zadanie 7. Interaktywny quiz
+
+Stwórz stronę umożliwiającą sprawdzanie wiedzy z wybranego zagadnienia.
+
+Powinna zawierać pytania różnych typów, automatyczne sprawdzanie odpowiedzi, punktację, podsumowanie wyników i możliwość ponownego rozwiązania testu.
+
+Wykorzystaj `localStorage` do zapisywania wyników w przeglądarce. Opublikuj stronę przez GitHub Pages.
+
+## Zadanie 8. Strona wykorzystująca API
+
+Stwórz stronę pobierającą rzeczywiste dane z internetu przez publiczne API, np. pogodowe, astronomiczne, ekonomiczne lub statystyczne.
+
+Dane powinny być prezentowane w formie interaktywnych wykresów, tabel lub wizualizacji. Użytkownik powinien mieć możliwość zmiany wyświetlanych informacji.
+
+Opublikuj stronę przez GitHub Pages.
+
+
+## Zadanie 5. Markdown → MkDocs
+
+W przygotowanym folderze znajdziesz zestaw plików Markdown.
+
+Wykorzystaj **MkDocs (najlepiej Material for MkDocs)**, aby przekształcić je w estetyczną stronę dokumentacyjną z poprawną nawigacją.
+
+Opublikuj stronę przez GitHub Pages. W pliku `LINK.md` umieść adres strony i repozytorium.
+
+
+---
+
+**Zasady:** Zadania 1–3 realizujemy lokalnie i umieszczamy w odpowiednich folderach forka repozytorium przedmiotu. Zadania 4–8 wymagają publikacji w internecie oraz umieszczenia linków do działających stron i repozytoriów w odpowiednich plikach `LINK.md`. Wszystkie projekty mogą być realizowane z pomocą AI, ale muszą działać poprawnie i spełniać wymagania.

@@ -1,0 +1,6 @@
+% Minimalny przykład, NIE jest rozwiązaniem zadania.
+\begin{tikzpicture}
+  \node[state] (a) at (0,0) {$A$};
+  \node[state] (b) at (3,0) {$B$};
+  \draw[flow] (a) -- node[above] {$k$} (b);
+\end{tikzpicture}

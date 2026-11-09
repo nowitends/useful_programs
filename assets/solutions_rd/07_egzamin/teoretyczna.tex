@@ -1,0 +1,198 @@
+\topic{1}{Lagrangian i oscylator harmoniczny}{
+Lagrangian to różnica energii kinetycznej i potencjalnej
+$L(q,\dot q,t)=T-U$. Zasada stacjonarnego działania
+$S=\int L\,dt$ prowadzi do równania Eulera--Lagrange'a
+$d(\partial L/\partial\dot q)/dt-\partial L/\partial q=0$.
+Dla masy na sprężynie
+$L=m\dot x^2/2-kx^2/2$, zatem
+$m\ddot x+kx=0$.
+
+Rozwiązanie ogólne to
+$x(t)=A\cos(\omega_0t)+B\sin(\omega_0t)$,
+gdzie $\omega_0=\sqrt{k/m}$.
+Warunki $x(0)=x_0$ i $\dot x(0)=v_0$
+dają $A=x_0$, $B=v_0/\omega_0$.
+Wprowadzenie współrzędnych uogólnionych
+pozwala uwzględnić więzy bez jawnego
+rozpisywania sił reakcji. Ważne jest,
+aby w równaniu ruchu uwzględnić siły
+niezachowawcze osobno jako siły uogólnione,
+jeśli nie można ich zawrzeć w potencjale.}
+\topic{2}{Stopnie swobody i ruch na sferze}{
+Swobodny punkt w przestrzeni ma trzy stopnie
+swobody. Więz $x^2+y^2+z^2=R^2$ usuwa
+jeden, pozostawiając dwa: kąty $\theta,\phi$.
+Dla punktu o masie $m$ poruszającego się
+bez tarcia po nieruchomej sferze
+$L=mR^2(\dot\theta^2+\sin^2\theta\dot\phi^2)/2$.
+
+Równanie dla $\phi$ daje
+$d(mR^2\sin^2\theta\dot\phi)/dt=0$,
+ponieważ $\phi$ jest współrzędną cykliczną.
+Dla $\theta$ otrzymujemy
+$\ddot\theta-\sin\theta\cos\theta\,\dot\phi^2=0$.
+Zachowany pęd sprzężony z $\phi$
+jest składową momentu pędu względem
+osi $z$. W tym przykładzie siła
+reakcji więzu nie wykonuje pracy
+w dozwolonych przesunięciach
+wirtualnych, dlatego nie pojawia
+się w równaniach dla kątów.}
+\newpage
+\topic{3}{Hamiltonian i oscylator harmoniczny}{
+Pęd kanoniczny definiujemy jako
+$p=\partial L/\partial\dot q$, a Hamiltonian
+$H=p\dot q-L$ po wyeliminowaniu prędkości.
+Dla oscylatora $p=m\dot x$ oraz
+$H=p^2/(2m)+kx^2/2$.
+Równania Hamiltona to
+$\dot x=\partial H/\partial p=p/m$
+i $\dot p=-\partial H/\partial x=-kx$.
+
+Ich połączenie daje
+$\ddot x+\omega_0^2x=0$.
+W przestrzeni fazowej trajektorie
+o stałej energii są elipsami:
+$p^2/(2m)+kx^2/2=E$.
+Dla Hamiltonianu niezależnego
+jawnie od czasu energia jest
+stała. Formalizm Hamiltona
+opisuje ewolucję punktu
+$(x,p)$, co ułatwia analizę
+symetrii, zachowanych wielkości
+i przejście do mechaniki
+statystycznej oraz kwantowej.}
+\topic{4}{Wahadło matematyczne w opisie Hamiltona}{
+Jedyną współrzędną wahadła
+o długości $\ell$ jest kąt $\theta$.
+Dla masy punktowej $m$ i potencjału
+liczonego od dolnego położenia
+$L=m\ell^2\dot\theta^2/2
+-mg\ell(1-\cos\theta)$.
+Pęd kanoniczny wynosi
+$p_\theta=m\ell^2\dot\theta$.
+
+Hamiltonian jest sumą
+$H=p_\theta^2/(2m\ell^2)
++mg\ell(1-\cos\theta)$.
+Równania Hamiltona:
+$\dot\theta=p_\theta/(m\ell^2)$
+i $\dot p_\theta=-mg\ell\sin\theta$.
+W przybliżeniu $|\theta|\ll1$ mamy
+$\sin\theta\simeq\theta$,
+więc $\ddot\theta+(g/\ell)\theta=0$
+i okres $T\simeq2\pi\sqrt{\ell/g}$.
+Przy dużych amplitudach okres
+zależy od amplitudy; przybliżenie
+małych drgań przestaje działać.}
+\newpage
+\topic{5}{Ładunek próbny i siła Lorentza}{
+Ładunek próbny jest na tyle mały,
+że nie zmienia istotnie badanego pola.
+Na ładunek $q$ poruszający się
+z prędkością $\mathbf v$ działa
+siła Lorentza
+$\mathbf F=q(\mathbf E+\mathbf v\times\mathbf B)$.
+Stałe jednorodne pole elektryczne
+przyspiesza cząstkę w kierunku
+$q\mathbf E$; bez pola magnetycznego
+tor jest paraboliczny przy
+odpowiednich warunkach początkowych.
+
+Samo pole magnetyczne nie wykonuje
+pracy, bo $(\mathbf v\times\mathbf B)
+\cdot\mathbf v=0$.
+Składowa prędkości prostopadła
+do $\mathbf B$ daje ruch kołowy
+o promieniu $r=m v_\perp/(|q|B)$
+w granicy nierelatywistycznej,
+a równoległa ruch jednostajny.
+Złożenie tych ruchów tworzy
+helisę. Znak ładunku odwraca
+kierunek zakrzywienia toru.}
+\topic{6}{Prawo Gaussa dla pól E i B}{
+Prawo Gaussa dla elektryczności
+w postaci całkowej to
+$\oint_S\mathbf E\cdot d\mathbf S
+=Q_{\rm wew}/\varepsilon_0$,
+a lokalnie
+$\nabla\cdot\mathbf E=\rho/\varepsilon_0$.
+Dla pola magnetycznego
+$\oint_S\mathbf B\cdot d\mathbf S=0$
+i $\nabla\cdot\mathbf B=0$;
+strumień wchodzący i wychodzący
+z zamkniętej powierzchni
+bilansuje się.
+
+Dla punktowego ładunku w próżni
+symetria sferyczna daje
+$E(4\pi r^2)=q/\varepsilon_0$,
+stąd prawo Coulomba
+$\mathbf E=q\hat{\mathbf r}/
+(4\pi\varepsilon_0r^2)$.
+Zastosowanie wymaga, by na
+wybranej sferze wartość $E$
+była stała i pole radialne.
+Prawo magnetyczne opisuje
+brak obserwowanych izolowanych
+monopoli w klasycznych
+równaniach Maxwella.}
+\newpage
+\topic{7}{Prawo Faradaya i indukowana SEM}{
+Prawo Faradaya w postaci całkowej
+mówi $\oint_C\mathbf E\cdot
+d\boldsymbol\ell=-d\Phi_B/dt$
+dla nieruchomego konturu $C$,
+gdzie $\Phi_B=\int_S\mathbf B
+\cdot d\mathbf S$.
+Lokalnie jest to
+$\nabla\times\mathbf E
+=-\partial\mathbf B/\partial t$.
+Zmienne pole magnetyczne
+wytwarza wirowe pole elektryczne.
+
+Dla poruszającego się obwodu
+SEM zawiera także człon
+z siłą magnetyczną
+$\mathbf v\times\mathbf B$.
+W generatorze obrót ramki
+zmienia strumień i wywołuje
+okresową SEM. Znak w prawie
+Faradaya wyraża regułę Lenza:
+prąd indukowany przeciwdziała
+zmianie strumienia, która go
+wywołała. Rozróżnienie
+nieruchomej i ruchomej
+granicy całkowania zapobiega
+błędnej interpretacji
+samego członu $\partial B/\partial t$.}
+\topic{8}{Prawo Ampère'a--Maxwella i kondensator}{
+Pełne prawo ma postać
+$\oint_C\mathbf B\cdot
+d\boldsymbol\ell
+=\mu_0(I_{\rm przew}
++\varepsilon_0\,d\Phi_E/dt)$.
+W postaci lokalnej:
+$\nabla\times\mathbf B
+=\mu_0\mathbf J
++\mu_0\varepsilon_0
+\partial\mathbf E/\partial t$.
+Człon z pochodną pola
+elektrycznego nazywa się
+prądem przesunięcia.
+
+Podczas ładowania kondensatora
+prądem stałym przewodzenia $I$
+przez przewód, między okładkami
+nie płynie taki sam prąd
+nośników przez próżnię.
+Pole $E$ jednak narasta
+i dla idealnego kondensatora
+$\varepsilon_0\,d\Phi_E/dt=I$.
+Dzięki temu wynik prawa
+Ampère'a nie zależy od
+wyboru powierzchni rozpiętej
+na tym samym konturze.
+Poprawka jest zgodna
+z lokalnym zachowaniem ładunku.}
+\newpage

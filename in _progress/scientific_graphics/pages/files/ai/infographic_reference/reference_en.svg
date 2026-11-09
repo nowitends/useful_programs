@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<rect width="1280" height="720" fill="#F8F4E9"/>
+<rect x="0" y="0" width="1280" height="177" fill="#152B40"/>
+<text x="72" y="72" fill="#73DCCB" font-family="DejaVu Sans" font-size="25" font-weight="bold" letter-spacing="3">FOUR STEPS / ONE GREAT CUP</text>
+<text x="70" y="139" fill="white" font-family="DejaVu Sans" font-size="62" font-weight="bold">FROM BEAN TO CUP</text>
+<text x="74" y="222" fill="#576777" font-family="DejaVu Sans" font-size="24">A simple illustrated guide to the everyday ritual of coffee.</text>
+<rect x="70" y="269" width="274" height="355" rx="23" fill="white" stroke="#E4E2D9" stroke-width="2"/>
+<circle cx="207" cy="370" r="74" fill="#F4A66B"/>
+<text x="95" y="313" fill="#60727F" font-family="DejaVu Sans" font-size="23" font-weight="bold">01</text>
+<text x="97" y="515" fill="#192F43" font-family="DejaVu Sans" font-size="31" font-weight="bold">ROAST</text>
+<ellipse cx="181" cy="360" rx="20" ry="30" transform="rotate(-20 181 360)" fill="#684333"/><path d="M177 337 Q187 360 177 383" stroke="#DDA581" stroke-width="4" fill="none"/><ellipse cx="229" cy="382" rx="20" ry="30" transform="rotate(20 229 382)" fill="#684333"/><path d="M225 359 Q235 382 225 405" stroke="#DDA581" stroke-width="4" fill="none"/><ellipse cx="211" cy="343" rx="20" ry="30" transform="rotate(10 211 343)" fill="#684333"/><path d="M207 320 Q217 343 207 366" stroke="#DDA581" stroke-width="4" fill="none"/><text x="97" y="559" fill="#60727F" font-family="DejaVu Sans" font-size="20">Heat develops</text><text x="97" y="588" fill="#60727F" font-family="DejaVu Sans" font-size="20">aroma and color.</text><rect x="372" y="269" width="274" height="355" rx="23" fill="white" stroke="#E4E2D9" stroke-width="2"/>
+<circle cx="509" cy="370" r="74" fill="#76D6C7"/>
+<text x="397" y="313" fill="#60727F" font-family="DejaVu Sans" font-size="23" font-weight="bold">02</text>
+<text x="399" y="515" fill="#192F43" font-family="DejaVu Sans" font-size="31" font-weight="bold">GRIND</text>
+<rect x="467" y="340" width="82" height="75" rx="12" fill="#1C4150"/><path d="M487 339 L487 318 L524 318 L524 340" stroke="#1C4150" stroke-width="10" fill="none"/><circle cx="508" cy="375" r="18" fill="#76D6C7"/><text x="399" y="559" fill="#60727F" font-family="DejaVu Sans" font-size="20">Size changes</text><text x="399" y="588" fill="#60727F" font-family="DejaVu Sans" font-size="20">extraction speed.</text><rect x="674" y="269" width="274" height="355" rx="23" fill="white" stroke="#E4E2D9" stroke-width="2"/>
+<circle cx="811" cy="370" r="74" fill="#D2B2EE"/>
+<text x="699" y="313" fill="#60727F" font-family="DejaVu Sans" font-size="23" font-weight="bold">03</text>
+<text x="701" y="515" fill="#192F43" font-family="DejaVu Sans" font-size="31" font-weight="bold">BREW</text>
+<path d="M771 349 L850 349 L834 410 L785 410 Z" fill="none" stroke="#422C59" stroke-width="7"/><path d="M794 321 Q776 307 794 294 M825 322 Q807 307 825 294" stroke="#422C59" stroke-width="5" fill="none"/><text x="701" y="559" fill="#60727F" font-family="DejaVu Sans" font-size="20">Hot water carries</text><text x="701" y="588" fill="#60727F" font-family="DejaVu Sans" font-size="20">soluble flavors.</text><rect x="976" y="269" width="274" height="355" rx="23" fill="white" stroke="#E4E2D9" stroke-width="2"/>
+<circle cx="1113" cy="370" r="74" fill="#FFD77B"/>
+<text x="1001" y="313" fill="#60727F" font-family="DejaVu Sans" font-size="23" font-weight="bold">04</text>
+<text x="1003" y="515" fill="#192F43" font-family="DejaVu Sans" font-size="31" font-weight="bold">TASTE</text>
+<path d="M1072 351 L1142 351 L1134 399 Q1108 428 1081 399 Z" fill="white" stroke="#5C4A34" stroke-width="7"/><path d="M1144 359 Q1181 353 1169 385 Q1163 401 1141 392" fill="none" stroke="#5C4A34" stroke-width="8"/><text x="1003" y="559" fill="#60727F" font-family="DejaVu Sans" font-size="20">Compare balance</text><text x="1003" y="588" fill="#60727F" font-family="DejaVu Sans" font-size="20">and aroma.</text><text x="72" y="685" fill="#667781" font-family="DejaVu Sans" font-size="18">REFERENCE STYLE: bold header / pastel cards / simple flat icons / clean typography</text></svg>

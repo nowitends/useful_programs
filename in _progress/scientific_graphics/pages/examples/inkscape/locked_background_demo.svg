@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="760" height="510" viewBox="0 0 760 510">
+ <rect width="760" height="510" fill="#fafbf8"/>
+ <g inkscape:groupmode="layer" inkscape:label="Wzór" id="locked_reference" sodipodi:insensitive="true" opacity="0.55">
+  <path d="M145 333 C185 105, 390 125, 480 300 S665 380, 650 180" fill="none" stroke="#ef6a5b" stroke-width="12" stroke-dasharray="15 10"/>
+  <circle cx="145" cy="333" r="13" fill="#ef6a5b"/><circle cx="650" cy="180" r="13" fill="#ef6a5b"/>
+  <text x="80" y="75" font-size="29" font-family="DejaVu Sans" fill="#7e7373">WZÓR — WARSTWA ZABLOKOWANA</text>
+ </g>
+ <g inkscape:groupmode="layer" inkscape:label="Rysunek" id="student_drawing"/>
+</svg>

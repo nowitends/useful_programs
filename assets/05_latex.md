@@ -12,7 +12,9 @@ Wszystko to jest realizowane przez tekstowy plik źródłowy, który następnie 
 
 **TeX** jest systemem składu tekstu stworzonym przez Donalda Knutha.
 
-**Link do manuala:** [Wprowadzenie do LaTeX-a](https://tug.ctan.org/info/lshort/polish/lshort-pl.pdf)
+Na początku był chaos: Potem pojawił się **TeX**. W 1977 r. Donald Knuth, zirytowany wynikiem składu jego pracy, rozpoczął tworzenie systemu składu tekstów matematycznych. Program ukazał się w 1982 r. Następnie powstał **LaTeX** (Leslie Lamport) jako zestaw makr upraszczających przygotowanie składu w TeX-u.
+
+**Link do manuala zawierającego podstawy LaTeX-a!**: [Wprowadzenie do LaTeX-a](https://tug.ctan.org/info/lshort/polish/lshort-pl.pdf) Jeśli ktoś planuje karierę naukową, powinien przeczytać ten dokument!
 
 **LaTeX** jest zestawem makr i konwencji zbudowanych na TeX-u, który znacznie upraszcza przygotowywanie dokumentów.
 
@@ -132,14 +134,6 @@ W tym przykładzie:
 
 Opcje zależą od klasy — nie każda klasa obsługuje wszystkie z nich. Niektóre zmieniają układ strony (np. `twoside` dla składu dwustronnego), a inne zachowanie dokumentu (np. `draft`, tryb roboczy). Jeśli LaTeX zgłasza, że opcja jest nieznana lub nieobsługiwana, sprawdź dokumentację wybranej klasy.
 
-Do typowego raportu lub pracy w języku polskim często wystarczy:
-
-~~~latex
-\documentclass[12pt,a4paper]{article}
-~~~
-
-Opcji `twocolumn` używaj tylko wtedy, gdy taki układ jest wymagany — zmienia on szerokość tekstu i rozmieszczenie elementów, takich jak tabele czy rysunki.
-
 ---
 
 # Pakiety
@@ -158,44 +152,6 @@ Pakiet `amsmath` daje rozbudowane narzędzia matematyczne.
 Pakiet `graphicx` pozwala umieszczać grafiki.
 
 Współczesne instalacje LaTeX-a zawierają bardzo dużą liczbę pakietów. Nie trzeba znać ich wszystkich. Ważniejsze jest nauczenie się wyszukiwania odpowiedniego pakietu do konkretnego zadania.
-
----
-
-# Polska składnia i kodowanie
-
-W dokumentach w języku polskim warto ustawić odpowiednie kodowanie i język. Najczęściej używa się pakietów `inputenc` i `babel`:
-
-~~~latex
-\usepackage[utf8]{inputenc}
-\usepackage[polish]{babel}
-~~~
-
-Pakiet `inputenc` ustawia kodowanie pliku źródłowego (UTF-8 jest obecnie standardem), a `babel` dostosowuje składnię i reguły typograficzne do języka polskiego.    
-
----
-
-# Tytuł dokumentu
-
-Źródło:
-
-~~~latex
-\title{Krótki raport}
-\author{Jan Kowalski}
-\date{\today}
-
-\begin{document}
-
-\maketitle
-
-\end{document}
-~~~
-
-W PDF pojawi się automatycznie przygotowany blok tytułowy.
-
-LaTeX rozdziela więc:
-
-- **informację**, czym jest tytuł i autor,
-- **sposób prezentacji**, który zależy od klasy dokumentu.
 
 ---
 
@@ -232,6 +188,47 @@ Efekt w PDF będzie miał strukturę:
 > Opis metody.
 
 Numeracja jest generowana automatycznie.
+
+---
+
+# Polska składnia i kodowanie
+
+W dokumentach w języku polskim warto ustawić odpowiednie kodowanie i język. Najczęściej używa się pakietów `inputenc` i `babel`:
+
+~~~latex
+\usepackage[utf8]{inputenc}
+\usepackage[polish]{babel}
+~~~
+
+Pakiet `inputenc` ustawia kodowanie pliku źródłowego (UTF-8 jest obecnie standardem), a `babel` dostosowuje składnię i reguły typograficzne do języka polskiego. Pozwala to na poprawne łamanie wyrazów, użycie polskich znaków i odpowiednie formatowanie dat oraz numerów stron. Tak samo przetłumaczone zostają elementy interfejsu generowanego przez LaTeX, np. nazwy spisów treści czy list rysunków. 
+
+~~~latex
+\documentclass[12pt,a4paper]{article}  % klasa dokumentu i ustawienia strony
+\usepackage[utf8]{inputenc}  % kodowanie pliku źródłowego
+\usepackage[polish]{babel}  % język dokumentu
+
+\title{Krótki raport}  % tytuł dokumentu
+\author{Jan Kowalski}  % autor dokumentu
+\date{\today}  % data utworzenia dokumentu
+
+\begin{document}
+
+\maketitle  % generuje blok tytułowy
+
+\tableofcontents % generuje spis treści
+
+\section{Wprowadzenie}  % sekcja wprowadzająca
+
+Przykład z dużą ilością polskich znaków: ąćęłńóśźż.  % polskie znaki
+
+Dawniej trzeba było pisać: Wroc\l{}aw  % zapis bez UTF-8
+
+Teraz, dzięki ustawieniu kodowania UTF-8, można pisać bezpośrednio: Wrocław.  % zapis z UTF-8   
+
+\end{document}  % koniec dokumentu
+~~~
+
+Zwróć uwagę na komentarze w kodzie LaTeX. Komentarze zaczynają się od znaku `%` i nie są wyświetlane w PDF. Pomagają one w dokumentowaniu kodu źródłowego.
 
 ---
 
@@ -416,13 +413,13 @@ W praktyce środowisko `align` jest bardzo wygodne przy dłuższych rachunkach.
 Źródło:
 
 ~~~latex
-\[
+$$
 A=
 \begin{pmatrix}
 2 & 1 \\
 1 & 3
 \end{pmatrix}
-\]
+$$
 ~~~
 
 Efekt:
@@ -467,6 +464,462 @@ W tekście możemy napisać:
 ~~~latex
 Dane przedstawiono w tabeli~\ref{tab:data}.
 ~~~
+
+---
+
+
+
+# Alfabet grecki w LaTeX-u
+
+W matematyce i fizyce bardzo często wykorzystujemy litery greckie. W LaTeX-u zapisujemy je za pomocą komend rozpoczynających się od znaku `\`, po którym następuje nazwa litery.
+
+## Pełny alfabet — małe i wielkie litery
+
+| Litera | Mała | Kod LaTeX | Wielka | Kod LaTeX |
+|---|---|---|---|---|
+| Alfa | α | `\alpha` | Α | `A` |
+| Beta | β | `\beta` | Β | `B` |
+| Gamma | γ | `\gamma` | Γ | `\Gamma` |
+| Delta | δ | `\delta` | Δ | `\Delta` |
+| Epsilon | ε | `\varepsilon` | Ε | `E` |
+| Dzeta | ζ | `\zeta` | Ζ | `Z` |
+| Eta | η | `\eta` | Η | `H` |
+| Theta | θ | `\theta` | Θ | `\Theta` |
+| Jota | ι | `\iota` | Ι | `I` |
+| Kappa | κ | `\kappa` | Κ | `K` |
+| Lambda | λ | `\lambda` | Λ | `\Lambda` |
+| Mi | μ | `\mu` | Μ | `M` |
+| Ni | ν | `\nu` | Ν | `N` |
+| Ksi | ξ | `\xi` | Ξ | `\Xi` |
+| Omikron | ο | `o` | Ο | `O` |
+| Pi | π | `\pi` | Π | `\Pi` |
+| Rho | ρ | `\rho` | Ρ | `P` |
+| Sigma | σ | `\sigma` | Σ | `\Sigma` |
+| Tau | τ | `\tau` | Τ | `T` |
+| Ypsilon | υ | `\upsilon` | Υ | `\Upsilon` |
+| Fi | φ | `\varphi` | Φ | `\Phi` |
+| Chi | χ | `\chi` | Χ | `X` |
+| Psi | ψ | `\psi` | Ψ | `\Psi` |
+| Omega | ω | `\omega` | Ω | `\Omega` |
+
+**Uwaga:** nie wszystkie wielkie litery greckie mają osobne komendy. Jeśli wyglądają identycznie jak litery łacińskie, zapisujemy je zwykłymi literami, np. `A`, `B`, `E`, `M` czy `N`. W standardowym LaTeX-u nie ma również komendy `\omicron` — używamy `o`.
+
+## Alternatywne warianty liter
+
+Niektóre litery mają więcej niż jeden wariant typograficzny:
+
+| Wariant pierwszy | Wariant drugi | Wygląd w matematyce | Wygląd w matematyce |
+|---|---|---|---|
+|---|---|
+| `\epsilon` | `\varepsilon` | $\epsilon$ | $\varepsilon$ |
+| `\theta` | `\vartheta` | $\theta$ | $\vartheta$ |
+| `\kappa` | `\varkappa` | $\kappa$ | $\varkappa$ |
+| `\pi` | `\varpi` | $\pi$ | $\varpi$ |
+| `\rho` | `\varrho` | $\rho$ | $\varrho$ |
+| `\sigma` | `\varsigma` | $\sigma$ | $\varsigma$ |
+| `\phi` | `\varphi` | $\phi$ | $\varphi$ |
+
+Wygląd poszczególnych wariantów zależy również od użytej czcionki matematycznej. Do `\varkappa` dołącz pakiet `amssymb`.
+
+## Przykłady zastosowania
+
+```latex
+$$
+\alpha+\beta=\gamma,
+\qquad
+\Delta x=x_2-x_1
+$$
+
+$$
+\Sigma=\sum_{i=1}^{n}x_i,
+\qquad
+\Phi=\int_0^T V(t)\,\mathrm{d}t
+$$
+
+$$
+\omega=2\pi f,
+\qquad
+\lambda=\frac{c}{f}
+$$
+```
+
+do daje:
+
+$$
+\alpha+\beta=\gamma,
+\qquad
+\Delta x=x_2-x_1
+$$
+
+$$
+\Sigma=\sum_{i=1}^{n}x_i,
+\qquad
+\Phi=\int_0^T V(t)\,\mathrm{d}t
+$$
+
+$$
+\omega=2\pi f,
+\qquad
+\lambda=\frac{c}{f}
+$$
+
+Zwróć uwagę na różnicę między `\Sigma` (wielka litera sigma) a `\sum` (operator sumowania).
+
+---
+
+# Funkcje matematyczne w LaTeX-u
+
+W zapisie matematycznym **nazwy funkcji powinny być składane prostą czcionką**, a zmienne najczęściej kursywą.
+
+Dlatego zamiast pisać `sin(x)` należy użyć `\sin(x)`. W pierwszym przypadku LaTeX interpretuje litery jako trzy osobne zmienne, a w drugim jako nazwę funkcji.
+
+## Funkcje trygonometryczne
+
+| Funkcja | Polecenie |
+|---|---|
+| Sinus | `\sin` |
+| Cosinus | `\cos` |
+| Tangens | `\tan` |
+| Cotangens | `\cot` |
+| Secans | `\sec` |
+| Cosecans | `\csc` |
+| Arcus sinus | `\arcsin` |
+| Arcus cosinus | `\arccos` |
+| Arcus tangens | `\arctan` |
+
+## Logarytmy i funkcje wykładnicze
+
+| Funkcja | Polecenie |
+|---|---|
+| Logarytm naturalny | `\ln` |
+| Logarytm | `\log` |
+| Logarytm dziesiętny | `\lg` |
+| Funkcja wykładnicza | `\exp` |
+
+
+Przykłady obu logarytmów i funkcji trygonometrycznych:
+
+$$
+\sin^2 x+\cos^2 x=1
+$$
+
+$$
+\tan x=\frac{\sin x}{\cos x}
+$$
+
+$$
+\arcsin\left(\frac{1}{2}\right)
+=\frac{\pi}{6}
+$$
+
+$$
+\ln(e^x)=x
+$$
+
+$$
+\log_2 8=3
+$$
+
+$$
+\exp(-x^2)=e^{-x^2}
+$$
+
+
+## Inne funkcje i operatory
+
+| Funkcja / operator | Polecenie | Wygląd |
+|---|---|---|
+| Minimum | `\min` | $\min$ |
+| Maksimum | `\max` | $\max$ |
+| Supremum | `\sup` | $\sup$ |
+| Infimum | `\inf` | $\inf$ |
+| Granica | `\lim` | $\lim$ |
+| Granica górna | `\limsup` | $\limsup$ |
+| Granica dolna | `\liminf` | $\liminf$ |
+| Wyznacznik | `\det` | $\det$ |
+| Wymiar | `\dim` | $\dim$ |
+| Jądro odwzorowania | `\ker` | $\ker$ |
+| Największy wspólny dzielnik | `\gcd` | $\gcd$ |
+| Argument liczby zespolonej | `\arg` | $\arg$ |
+| Prawdopodobieństwo | `\Pr` | $\Pr$ |
+
+
+## Definiowanie własnych operatorów
+
+Jeżeli danej funkcji nie ma na liście standardowych poleceń, możemy użyć `\operatorname` z pakietu `amsmath`.
+
+```latex
+
+\usepackage{amsmath}
+
+$$
+\operatorname{Tr}(A)
+=\sum_{i=1}^{n} A_{ii}
+$$
+
+$$
+\operatorname{rank}(A)
+=\dim(\operatorname{Im} A)
+$$
+
+$$
+\operatorname{Var}(X)
+=\mathbb{E}\left[(X-\mathbb{E}[X])^2\right]
+$$
+```
+
+Jeżeli dany operator pojawia się wielokrotnie, wygodniej zdefiniować go w preambule:
+
+```latex
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\rank}{rank}
+```
+
+---
+
+# Sumy, całki, granice i pochodne
+
+LaTeX udostępnia rozbudowane operatory matematyczne, w których można umieszczać indeksy dolne, górne i dodatkowe symbole.
+
+## Sumowanie i iloczyny
+
+| Operator | Kod | Wygląd |
+|---|---|---|
+| Suma | `\sum` | $\sum$ |
+| Iloczyn | `\prod` | $\prod$ |
+| Suma zbiorów | `\bigcup` | $\bigcup$ |
+| Część wspólna zbiorów | `\bigcap` | $\bigcap$ |
+| Suma prosta | `\bigoplus` | $\bigoplus$ |
+
+## Całki
+
+| Operator | Kod | Wygląd |
+|---|---|---|
+| Całka pojedyncza | `\int` | $\int$ |
+| Całka podwójna | `\iint` | $\iint$ |
+| Całka potrójna | `\iiint` | $\iiint$ |
+| Całka po krzywej zamkniętej | `\oint` | $\oint$ |
+
+Zapis `\mathrm{d}` służy do uzyskania prostej litery d, a `\,` wprowadza niewielki odstęp.
+
+## Pochodne zwyczajne i cząstkowe
+
+$$
+\frac{\mathrm{d}f}{\mathrm{d}x}
+$$
+
+$$
+\frac{\mathrm{d}^2f}{\mathrm{d}x^2}
+$$
+
+$$
+\frac{\partial f}{\partial x}
+$$
+
+$$
+\frac{\partial^2 f}
+{\partial x\,\partial y}
+$$
+
+Możemy również stosować oznaczenia z kropką i primem:
+
+$$
+\dot{x},\qquad
+\ddot{x},\qquad
+f'(x),\qquad
+f''(x)
+$$
+
+## Granice
+
+Użycie:
+
+```latex
+$$
+\lim_{n\to\infty}
+\left(1+\frac1n\right)^n=e
+$$
+
+$$
+\lim_{x\to 0}
+\frac{e^x-1}{x}=1
+$$
+
+$$
+\limsup_{n\to\infty}a_n,
+\qquad
+\liminf_{n\to\infty}a_n
+$$
+```
+
+Daje 
+
+$$
+\lim_{n\to\infty}
+\left(1+\frac1n\right)^n=e
+$$
+
+$$
+\lim_{x\to 0}
+\frac{e^x-1}{x}=1
+$$
+
+$$
+\limsup_{n\to\infty}a_n,
+\qquad
+\liminf_{n\to\infty}a_n
+$$
+
+
+---
+
+# Przydatne konstrukcje i symbole matematyczne
+
+## Indeksy, ułamki i pierwiastki
+
+| Konstrukcja | Polecenie | Wygląd |
+|---|---|---|
+| Indeks dolny | `x_i` | $x_i$ |
+| Indeks górny | `x^2` | $x^2$ |
+| Oba indeksy | `x_i^{n+1}` | $x_i^{n+1}$ |
+| Ułamek | `\frac{a}{b}` | $\frac{a}{b}$ |
+| Pierwiastek | `\sqrt{x}` | $\sqrt{x}$ |
+| Pierwiastek stopnia n | `\sqrt[n]{x}` | $\sqrt[n]{x}$ |
+| Wektor | `\vec{v}` | $\vec{v}$ |
+| Litera z daszkiem | `\hat{H}` | $\hat{H}$ |
+| Litera z kreską | `\bar{x}` | $\bar{x}$ |
+
+```latex
+$$
+x_i^{n+1}
+=\frac{\sqrt{x_i^2+1}}{n+1}
+$$
+
+$$
+\hat{H}\psi=E\psi
+$$
+```
+
+## Nawiasy automatycznie dopasowane do wzoru
+
+```latex
+$$
+\left(\frac{a+b}{c+d}\right)^2
+$$
+
+$$
+\left[
+\frac{x^2+1}{x-1}
+\right]
+$$
+```
+
+Polecenia `\left` i `\right` dobierają rozmiar nawiasów do zawartości.
+
+## Funkcje przedziałowe i układy równań
+
+Środowisko `cases` pozwala umieścić kilka definicji pod wspólną klamrą:
+
+```latex
+$$
+f(x)=
+\begin{cases}
+x^2, & x\geq 0,\\
+-x, & x<0.
+\end{cases}
+$$
+```
+$$
+f(x)=
+\begin{cases}
+x^2, & x\geq 0,\\
+-x, & x<0.
+\end{cases}
+$$
+
+## Strzałki i relacje
+
+| Symbol | Kod |
+|---|---|
+| → | `\to` |
+| ← | `\leftarrow` |
+| ↔ | `\leftrightarrow` |
+| ⇒ | `\Rightarrow` |
+| ⇔ | `\Leftrightarrow` |
+| ≠ | `\neq` |
+| ≈ | `\approx` |
+| ≡ | `\equiv` |
+| ≤ | `\leq` |
+| ≥ | `\geq` |
+| ∈ | `\in` |
+| ∉ | `\notin` |
+| ∀ | `\forall` |
+| ∃ | `\exists` |
+| ∞ | `\infty` |
+| ∇ | `\nabla` |
+| ∂ | `\partial` |
+| ℏ | `\hbar` |
+| ∝ | `\propto` |
+
+## Oznaczanie fragmentów wzoru
+
+```latex
+$$
+\underbrace{
+x_1+x_2+\cdots+x_n
+}_{n\text{ składników}}
+$$
+```
+
+$$
+\underbrace{
+x_1+x_2+\cdots+x_n
+}_{n\text{ składników}}
+$$
+
+```latex
+$$
+\overbrace{a+b+c}^{S}
+$$
+```
+
+$$
+\overbrace{a+b+c}^{S}
+$$
+
+## Przykład z fizyki — kilka elementów w jednym wzorze
+
+```latex
+$$
+\boxed{
+G_{\mu\nu}+\Lambda g_{\mu\nu}
+=\frac{8\pi G}{c^4}T_{\mu\nu}
+}
+$$
+```
+
+$$
+\boxed{
+G_{\mu\nu}+\Lambda g_{\mu\nu}
+=\frac{8\pi G}{c^4}T_{\mu\nu}
+}
+$$
+
+W tym przykładzie wykorzystano:
+
+- `\boxed{...}` — ramkę wokół równania,
+- `\mu`, `\nu`, `\Lambda`, `\pi` — litery greckie,
+- `_` — indeksy dolne,
+- `^` — indeks górny,
+- `\frac` — ułamek.
+
+**Pakiety wymagane do przykładów:** większość zaawansowanych konstrukcji działa po dodaniu w preambule:
+
+```latex
+\usepackage{amsmath,amssymb}
+```
+
+Wszystkie prezentowane wzory można wykorzystać bezpośrednio w dokumentach LaTeX, a większość także w Markdownie obsługującym matematykę.
 
 ---
 
@@ -648,36 +1101,6 @@ W komunikacie błędu warto szukać:
 - pierwszego sensownego komunikatu błędu.
 
 Jedna pomyłka może wygenerować wiele kolejnych komunikatów.
-
----
-
-# Znaki specjalne
-
-Niektóre znaki mają w LaTeX-u specjalne znaczenie.
-
-Przykład:
-
-~~~text
-%  _  &  #  $
-~~~
-
-Jeżeli chcemy je wyświetlić jako zwykły tekst, często trzeba użyć odpowiedniej składni.
-
-Przykład:
-
-~~~latex
-50\%
-~~~
-
-daje:
-
-> 50%
-
-Podkreślenie w zwykłym tekście:
-
-~~~latex
-plik\_wynikowy.txt
-~~~
 
 ---
 
@@ -954,9 +1377,9 @@ Minimalny przykład:
 
 Najważniejszy wynik:
 
-\[
+$$
 E=mc^2
-\]
+$$
 
 \end{frame}
 
@@ -1132,21 +1555,16 @@ CV:
 - [https://www.livecareer.pl/cv/latex-cv](https://www.livecareer.pl/cv/latex-cv)
 - [https://latextemplates.com/cat/curricula-vitae/](https://latextemplates.com/cat/curricula-vitae/)
 
+## Użyteczne narzędzia
 
-# Zadania
-
-Idea jest taka, aby wykonać całą pracę w Overleafie, a na koniec przenieść wyniki do odpowiednich miejsc na GitHubie (szczegóły w toku).
-
-1. Załóż konto na [Overleaf](https://www.overleaf.com/). Poza tym **w domu (!) postaraj się o lokalną instalację LaTeX-a** oraz edytora TeXstudio lub skonfiguruj możliwość pracy w VS Code.
-
-2. Stwórz projekt `Start` z plikiem `start.tex`. Otwórz plik `.md` z listy zadań `01_Markdown`, który prezentował możliwości Markdowna. Teraz masz dokładnie te same elementy wyrazić za pomocą składni LaTeX-a. Zadbaj o poprawne formatowanie, strukturę dokumentu oraz bezbłędną kompilację.
-
-3. Stwórz projekt `CV` z plikiem `cv.tex`. Korzystając z AI oraz galerii szablonów Overleaf, stwórz eleganckie CV fikcyjnej postaci z książki, filmu lub gry, ubiegającej się o wybrane stanowisko pracy.
-
-4. Stwórz projekt `Publikacja`. Ściągnij z arXiv artykuł [https://arxiv.org/abs/1110.6812](https://arxiv.org/abs/1110.6812) (pliki źródłowe LaTeX!). Zmień autorów na fikcyjne postacie z fikcyjnego uniwersytetu! Skompiluj dokument, a następnie, korzystając z AI, przeprowadź audyt, aby znaleźć wszystkie błędy językowe (**zaznacz poprawki kolorem niebieskim**) i ulepszyć artykuł merytorycznie (**kolor czerwony**). Postaraj się rozszerzyć artykuł o analizę numeryczną (a może nawet rozwiązać analitycznie problem postawiony na końcu artykułu?) i dopisać końcowy rozdział. Wszystkie poprawki zaznacz odpowiednimi kolorami: **niebieskim** — językowe, **czerwonym** — merytoryczne, **zielonym** — fragmenty proponowane do usunięcia.
-
-5. Stwórz projekt `Prezentacja`. Wykonaj prezentację na **10 slajdów**, wybierając jeden z trzech tematów: fizyka, matematyka lub algorytmy. Użyj klasy `beamer` i stwórz slajdy o odpowiedniej strukturze, zawierające listy, wzory i grafiki. Prezentacja powinna mieć slajd tytułowy, spis treści (`\tableofcontents`), tytuły slajdów (`\frametitle`), bloki (`block`, `alertblock`, `exampleblock`), przynajmniej jeden slajd z dwiema kolumnami, wzory matematyczne oraz listy punktowane i numerowane.
-
-6. Stwórz projekt `Praca domowa`. Wybierz dowolną listę z aktualnych zadań na studiach i przygotuj ich rozwiązania w LaTeX-u. Zadbaj o poprawne formatowanie treści zadań, wzorów i kolejnych kroków rozwiązania.
-
-7. Stwórz projekt `Egzamin` i przygotuj opracowanie (minimum pół strony za zagdnienie!) tematów na egzamin licencjacki z fizyki. Lista zagadnień: [https://wfa.uwr.edu.pl/wp-content/uploads/sites/216/2025/10/Pytania-lic-Fizyka-I-st.pdf](https://wfa.uwr.edu.pl/wp-content/uploads/sites/216/2025/10/Pytania-lic-Fizyka-I-st.pdf).
+- [Detexify](https://detexify.kirelabs.org/) — narzędzie do rozpoznawania symboli LaTeX na podstawie rysunku.
+- [Overleaf](https://www.overleaf.com/) — popularna platforma do tworzenia dokumentów LaTeX online.
+- [LaTeX Wikibook](https://en.wikibooks.org/wiki/LaTeX) — obszerne źródło wiedzy na temat LaTeX-a.
+- [TeX Stack Exchange](https://tex.stackexchange.com/) — forum pytań i odpowiedzi dotyczących LaTeX-a.
+- [LaTeX Project](https://www.latex-project.org/) — oficjalna strona projektu LaTeX, zawierająca dokumentację i informacje o pakietach.
+- [CTAN](https://ctan.org/) — Comprehensive TeX Archive Network, zawierający pakiety i dokumentację LaTeX.
+- [MikTeX](https://miktex.org/) — dystrybucja LaTeX-a dla systemu Windows, zawierająca menedżer pakietów i narzędzia do kompilacji dokumentów.
+- [KaTeX](https://katex.org/) — biblioteka do renderowania wzorów matematycznych w przeglądarce internetowej.
+- [TeX Live](https://www.tug.org/texlive/) — dystrybucja LaTeX-a dla systemów Unix/Linux, zawierająca kompletne środowisko do kompilacji dokumentów.
+- [TeXstudio](https://www.texstudio.org/) — popularny edytor LaTeX, oferujący podświetlanie składni, autouzupełnianie i narzędzia do kompilacji dokumentów.
+- [VS Code LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop) — rozszerzenie do Visual Studio Code umożliwiające pracę z dokumentami LaTeX.

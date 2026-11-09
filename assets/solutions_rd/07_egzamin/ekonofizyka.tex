@@ -1,0 +1,292 @@
+\topic{1}{Konstrukcja i analiza portfela papierów wartościowych}{
+Portfel opisują wagi $w_i$ poszczególnych aktywów,
+zwykle spełniające $\sum_iw_i=1$.
+Jego oczekiwana stopa zwrotu to
+$\mu_p=\mathbf w^\top\boldsymbol\mu$,
+a wariancja
+$\sigma_p^2=\mathbf w^\top\Sigma\mathbf w$,
+gdzie $\Sigma$ jest macierzą kowariancji
+zwrotów. Korelacje decydują,
+ile ryzyka można ograniczyć
+przez dywersyfikację.
+
+W ujęciu Markowitza wybiera się
+portfele efektywne: dla danego
+ryzyka mają najwyższy oczekiwany
+zwrot albo dla danego zwrotu
+najmniejsze ryzyko.
+Analiza wymaga oszacowania
+$\boldsymbol\mu$ i $\Sigma$
+z danych, określenia horyzontu,
+kosztów transakcyjnych
+oraz ograniczeń wag.
+Wynik może być niestabilny,
+ponieważ błędy oszacowania
+średnich zwrotów są duże;
+warto sprawdzać odporność
+rozwiązania na zmianę
+okna danych.}
+\topic{2}{Portfel najmniejszego ryzyka i portfel optymalny}{
+Portfel minimum wariancji
+rozwiązuje problem
+$\min_{\mathbf w}\mathbf w^\top
+\Sigma\mathbf w$ przy
+$\mathbf 1^\top\mathbf w=1$.
+Bez zakazu krótkiej sprzedaży
+i przy odwracalnej $\Sigma$
+rozwiązanie ma postać
+$\mathbf w_{\rm GMV}
+=\Sigma^{-1}\mathbf 1/
+(\mathbf 1^\top\Sigma^{-1}\mathbf 1)$.
+
+Portfel optymalny wymaga
+dodatkowego kryterium
+preferencji inwestora,
+na przykład maksymalizacji
+$\mathbf w^\top\boldsymbol\mu
+-\lambda\mathbf w^\top\Sigma\mathbf w/2$.
+Parametr $\lambda$ wyraża
+awersję do ryzyka.
+Portfel minimum wariancji
+nie musi maksymalizować
+tej funkcji. Dodatkowe
+ograniczenia, koszty
+i niedokładność estymacji
+mogą znacznie zmienić
+wagi, dlatego rozwiązanie
+algebraiczne jest punktem
+wyjścia do analizy,
+a nie prognozą wyników.}
+\newpage
+\topic{3}{Korelacje, zwroty i taksonomia portfela}{
+Z cen $P_i(t)$ oblicza się
+zwroty proste lub logarytmiczne,
+np. $r_i(t)=\ln P_i(t)-
+\ln P_i(t-\Delta t)$.
+Korelacja Pearsona
+$\rho_{ij}$ mierzy liniową
+współzmienność zwrotów,
+nie samych poziomów cen.
+Korelacje cen często bywają
+pozorne z powodu trendów.
+
+Odległość
+$d_{ij}=\sqrt{2(1-\rho_{ij})}$
+pozwala zbudować drzewo
+minimalne lub hierarchię
+podobieństw między aktywami.
+Taka taksonomia może ujawnić
+grupy sektorowe i wspólne
+czynniki, ale zależy
+od okna czasowego,
+częstotliwości danych
+i sposobu estymacji.
+Korelacja nie mierzy
+zależności przyczynowej
+ani dobrze nie opisuje
+wszystkich ekstremalnych
+współruchów. Przed
+porównaniem serii trzeba
+zsynchronizować notowania
+i obsłużyć brakujące dane.}
+\topic{4}{Krachy jako analogia przejść fazowych}{
+W ekonofizyce krach bywa
+modelowany jako gwałtowna
+zmiana stanu układu
+złożonego z oddziałujących
+uczestników. Analogią
+przejścia fazowego są
+narastające korelacje,
+niestabilność i możliwe
+zachowanie skalowe.
+Modele logarytmiczno-
+periodyczne próbują
+opisać przyspieszanie
+bańki przed punktem
+krytycznym.
+
+Nie ma jednak uniwersalnego
+prawa fizycznego,
+które wyznacza datę krachu.
+Dopasowanie modelu
+do historii może łatwo
+przeuczyć dane,
+a wybór początku bańki
+zmienia wynik.
+Rzetelne badanie wymaga
+definicji krachu,
+testów poza próbą,
+przedziałów niepewności
+i porównania z prostszymi
+modelami. Wskaźnik
+ostrzegawczy jest
+hipotezą statystyczną,
+nie pewną zapowiedzią
+przyszłego zdarzenia.}
+\newpage
+\topic{5}{Statystyczne własności rozkładów zwrotów}{
+Zwroty finansowe mają
+często rozkład o grubych
+ogonach względem rozkładu
+normalnego. Duże odchylenia
+występują częściej niż
+przewiduje model Gaussa.
+Znaki krótkookresowych
+zwrotów mogą mieć słabą
+autokorelację, podczas
+gdy wartości bezwzględne
+lub kwadraty zwrotów
+wykazują klastrowanie
+zmienności.
+
+Analiza obejmuje średnią,
+wariancję, skośność,
+kurtozę i funkcję
+autokorelacji, ale
+estymatory zależą
+od okresu i rozdzielczości
+danych. Rozkłady zwrotów
+dodatkowo zmieniają się
+w czasie, więc jedna
+funkcja gęstości nie musi
+opisywać całego rynku.
+Trzeba sprawdzić wpływ
+ekstremów, świąt,
+braku płynności
+i zmian metodologii.
+Ciężki ogon sam w sobie
+nie dowodzi konkretnego
+mechanizmu generowania
+cen.}
+\topic{6}{Modele AR, MA i ARMA a rozkład Gaussa}{
+Model AR($p$) opisuje
+bieżący zwrot przez
+poprzednie zwroty
+i innowację:
+$r_t=c+\sum_{i=1}^p
+\phi_i r_{t-i}+\varepsilon_t$.
+Model MA($q$) używa
+bieżącej i poprzednich
+innowacji, a ARMA($p,q$)
+łączy oba składniki.
+Parametry opisują
+strukturę warunkowej
+średniej szeregu.
+
+Jeśli innowacje są
+niezależne i normalne,
+stacjonarny liniowy
+model ARMA ma
+gaussowskie rozkłady
+skończenie wymiarowe.
+Sam zapis ARMA
+nie wymusza jednak
+normalności; można
+użyć innowacji
+o grubych ogonach.
+Model dla średniej
+nie wystarcza
+do opisu zmiennej
+w czasie wariancji.
+Dobór rzędów
+opiera się na
+diagnostyce reszt,
+informacji kryterialnej
+i sprawdzeniu
+stacjonarności.}
+\newpage
+\topic{7}{Modele ARCH i GARCH}{
+ARCH zakłada, że
+warunkowa wariancja
+zależy od przeszłych
+kwadratów innowacji,
+np. $h_t=\omega+
+\alpha\varepsilon_{t-1}^2$.
+GARCH dodaje poprzednią
+wariancję:
+$h_t=\omega+
+\alpha\varepsilon_{t-1}^2+
+\beta h_{t-1}$.
+Zapis
+$\varepsilon_t=\sqrt{h_t}z_t$
+oddziela zmienną
+skalę od standaryzowanej
+innowacji $z_t$.
+
+Dla prostego GARCH(1,1)
+przy $\omega>0$,
+$\alpha,\beta\geq0$
+i $\alpha+\beta<1$
+istnieje skończona
+wariancja bezwarunkowa
+$\omega/(1-\alpha-\beta)$.
+Model uchwytuje
+klastrowanie zmienności,
+ale klasyczna wersja
+symetrycznie reaguje
+na dodatnie i ujemne
+szoki tej samej wielkości.
+W praktyce sprawdza się
+reszty standaryzowane,
+stabilność parametrów
+i jakość prognoz
+poza próbą.}
+\topic{8}{Skalowanie, fraktalność i multifraktalność}{
+Skalowanie oznacza
+systematyczną zależność
+statystyk przy zmianie
+skali czasu. Dla
+prostego procesu
+samopodobnego moment
+rzędu $q$ może spełniać
+$E|r_{\Delta t}|^q
+\propto(\Delta t)^{\zeta(q)}$.
+W monofraktalnym
+przybliżeniu $\zeta(q)$
+jest liniowe w $q$;
+multifraktalność
+wiąże się z
+nieliniowością tej
+funkcji.
+
+Szeregi finansowe
+mogą pokazywać
+zależność zmienności
+na wielu skalach.
+Modele multifraktalne
+próbują połączyć
+grube ogony,
+klastrowanie
+i skalowanie.
+Estymacja jest jednak
+wrażliwa na długość
+próby, zakres skal
+i skrajne obserwacje.
+Pozorna multifraktalność
+może też wynikać
+ze zmian reżimu.
+Wnioski wymagają
+porównania z
+danymi losowo
+przemieszanymi
+i modelami
+odniesienia.}
+\newpage
+\section*{Podstawowe źródła do części III}
+\begin{itemize}
+\item H. Markowitz,
+\href{https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1952.tb01525.x}
+{Portfolio Selection}, 1952.
+\item R. N. Mantegna,
+\href{https://arxiv.org/abs/cond-mat/9802256}
+{Hierarchical Structure in Financial Markets}, 1998.
+\item R. F. Engle,
+\href{https://web.pdx.edu/~crkl/ec572/readings/Engle82.pdf}
+{Autoregressive Conditional Heteroscedasticity}, 1982.
+\item T. Bollerslev,
+\href{https://www.sciencedirect.com/science/article/pii/0304407686900631}
+{Generalized Autoregressive Conditional Heteroskedasticity}, 1986.
+\item E. Bacry, J. Delour, J.-F. Muzy,
+\href{https://arxiv.org/abs/cond-mat/0005405}
+{A multifractal random walk}, 2000.
+\end{itemize}

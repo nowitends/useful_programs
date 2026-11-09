@@ -1,0 +1,98 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[polish]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric}
+\geometry{margin=2.5cm}
+
+% Style do tworzenia diagramów w TikZiT.
+\input{styles.tikzstyles}
+
+\title{Systemy fizyczne jako sieci\\\large Materiał do uzupełnienia diagramami TikZiT}
+\author{Programy użytkowe -- ćwiczenie}
+\date{}
+
+% Symbol zastępczy. Student zastępuje go poleceniem \input{figures/plik.tikz}.
+\newcommand{\missingfigure}[1]{%
+  \fbox{\parbox[c][3.2cm][c]{0.83\textwidth}{\centering
+  \textbf{MIEJSCE NA RYSUNEK TIKZiT}\\[6pt]#1}}%
+}
+
+\begin{document}
+\maketitle
+
+\section{Przepływ energii między podukładami}
+
+Różne elementy układu fizycznego mogą przekazywać sobie energię. Rozważmy trzy
+części $A$, $B$ i $C$ ułożone w łańcuch. Moc $P_{AB}>0$ płynie od $A$ do $B$,
+a moc $P_{BC}>0$ od $B$ do $C$. Bilans energii części środkowej ma postać
+\begin{equation}
+  \frac{\mathrm{d}E_B}{\mathrm{d}t}=P_{AB}-P_{BC}.
+\end{equation}
+
+Diagram powinien pokazywać trzy podpisane węzły i dwa kierunki przepływu,
+wraz z etykietami $P_{AB}$ oraz $P_{BC}$. Nie należy odwracać kierunków strzałek.
+
+\begin{figure}[ht]
+  \centering
+  % TODO: zastąp \missingfigure poleceniem:
+  % \input{figures/01_energy_flow.tikz}
+  \missingfigure{Trzy węzły $A$, $B$, $C$ i przepływy mocy.}
+  \caption{Przepływ energii w układzie trzech elementów.}
+  \label{fig:energy}
+\end{figure}
+
+\section{Stan równowagi stabilnej}
+
+Rozważmy zmienną $x$ opisującą stan prostego układu dynamicznego:
+\begin{equation}
+ \dot x=-\gamma\bigl(x-x_{\mathrm{eq}}\bigr),\qquad \gamma>0.
+\end{equation}
+
+Gdy $x<x_{\mathrm{eq}}$, pochodna jest dodatnia, więc $x$ rośnie. Gdy
+$x>x_{\mathrm{eq}}$, pochodna jest ujemna, więc $x$ maleje. Stan
+$x_{\mathrm{eq}}$ jest zatem \emph{stabilny}. W diagramie powinny znaleźć
+się trzy pozycje, a strzałki z obu stron powinny prowadzić do stanu środkowego.
+
+\begin{figure}[ht]
+  \centering
+  % TODO: \input{figures/02_stable_equilibrium.tikz}
+  \missingfigure{Stan z lewej i prawej strony prowadzi do równowagi.}
+  \caption{Schemat stabilnej równowagi dynamicznej.}
+  \label{fig:stable}
+\end{figure}
+
+\section{Od pomiaru do wyniku}
+
+Typowy eksperyment wymaga ustalenia kolejnych etapów przetwarzania sygnału.
+Zaczynamy od \emph{obiektu badanego}, następnie sygnał trafia do
+\emph{detektora}, potem do \emph{analizy danych}, a na końcu otrzymujemy
+\emph{wynik wraz z niepewnością}.
+
+Sygnał w idealnym modelu można przedstawić w uproszczonej postaci
+\begin{equation}
+  y(t)=s(t)+n(t),
+\end{equation}
+
+gdzie $s(t)$ jest sygnałem, a $n(t)$ szumem. Diagram powinien pokazywać
+cztery etapy skierowane od lewej do prawej. Nie zastępuj rysunku zwykłą listą.
+
+\begin{figure}[ht]
+  \centering
+  % TODO: \input{figures/03_measurement_chain.tikz}
+  \missingfigure{Obiekt $\to$ detektor $\to$ analiza $\to$ wynik.}
+  \caption{Łańcuch pomiarowy i opracowanie danych.}
+  \label{fig:chain}
+\end{figure}
+
+\section*{Podsumowanie}
+
+Uzupełnij trzy miejsca diagramami stworzonymi w TikZiT. Zachowaj spójny wygląd
+węzłów i strzałek oraz edytowalne pliki źródłowe \texttt{.tikz}. Sprawdź,
+że wszystkie wzory matematyczne i podpisy są czytelne w końcowym PDF-ie.
+
+\end{document}
