@@ -56,7 +56,7 @@
       <label class="control" for="angle"><span>Kąt wyrzutu <output id="angle-value" for="angle">45°</output></span><input id="angle" type="range" min="5" max="85" step="1" value="45"></label>
       <label class="control" for="gravity"><span>Grawitacja <output id="gravity-value" for="gravity">9,8 m/s²</output></span><input id="gravity" type="range" min="1" max="20" step="0.1" value="9.8"></label>
       <div class="buttons"><button class="primary" id="start" type="button">Start</button><button id="pause" type="button">Pauza</button><button id="reset" type="button">Reset</button></div>
-      <div class="stats" aria-live="polite">
+      <div class="stats">
         <div class="stat"><small>Czas lotu</small><strong id="flight-time">–</strong></div>
         <div class="stat"><small>Zasięg</small><strong id="range">–</strong></div>
         <div class="stat"><small>Wysokość maks.</small><strong id="height">–</strong></div>
@@ -127,7 +127,7 @@
       const vy = m.vy0 - m.gravity * t;
       const vLength = 75 / m.speed;
       arrow(px, py, px + m.vx * vLength, py - vy * vLength, '#7ea8ff');
-      arrow(px, py, px, py + 50, '#ffa65c');
+      arrow(px, py, px, py + 25 + m.gravity * 2, '#ffa65c');
       ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(px, py, 8, 0, 2 * Math.PI); ctx.fill();
       document.getElementById('flight-time').textContent = fmt.format(m.flight) + ' s';
       document.getElementById('range').textContent = fmt.format(m.range) + ' m';

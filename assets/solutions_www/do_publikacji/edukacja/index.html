@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interaktywna lekcja fizyki: zbadaj rzut ukośny i sprawdź wpływ prędkości, kąta oraz grawitacji na tor lotu.">
+  <title>Laboratorium paraboli — rzut ukośny</title>
+  <style>
+    :root{font-family:system-ui,sans-serif;color:#153245;background:#f4f9f8;scroll-behavior:smooth}
+    *{box-sizing:border-box}body{margin:0;line-height:1.6}button,input{font:inherit}
+    .wrap{width:min(100% - 2rem,72rem);margin-inline:auto}
+    .nav{position:sticky;top:0;z-index:10;background:#f8fdfbea;border-bottom:1px solid #d3e7e3;backdrop-filter:blur(12px)}
+    .nav .wrap{min-height:4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .brand{font-weight:850;color:#0b5559;text-decoration:none;white-space:nowrap}
+    .nav-links{display:flex;flex-wrap:wrap;gap:.25rem}.nav-links a{padding:.45rem .7rem;border-radius:.5rem;color:#355f67;text-decoration:none;font-size:.91rem}
+    .nav-links a:hover,.nav-links a[aria-current=location]{background:#d8f1eb;color:#075a55}
+    a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #ffbd69;outline-offset:3px}
+    .hero{overflow:hidden;color:white;background:radial-gradient(circle at 80% 10%,#1b81906b,transparent 38%),linear-gradient(125deg,#082737,#0b5667)}
+    .hero-grid{min-height:34rem;padding-block:4rem;display:grid;grid-template-columns:1.05fr .95fr;gap:2rem;align-items:center}
+    .eyebrow{display:block;color:#0d8173;font-size:.77rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.hero .eyebrow{color:#90ecdb}
+    h1{margin:.3rem 0 1rem;font-size:clamp(2.7rem,7vw,5.8rem);line-height:1.03;letter-spacing:-.045em}h2{margin:.25rem 0 .7rem;font-size:clamp(1.9rem,4vw,3rem);line-height:1.12;letter-spacing:-.025em}
+    h3{margin:.2rem 0 .5rem}.hero p{max-width:34rem;color:#d5eeef;font-size:1.15rem}
+    .cta{display:inline-block;margin-top:1rem;padding:.8rem 1.25rem;border-radius:.65rem;background:#dcfa96;color:#163348;font-weight:800;text-decoration:none}
+    .cta:hover{background:#edffc1}.hero-art{position:relative;overflow:hidden;border:1px solid #94dcda55;border-radius:1.3rem;background:linear-gradient(150deg,#174f63b3,#0a3146c9);box-shadow:0 2rem 4rem #061a2b80}
+    .hero-art svg{display:block;width:100%;height:auto}.hero-art .trajectory{fill:none;stroke:#a5efdb;stroke-width:3;stroke-linecap:round;stroke-dasharray:680;animation:drawpath 3s ease both}
+    .hero-art .launch{fill:#ffe49a;animation:pulse 2.4s ease-in-out infinite}.hero-art .gridline{fill:none;stroke:#a5efdb33;stroke-width:1}
+    .hero-art .text{fill:#b9dadc;font:14px system-ui,sans-serif}.hero-art .point{fill:#ffe49a;filter:drop-shadow(0 0 8px #ffe49a)}
+    @keyframes drawpath{from{stroke-dashoffset:680}to{stroke-dashoffset:0}}@keyframes pulse{50%{opacity:.4;transform:scale(1.35);transform-origin:62px 313px}}
+    section.content{padding-block:4.5rem;scroll-margin-top:5rem}.section-head{max-width:46rem;margin-bottom:2rem}.section-head p{color:#4b6872}
+    .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.card,.lab,.formula{padding:1.35rem;border:1px solid #d5e7e4;border-radius:1rem;background:white;box-shadow:0 .7rem 2rem #10414c0b}
+    .card .number{display:grid;place-items:center;width:2.1rem;height:2.1rem;border-radius:.6rem;background:#dff4ed;color:#087564;font-weight:850}.card p{margin:0;color:#4b6872}
+    .formula{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem;background:#e6f5f1;color:#0b5559;font-weight:750;overflow-x:auto}
+    .formula code{font-family:ui-monospace,monospace;white-space:nowrap}
+    .lab-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(16rem,19rem);gap:1rem}.plot{display:block;width:100%;height:auto;border-radius:.65rem;background:#eef8f5}
+    .legend{display:flex;gap:1rem;flex-wrap:wrap;color:#536d73;font-size:.87rem}.legend span::before{content:'';display:inline-block;width:.7rem;height:.7rem;margin-right:.35rem;border-radius:50%;background:#078d83}.legend .saved::before{background:#e2a24a}.legend .body::before{background:#143e61}
+    .controls{align-self:start}.control{display:block;margin:1.1rem 0 1.5rem}.control span{display:flex;justify-content:space-between;gap:.5rem;font-weight:700}.control output{color:#087564;font-variant-numeric:tabular-nums;white-space:nowrap}
+    .control input{display:block;width:100%;margin-top:.55rem;accent-color:#098a7b}.buttons{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem}
+    button{min-height:2.6rem;padding:.52rem .85rem;border:1px solid #a8c8c5;border-radius:.5rem;background:#e8f5f0;color:#0b5559;font-weight:750;cursor:pointer}button:hover{background:#d0ece2}button.primary{background:#0b786f;border-color:#0b786f;color:white}button.primary:hover{background:#075e59}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin-top:1rem}.stat{padding:.8rem;border-radius:.65rem;background:#eaf5f2}.stat small{display:block;color:#506d75}.stat strong{font-variant-numeric:tabular-nums}
+    .note{margin-bottom:0;color:#506d75;font-size:.9rem}.insight{padding:2.3rem;border-radius:1.1rem;background:linear-gradient(120deg,#0b4354,#0c706b);color:white}.insight p{max-width:53rem;color:#e2f4f0}.insight strong{color:#dcfa96}
+    footer{padding:2rem 0;border-top:1px solid #d3e7e3;color:#526f77;font-size:.9rem}
+    @media(max-width:850px){.hero-grid,.lab-grid{grid-template-columns:1fr}.hero-art{max-width:36rem}.cards{grid-template-columns:1fr 1fr}}
+    @media(max-width:620px){.nav .wrap{align-items:flex-start;flex-direction:column;padding-block:.5rem}.hero-grid{padding-block:2.7rem}.hero-art{display:none}.cards,.formula,.stats{grid-template-columns:1fr 1fr}}
+    @media(max-width:410px){.cards,.formula,.stats{grid-template-columns:1fr}}
+    @media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}.trajectory,.hero-art .launch{animation:none}}
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Nawigacja główna"><div class="wrap"><a class="brand" href="#start">Laboratorium paraboli</a><div class="nav-links"><a href="#zasady">Zasady</a><a href="#laboratorium">Symulator</a><a href="#wnioski">Wnioski</a></div></div></nav>
+  <header class="hero" id="start"><div class="wrap hero-grid"><div><span class="eyebrow">Interaktywna lekcja fizyki</span><h1>Jeden rzut.<br>Wiele torów.</h1><p>Odkryj, jak prędkość, kąt wyrzutu i grawitacja wpływają na lot. Zobacz obliczenia i porównaj dwa eksperymenty.</p><a class="cta" href="#laboratorium">Rozpocznij eksperyment →</a></div><div class="hero-art" aria-hidden="true"><svg viewBox="0 0 500 370"><path class="gridline" d="M60 50V315H450 M60 260H450 M60 205H450 M60 150H450 M60 95H450 M130 50V315 M200 50V315 M270 50V315 M340 50V315 M410 50V315"/><path d="M60 315H455 M60 315V45" fill="none" stroke="#9ed8d0" stroke-width="2"/><path d="M62 313 Q247 -45 438 313" fill="none" stroke="#a5efdb55" stroke-width="2"/><path class="trajectory" d="M62 313 Q247 -45 438 313"/><circle class="launch" cx="62" cy="313" r="17"/><circle class="point" cx="247" cy="134" r="7"/><text class="text" x="70" y="343">start</text><text class="text" x="411" y="343">lądowanie</text><text class="text" x="257" y="123">wierzchołek</text></svg></div></div></header>
+  <main>
+    <section class="content wrap" id="zasady"><div class="section-head"><span class="eyebrow">01 / Zrozum ruch</span><h2>Dlaczego tor jest parabolą?</h2><p>W prostym modelu pozioma składowa prędkości jest stała, a pionowa zmienia się pod wpływem grawitacji. Oba ruchy zachodzą jednocześnie.</p></div><div class="cards"><article class="card"><span class="number">1</span><h3>Rozłóż prędkość</h3><p>Na starcie vₓ = v₀ cos α, a vᵧ = v₀ sin α. Kąt określa, ile prędkości przypada na każdy kierunek.</p></article><article class="card"><span class="number">2</span><h3>Śledź czas</h3><p>W poziomie x rośnie równomiernie. W pionie ciało najpierw wznosi się, po czym opada.</p></article><article class="card"><span class="number">3</span><h3>Sprawdź wynik</h3><p>Dla jednakowej wysokości startu i lądowania zasięg jest największy przy kącie 45°.</p></article></div><div class="formula" aria-label="Wzory na położenie w czasie"><code>x(t) = v₀ cos(α) · t</code><code>y(t) = v₀ sin(α) · t − ½gt²</code></div></section>
+    <section class="content wrap" id="laboratorium"><div class="section-head"><span class="eyebrow">02 / Eksperymentuj</span><h2>Ustaw parametry lotu</h2><p>Przesuń suwaki i uruchom animację. Możesz zapisać jeden tor, aby porównać go z następnym.</p></div><div class="lab-grid"><div class="lab"><h3>Tor i położenie</h3><svg class="plot" id="plot" viewBox="0 0 800 420" role="img" aria-label="Wykres rzutu ukośnego"><g id="grid"></g><path id="saved-path" fill="none" stroke="#e2a24a" stroke-width="3" stroke-dasharray="8 7"></path><path id="flight-path" fill="none" stroke="#078d83" stroke-width="4" stroke-linecap="round"></path><circle id="ball" r="8" fill="#143e61" stroke="white" stroke-width="3"></circle><text x="15" y="28" fill="#476875" font-size="16">y [m]</text><text x="726" y="406" fill="#476875" font-size="16">x [m]</text></svg><div class="legend" aria-hidden="true"><span>aktualny tor</span><span class="saved">zapisany tor</span><span class="body">położenie</span></div><div class="stats"><div class="stat"><small>Zasięg</small><strong id="range">—</strong></div><div class="stat"><small>Wysokość</small><strong id="height">—</strong></div><div class="stat"><small>Czas lotu</small><strong id="flight-time">—</strong></div><div class="stat"><small>Chwila t</small><strong id="elapsed">0 s</strong></div></div><p class="note">Model nie uwzględnia oporu powietrza. Ciało startuje i ląduje na tej samej wysokości.</p></div><div class="lab controls"><h3>Parametry</h3><label class="control" for="speed"><span>Prędkość początkowa <output id="speed-value" for="speed">20 m/s</output></span><input id="speed" type="range" min="5" max="50" step="1" value="20"></label><label class="control" for="angle"><span>Kąt wyrzutu <output id="angle-value" for="angle">45°</output></span><input id="angle" type="range" min="5" max="85" step="1" value="45"></label><label class="control" for="gravity"><span>Grawitacja <output id="gravity-value" for="gravity">9,8 m/s²</output></span><input id="gravity" type="range" min="1" max="20" step="0.1" value="9.8"></label><div class="buttons"><button id="play" class="primary" type="button">Start</button><button id="pause" type="button">Pauza</button><button id="reset" type="button">Reset</button><button id="compare" type="button">Zapamiętaj tor</button><button id="clear-compare" type="button">Usuń porównanie</button></div><p class="note">Spróbuj porównać kąty 30° i 60° przy tej samej prędkości.</p></div></div></section>
+    <section class="content wrap" id="wnioski"><div class="insight"><span class="eyebrow" style="color:#9ef0d9">03 / Wniosek</span><h2>Co jest szczególnego w 45°?</h2><p>W tym modelu zasięg wynosi <strong>R = v₀² sin(2α) / g</strong>. Ponieważ największa wartość sinusa to 1, maksimum występuje dla <strong>α = 45°</strong>. Kąty dopełniające się do 90° — na przykład 30° i 60° — dają ten sam zasięg, ale różne wysokości i czasy lotu.</p></div></section>
+  </main>
+  <footer><div class="wrap">Laboratorium paraboli · Interaktywna lekcja fizyki · Obliczenia dotyczą idealnego modelu ruchu.</div></footer>
+  <script>
+    'use strict';
+    const inputs = ['speed', 'angle', 'gravity'].map(id => document.getElementById(id));
+    const fmt = new Intl.NumberFormat('pl-PL', { maximumFractionDigits: 1 });
+    const grid = document.getElementById('grid');
+    const flightPath = document.getElementById('flight-path');
+    const savedPath = document.getElementById('saved-path');
+    const ball = document.getElementById('ball');
+    let saved = null, elapsed = 0, playing = false, previous = null;
+    for (let i = 0; i <= 5; i++) {
+      const x = 60 + 690 * i / 5, y = 34 + 320 * i / 5;
+      const v = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      v.setAttribute('d', `M${x} 34V354 M60 ${y}H750`);
+      v.setAttribute('stroke', '#cde3dd'); grid.append(v);
+    }
+    function model() {
+      const speed = Number(inputs[0].value), angle = Number(inputs[1].value) * Math.PI / 180, gravity = Number(inputs[2].value);
+      const vx = speed * Math.cos(angle), vy = speed * Math.sin(angle);
+      const time = 2 * vy / gravity;
+      return { speed, angle, gravity, vx, vy, time, range: vx * time, height: vy * vy / (2 * gravity) };
+    }
+    function point(m, t) { return { x: m.vx * t, y: Math.max(0, m.vy * t - m.gravity * t * t / 2) }; }
+    function stop() { playing = false; previous = null; }
+    function draw() {
+      const m = model();
+      const xMax = Math.max(m.range, saved?.range || 0, 1) * 1.12;
+      const yMax = Math.max(m.height, saved?.height || 0, 1) * 1.28;
+      const sx = x => 60 + 690 * x / xMax;
+      const sy = y => 354 - 320 * y / yMax;
+      function curve(item) {
+        let d = '';
+        for (let i = 0; i <= 120; i++) { const p = point(item, item.time * i / 120); d += `${i ? ' L' : 'M'}${sx(p.x).toFixed(2)},${sy(p.y).toFixed(2)}`; }
+        return d;
+      }
+      flightPath.setAttribute('d', curve(m));
+      savedPath.setAttribute('d', saved ? curve(saved) : '');
+      const p = point(m, Math.min(elapsed, m.time));
+      ball.setAttribute('cx', sx(p.x)); ball.setAttribute('cy', sy(p.y));
+      document.getElementById('range').textContent = fmt.format(m.range) + ' m';
+      document.getElementById('height').textContent = fmt.format(m.height) + ' m';
+      document.getElementById('flight-time').textContent = fmt.format(m.time) + ' s';
+      document.getElementById('elapsed').textContent = fmt.format(Math.min(elapsed, m.time)) + ' s';
+      inputs.forEach((input, i) => { document.getElementById(input.id + '-value').textContent = fmt.format(Number(input.value)) + [' m/s', '°', ' m/s²'][i]; });
+      document.getElementById('plot').setAttribute('aria-label', `Tor rzutu: zasięg ${fmt.format(m.range)} metrów, wysokość ${fmt.format(m.height)} metrów, czas lotu ${fmt.format(m.time)} sekund. Aktualna chwila ${fmt.format(Math.min(elapsed, m.time))} sekund.`);
+    }
+    function tick(now) {
+      if (!playing) return;
+      if (previous !== null) elapsed += Math.min((now - previous) / 1000, .1);
+      previous = now;
+      if (elapsed >= model().time) { elapsed = model().time; stop(); }
+      draw(); if (playing) requestAnimationFrame(tick);
+    }
+    inputs.forEach(input => input.addEventListener('input', () => { stop(); elapsed = 0; draw(); }));
+    document.getElementById('play').addEventListener('click', () => { if (playing) return; if (elapsed >= model().time) elapsed = 0; playing = true; previous = null; requestAnimationFrame(tick); });
+    document.getElementById('pause').addEventListener('click', stop);
+    document.getElementById('reset').addEventListener('click', () => { stop(); elapsed = 0; draw(); });
+    document.getElementById('compare').addEventListener('click', () => { saved = model(); draw(); });
+    document.getElementById('clear-compare').addEventListener('click', () => { saved = null; draw(); });
+    draw();
+    if ('IntersectionObserver' in window) {
+      const links = [...document.querySelectorAll('.nav-links a')];
+      const observer = new IntersectionObserver(entries => { entries.forEach(entry => { if (!entry.isIntersecting) return; links.forEach(link => { const active = link.hash === '#' + entry.target.id; if (active) link.setAttribute('aria-current', 'location'); else link.removeAttribute('aria-current'); }); }); }, { rootMargin: '-20% 0px -65% 0px' });
+      document.querySelectorAll('main section[id]').forEach(section => observer.observe(section));
+    }
+  </script>
+</body>
+</html>

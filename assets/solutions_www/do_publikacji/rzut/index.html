@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rzut ukośny — symulator</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #081626; color: #e8f4ff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; }
+    header, main, footer { width: min(100% - 2rem, 76rem); margin-inline: auto; }
+    header { padding: 2.5rem 0 1rem; }
+    h1 { margin: .2rem 0; font-size: clamp(2rem, 5vw, 3.4rem); }
+    h2 { font-size: 1.1rem; }
+    p { color: #b8cbdc; }
+    .eyebrow { margin: 0; color: #6de3d6; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; font-size: .75rem; }
+    .layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(17rem, 20rem); gap: 1rem; align-items: start; }
+    .panel { padding: 1rem; background: #11253a; border: 1px solid #29445e; border-radius: 1rem; }
+    canvas { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; background: #0a1c30; border-radius: .6rem; }
+    .legend { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem .25rem 0; color: #d4e5f2; font-size: .875rem; }
+    .swatch { display: inline-block; width: .8rem; height: .8rem; margin-right: .35rem; border-radius: 50%; }
+    .path { background: #6de3d6; } .velocity { background: #7ea8ff; } .acceleration { background: #ffa65c; }
+    .control { display: block; margin-bottom: 1.3rem; }
+    .control > span { display: flex; justify-content: space-between; gap: .5rem; font-weight: 650; }
+    output { color: #6de3d6; font-variant-numeric: tabular-nums; }
+    input[type=range] { width: 100%; margin-top: .65rem; accent-color: #6de3d6; }
+    .buttons { display: flex; flex-wrap: wrap; gap: .5rem; }
+    button { padding: .65rem .9rem; border: 1px solid #4f6f8a; border-radius: .55rem; background: #1c3a56; color: #f3fbff; font: inherit; cursor: pointer; }
+    button:hover { background: #285374; }
+    button:focus-visible, input:focus-visible { outline: 3px solid #ffd17e; outline-offset: 3px; }
+    button.primary { background: #0d776e; border-color: #27a99c; }
+    .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: .6rem; margin-top: 1.5rem; }
+    .stat { padding: .65rem; background: #0b1d30; border-radius: .5rem; }
+    .stat small { display: block; color: #a9c0d2; }
+    .stat strong { font-variant-numeric: tabular-nums; }
+    footer { padding: 1.25rem 0 2rem; font-size: .9rem; }
+    @media (max-width: 790px) { .layout { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="eyebrow">Laboratorium ruchu</p>
+    <h1>Rzut ukośny</h1>
+    <p>Zmieniaj parametry i obserwuj tor, wektor prędkości oraz przyspieszenie grawitacyjne.</p>
+  </header>
+  <main class="layout">
+    <section class="panel" aria-labelledby="wykres-tytul">
+      <h2 id="wykres-tytul">Tor lotu</h2>
+      <canvas id="plot" width="900" height="560" role="img" aria-label="Tor rzutu ukośnego z wektorami prędkości i przyspieszenia">Twoja przeglądarka nie obsługuje elementu canvas.</canvas>
+      <div class="legend" aria-hidden="true"><span><i class="swatch path"></i>tor</span><span><i class="swatch velocity"></i>prędkość</span><span><i class="swatch acceleration"></i>przyspieszenie</span></div>
+    </section>
+    <section class="panel" aria-labelledby="ustawienia-tytul">
+      <h2 id="ustawienia-tytul">Parametry</h2>
+      <label class="control" for="speed"><span>Prędkość początkowa <output id="speed-value" for="speed">20 m/s</output></span><input id="speed" type="range" min="5" max="50" step="1" value="20"></label>
+      <label class="control" for="angle"><span>Kąt wyrzutu <output id="angle-value" for="angle">45°</output></span><input id="angle" type="range" min="5" max="85" step="1" value="45"></label>
+      <label class="control" for="gravity"><span>Grawitacja <output id="gravity-value" for="gravity">9,8 m/s²</output></span><input id="gravity" type="range" min="1" max="20" step="0.1" value="9.8"></label>
+      <div class="buttons"><button class="primary" id="start" type="button">Start</button><button id="pause" type="button">Pauza</button><button id="reset" type="button">Reset</button></div>
+      <div class="stats">
+        <div class="stat"><small>Czas lotu</small><strong id="flight-time">–</strong></div>
+        <div class="stat"><small>Zasięg</small><strong id="range">–</strong></div>
+        <div class="stat"><small>Wysokość maks.</small><strong id="height">–</strong></div>
+        <div class="stat"><small>Aktualny czas</small><strong id="current-time">0 s</strong></div>
+      </div>
+    </section>
+  </main>
+  <footer><p>Model bez oporu powietrza; start i lądowanie na tej samej wysokości. Oś pozioma: x [m], pionowa: y [m].</p></footer>
+  <script>
+    'use strict';
+    const canvas = document.getElementById('plot');
+    const ctx = canvas.getContext('2d');
+    const controls = ['speed', 'angle', 'gravity'].map(id => document.getElementById(id));
+    const fmt = new Intl.NumberFormat('pl-PL', { maximumFractionDigits: 1 });
+    let elapsed = 0;
+    let playing = false;
+    let previousFrame = null;
+
+    function model() {
+      const speed = Number(controls[0].value);
+      const angle = Number(controls[1].value) * Math.PI / 180;
+      const gravity = Number(controls[2].value);
+      const vx = speed * Math.cos(angle);
+      const vy0 = speed * Math.sin(angle);
+      const flight = 2 * vy0 / gravity;
+      return { speed, angle, gravity, vx, vy0, flight, range: vx * flight, height: vy0 * vy0 / (2 * gravity) };
+    }
+    function position(m, t) { return { x: m.vx * t, y: m.vy0 * t - m.gravity * t * t / 2 }; }
+    function arrow(x1, y1, x2, y2, color) {
+      const a = Math.atan2(y2 - y1, x2 - x1);
+      ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = 4;
+      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x2, y2);
+      ctx.lineTo(x2 - 13 * Math.cos(a - .45), y2 - 13 * Math.sin(a - .45));
+      ctx.lineTo(x2 - 13 * Math.cos(a + .45), y2 - 13 * Math.sin(a + .45));
+      ctx.closePath(); ctx.fill();
+    }
+    function draw() {
+      const m = model();
+      const w = canvas.width, h = canvas.height;
+      const left = 68, right = 45, top = 45, bottom = 58;
+      const pw = w - left - right, ph = h - top - bottom;
+      const xMax = Math.max(m.range * 1.12, 1);
+      const yMax = Math.max(m.height * 1.35, 1);
+      const sx = x => left + x / xMax * pw;
+      const sy = y => h - bottom - y / yMax * ph;
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = '#0a1c30'; ctx.fillRect(0, 0, w, h);
+      ctx.font = '16px system-ui'; ctx.lineWidth = 1;
+      for (let i = 0; i <= 5; i++) {
+        const x = left + pw * i / 5, y = top + ph * i / 5;
+        ctx.strokeStyle = '#29445e';
+        ctx.beginPath(); ctx.moveTo(x, top); ctx.lineTo(x, h - bottom); ctx.moveTo(left, y); ctx.lineTo(w - right, y); ctx.stroke();
+        ctx.fillStyle = '#a9c0d2';
+        ctx.fillText(fmt.format(xMax * i / 5), x - 8, h - bottom + 26);
+        ctx.fillText(fmt.format(yMax * (5 - i) / 5), 12, y + 5);
+      }
+      ctx.fillStyle = '#d4e5f2'; ctx.fillText('x [m]', w - 80, h - 10); ctx.fillText('y [m]', 13, 25);
+      ctx.strokeStyle = '#6de3d6'; ctx.lineWidth = 3; ctx.beginPath();
+      for (let i = 0; i <= 140; i++) {
+        const p = position(m, m.flight * i / 140);
+        if (i === 0) ctx.moveTo(sx(p.x), sy(p.y)); else ctx.lineTo(sx(p.x), sy(p.y));
+      }
+      ctx.stroke();
+      const t = Math.min(elapsed, m.flight);
+      const p = position(m, t);
+      const px = sx(p.x), py = sy(Math.max(0, p.y));
+      const vy = m.vy0 - m.gravity * t;
+      const vLength = 75 / m.speed;
+      arrow(px, py, px + m.vx * vLength, py - vy * vLength, '#7ea8ff');
+      arrow(px, py, px, py + 25 + m.gravity * 2, '#ffa65c');
+      ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(px, py, 8, 0, 2 * Math.PI); ctx.fill();
+      document.getElementById('flight-time').textContent = fmt.format(m.flight) + ' s';
+      document.getElementById('range').textContent = fmt.format(m.range) + ' m';
+      document.getElementById('height').textContent = fmt.format(m.height) + ' m';
+      document.getElementById('current-time').textContent = fmt.format(t) + ' s';
+      canvas.setAttribute('aria-label', `Tor rzutu: zasięg ${fmt.format(m.range)} metrów, wysokość ${fmt.format(m.height)} metrów, aktualny czas ${fmt.format(t)} sekund; pokazano wektory prędkości i przyspieszenia.`);
+    }
+    function frame(now) {
+      if (!playing) return;
+      if (previousFrame !== null) elapsed += Math.min((now - previousFrame) / 1000, .1);
+      previousFrame = now;
+      if (elapsed >= model().flight) { elapsed = model().flight; playing = false; previousFrame = null; }
+      draw();
+      if (playing) requestAnimationFrame(frame);
+    }
+    function stop() { playing = false; previousFrame = null; }
+    controls.forEach((input, i) => input.addEventListener('input', () => {
+      const unit = [' m/s', '°', ' m/s²'][i];
+      document.getElementById(input.id + '-value').textContent = fmt.format(Number(input.value)) + unit;
+      elapsed = 0; previousFrame = null; draw();
+    }));
+    document.getElementById('start').addEventListener('click', () => {
+      if (playing) return;
+      if (elapsed >= model().flight) elapsed = 0;
+      playing = true; previousFrame = null; requestAnimationFrame(frame);
+    });
+    document.getElementById('pause').addEventListener('click', stop);
+    document.getElementById('reset').addEventListener('click', () => { stop(); elapsed = 0; draw(); });
+    draw();
+  </script>
+</body>
+</html>
