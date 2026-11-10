@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Prognoza godzinowa z publicznego API Open-Meteo: tabela, wykres i filtry.">
+  <title>Pogoda w danych — Open-Meteo</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; color: #20334b; background: #f3f8fc; }
+    * { box-sizing: border-box; }
+    body { margin: 0; line-height: 1.55; }
+    .wrap { width: min(100% - 2rem, 68rem); margin-inline: auto; }
+    header { padding: 3rem 0 2.5rem; color: white; background: radial-gradient(circle at 85% 30%, #3d9eae, transparent 28%), linear-gradient(120deg, #123257, #12647a); }
+    .eyebrow { color: #b6edf0; font-size: .8rem; text-transform: uppercase; letter-spacing: .16em; font-weight: 800; }
+    h1 { margin: .25rem 0 .75rem; font-size: clamp(2.3rem, 5vw, 4.2rem); line-height: 1.1; }
+    header p { max-width: 40rem; color: #d6f0f2; }
+    main { padding-block: 2rem 4rem; }
+    .panel { padding: 1.3rem; margin-bottom: 1rem; border: 1px solid #d8e5ee; border-radius: .9rem; background: white; box-shadow: 0 .6rem 2rem #1435520a; }
+    .filters { display: grid; grid-template-columns: minmax(11rem, 2fr) auto minmax(10rem, 1fr) minmax(10rem, 1fr); gap: .7rem; align-items: end; }
+    label { display: grid; gap: .35rem; font-weight: 700; font-size: .9rem; }
+    input, select, button { width: 100%; min-height: 2.7rem; padding: .55rem .7rem; border: 1px solid #aac1d1; border-radius: .5rem; font: inherit; }
+    button { padding-inline: 1rem; border-color: #0e6675; background: #0e6675; color: white; font-weight: 800; cursor: pointer; }
+    button:disabled { opacity: .6; cursor: wait; }
+    button:hover:not(:disabled) { background: #0a5260; }
+    button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid #f4b04e; outline-offset: 3px; }
+    .status { min-height: 1.6rem; margin: .8rem 0 0; color: #4b6678; }
+    .status.error { color: #a62530; font-weight: 700; }
+    .summary { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .5rem; }
+    .summary h2 { margin: 0; }
+    .summary p { margin: 0; color: #536e7c; }
+    .chart { display: block; width: 100%; height: auto; margin-top: 1rem; border-radius: .5rem; background: #f5fafc; }
+    .table-scroll { max-height: 30rem; overflow: auto; margin-top: 1rem; }
+    table { width: 100%; border-collapse: collapse; }
+    caption { padding-bottom: .6rem; color: #526e7b; text-align: left; }
+    th, td { padding: .65rem .8rem; border-bottom: 1px solid #e0eaf0; text-align: left; }
+    thead { position: sticky; top: 0; background: #e9f5f7; }
+    tbody tr:nth-child(even) { background: #f7fafc; }
+    footer { padding: 1.5rem 0 2rem; color: #526e7b; border-top: 1px solid #d8e5ee; }
+    footer a { color: #0d617a; }
+    @media (max-width: 780px) { .filters { grid-template-columns: 1fr 1fr; } .search { grid-column: 1 / -1; } }
+    @media (max-width: 480px) { .filters { grid-template-columns: 1fr; } .search { grid-column: auto; } }
+  </style>
+</head>
+<body>
+  <header><div class="wrap"><span class="eyebrow">Dane na żywo</span><h1>Pogoda w danych</h1><p>Sprawdź godzinową prognozę temperatury i opadów. Wyszukaj miasto, wybierz dzień i przełącz rodzaj danych.</p></div></header>
+  <main class="wrap">
+    <section class="panel" aria-label="Filtry prognozy">
+      <form class="filters" id="search-form">
+        <label class="search" for="city">Miasto<input id="city" name="city" type="search" value="Warszawa" minlength="2" required autocomplete="address-level2"></label>
+        <button type="submit" id="search-button">Pobierz prognozę</button>
+        <label for="day">Dzień<select id="day" disabled><option>Najpierw pobierz dane</option></select></label>
+        <label for="metric">Dane<select id="metric"><option value="temperature_2m">Temperatura [°C]</option><option value="precipitation">Opady [mm]</option></select></label>
+      </form>
+      <p id="status" class="status" role="status" aria-live="polite">Ładowanie danych…</p>
+    </section>
+    <section class="panel" aria-labelledby="chart-title"><div class="summary"><h2 id="chart-title">Wykres godzinowy</h2><p id="place">—</p></div><svg id="chart" class="chart" viewBox="0 0 760 340" role="img" aria-label="Wykres godzinowej prognozy"></svg></section>
+    <section class="panel" aria-labelledby="table-title"><h2 id="table-title">Dane godzinowe</h2><div class="table-scroll"><table><caption id="table-caption">Wybierz miasto, aby zobaczyć dane.</caption><thead><tr><th scope="col">Godzina</th><th scope="col">Temperatura [°C]</th><th scope="col">Opady [mm]</th></tr></thead><tbody id="rows"></tbody></table></div></section>
+  </main>
+  <footer><div class="wrap">Źródło: <a href="https://open-meteo.com/en/docs">Open-Meteo Forecast API</a> i <a href="https://open-meteo.com/en/docs/geocoding-api">Open-Meteo Geocoding API</a>. Dane są prognozą, a nie pomiarem. Do działania potrzebne jest połączenie z internetem.</div></footer>
+  <script>
+    'use strict';
+    const form = document.getElementById('search-form');
+    const cityInput = document.getElementById('city');
+    const daySelect = document.getElementById('day');
+    const metricSelect = document.getElementById('metric');
+    const status = document.getElementById('status');
+    const chart = document.getElementById('chart');
+    const rows = document.getElementById('rows');
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const fmt = new Intl.NumberFormat('pl-PL', { maximumFractionDigits: 1 });
+    let data = null;
+    let activeRequest = null;
+
+    function setStatus(message, error = false) { status.textContent = message; status.classList.toggle('error', error); }
+    function svg(name, attrs = {}, content = '') {
+      const el = document.createElementNS(svgNS, name);
+      Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, value));
+      if (content) el.textContent = content;
+      chart.append(el);
+      return el;
+    }
+    function clearDisplay() {
+      data = null; daySelect.replaceChildren(new Option('Najpierw pobierz dane', '')); daySelect.disabled = true;
+      rows.replaceChildren(); chart.replaceChildren();
+      document.getElementById('place').textContent = '—';
+      document.getElementById('table-caption').textContent = 'Brak danych.';
+    }
+    function display() {
+      if (!data) return;
+      const day = daySelect.value, metric = metricSelect.value;
+      const unit = metric === 'temperature_2m' ? '°C' : 'mm';
+      const all = data.hourly;
+      const indices = all.time.map((time, i) => time.startsWith(day) ? i : -1).filter(i => i >= 0);
+      rows.replaceChildren(); chart.replaceChildren();
+      if (!indices.length) { setStatus('Brak danych dla wybranego dnia.', true); return; }
+      indices.forEach(i => {
+        const tr = document.createElement('tr');
+        [all.time[i].slice(11, 16), all.temperature_2m[i], all.precipitation[i]].forEach((value, j) => {
+          const cell = document.createElement(j === 0 ? 'th' : 'td');
+          if (j === 0) cell.scope = 'row';
+          cell.textContent = j === 0 ? value : Number.isFinite(value) ? fmt.format(value) : '—';
+          tr.append(cell);
+        });
+        rows.append(tr);
+      });
+      const values = indices.map(i => all[metric][i]);
+      const valid = values.filter(Number.isFinite);
+      if (!valid.length) { setStatus('Wybrane dane są niedostępne.', true); return; }
+      const low = metric === 'precipitation' ? 0 : Math.floor(Math.min(...valid) - 1);
+      const high = Math.max(metric === 'precipitation' ? 1 : low + 1, Math.ceil(Math.max(...valid) + 1));
+      const left = 58, top = 26, width = 670, height = 254;
+      const x = i => left + width * i / Math.max(indices.length - 1, 1);
+      const y = value => top + height - (value - low) / (high - low) * height;
+      for (let i = 0; i <= 4; i++) {
+        const yy = top + height * i / 4;
+        svg('line', { x1: left, y1: yy, x2: left + width, y2: yy, stroke: '#d3e5e9' });
+        svg('text', { x: 7, y: yy + 5, fill: '#52717e', 'font-size': 13 }, fmt.format(high - (high - low) * i / 4));
+      }
+      const ticks = [0, 6, 12, 18, indices.length - 1].filter((n, i, arr) => n < indices.length && arr.indexOf(n) === i);
+      ticks.forEach(n => svg('text', { x: x(n) - 16, y: 310, fill: '#52717e', 'font-size': 13 }, all.time[indices[n]].slice(11, 16)));
+      let path = '';
+      values.forEach((value, i) => { if (Number.isFinite(value)) path += `${path ? ' L' : 'M'}${x(i).toFixed(1)},${y(value).toFixed(1)}`; });
+      svg('path', { d: path, fill: 'none', stroke: '#0e8192', 'stroke-width': 4, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' });
+      values.forEach((value, i) => { if (Number.isFinite(value)) svg('circle', { cx: x(i), cy: y(value), r: 3.5, fill: '#0e8192' }); });
+      chart.setAttribute('aria-label', `Wykres: ${metric === 'temperature_2m' ? 'temperatura' : 'opady'} w ${data.place} w dniu ${day}; zakres ${fmt.format(low)}–${fmt.format(high)} ${unit}.`);
+      document.getElementById('table-caption').textContent = `Prognoza godzinowa dla ${data.place}, ${day}.`;
+      setStatus(`Wyświetlono ${indices.length} godzin prognozy dla ${data.place}.`);
+    }
+    async function fetchJSON(url, signal) {
+      const response = await fetch(url, { signal });
+      if (!response.ok) throw new Error(`Serwer zwrócił błąd ${response.status}.`);
+      const json = await response.json();
+      if (json.error) throw new Error(json.reason || 'Serwer odrzucił zapytanie.');
+      return json;
+    }
+    async function load(city) {
+      if (activeRequest) activeRequest.abort();
+      const controller = new AbortController(); activeRequest = controller;
+      const timeout = setTimeout(() => controller.abort(), 15000);
+      document.getElementById('search-button').disabled = true;
+      setStatus('Pobieranie prognozy…');
+      try {
+        const geoURL = new URL('https://geocoding-api.open-meteo.com/v1/search');
+        geoURL.search = new URLSearchParams({ name: city, count: '1', language: 'pl', format: 'json' }).toString();
+        const geo = await fetchJSON(geoURL, controller.signal);
+        if (!geo.results?.length) throw new Error('Nie znaleziono miejscowości. Wpisz inną nazwę.');
+        const place = geo.results[0];
+        const forecastURL = new URL('https://api.open-meteo.com/v1/forecast');
+        forecastURL.search = new URLSearchParams({ latitude: String(place.latitude), longitude: String(place.longitude), hourly: 'temperature_2m,precipitation', timezone: 'auto', forecast_days: '3' }).toString();
+        const forecast = await fetchJSON(forecastURL, controller.signal);
+        if (!forecast.hourly?.time?.length || !forecast.hourly.temperature_2m || !forecast.hourly.precipitation) throw new Error('Otrzymano niepełne dane prognozy.');
+        if (controller !== activeRequest) return;
+        data = { hourly: forecast.hourly, place: `${place.name}, ${place.country || ''}`.replace(/, $/, '') };
+        document.getElementById('place').textContent = data.place;
+        const days = [...new Set(data.hourly.time.map(time => time.slice(0, 10)))];
+        daySelect.replaceChildren(...days.map(day => new Option(day, day)));
+        daySelect.disabled = false;
+        display();
+      } catch (error) {
+        if (controller !== activeRequest) return;
+        clearDisplay();
+        setStatus(error.name === 'AbortError' ? 'Przekroczono czas oczekiwania. Spróbuj ponownie.' : `Nie udało się pobrać danych: ${error.message}`, true);
+      } finally {
+        clearTimeout(timeout);
+        if (controller === activeRequest) { activeRequest = null; document.getElementById('search-button').disabled = false; }
+      }
+    }
+    form.addEventListener('submit', event => { event.preventDefault(); if (form.reportValidity()) load(cityInput.value.trim()); });
+    daySelect.addEventListener('change', display);
+    metricSelect.addEventListener('change', display);
+    load(cityInput.value);
+  </script>
+</body>
+</html>

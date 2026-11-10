@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rzut ukośny — ilustrowany przewodnik</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <p class="eyebrow">Fizyka w praktyce</p>
+      <h1>Rzut ukośny</h1>
+      <p class="lead">Tor lotu powstaje z połączenia ruchu poziomego i pionowego.</p>
+    </div>
+  </header>
+  <main class="container">
+    <section class="intro" aria-labelledby="opis">
+      <div>
+        <h2 id="opis">Jak powstaje parabola?</h2>
+        <p>W modelu bez oporu powietrza pozioma składowa prędkości pozostaje stała. Pionowa składowa zmienia się pod wpływem grawitacji.</p>
+        <p>Położenie w chwili <var>t</var> opisują wzory: <strong>x = v₀ cos(α) · t</strong> oraz <strong>y = v₀ sin(α) · t − ½gt²</strong>.</p>
+      </div>
+      <figure>
+        <img src="images/rzut.png" width="720" height="420" alt="Paraboliczny tor rzutu ukośnego z zaznaczonym kierunkiem prędkości początkowej">
+        <figcaption>Przykładowy tor ruchu dla kąta wyrzutu 45°.</figcaption>
+      </figure>
+    </section>
+    <section aria-labelledby="parametry">
+      <h2 id="parametry">Co zmienia tor lotu?</h2>
+      <ul class="cards">
+        <li><strong>Prędkość początkowa</strong><span>Większa wartość zwykle zwiększa zasięg i wysokość.</span></li>
+        <li><strong>Kąt wyrzutu</strong><span>Decyduje o podziale prędkości na kierunki.</span></li>
+        <li><strong>Grawitacja</strong><span>Silniejsze przyspieszenie skraca lot.</span></li>
+      </ul>
+    </section>
+    <section aria-labelledby="wyniki">
+      <h2 id="wyniki">Przykładowe wyniki</h2>
+      <div class="table-wrap">
+        <table>
+          <caption>Dla v₀ = 20 m/s, α = 45° i g = 9,81 m/s²</caption>
+          <thead><tr><th scope="col">Wielkość</th><th scope="col">Wartość</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Czas lotu</th><td>2,88 s</td></tr>
+            <tr><th scope="row">Maksymalna wysokość</th><td>10,19 m</td></tr>
+            <tr><th scope="row">Zasięg</th><td>40,77 m</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Przeczytaj też <a href="https://pl.wikipedia.org/wiki/Rzut_uko%C5%9Bny">opis rzutu ukośnego</a>.</p>
+    </section>
+  </main>
+  <footer class="container"><p>Zadanie 2 · HTML + zewnętrzny CSS + obraz PNG</p></footer>
+</body>
+</html>

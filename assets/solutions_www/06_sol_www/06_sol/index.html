@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interaktywny quiz z fizyki: dziesięć pytań o rzut ukośny, wynik i wyjaśnienia.">
+  <title>Quiz — rzut ukośny</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; color: #203044; background: #f4f7fc; }
+    * { box-sizing: border-box; }
+    body { margin: 0; line-height: 1.55; }
+    .wrap { width: min(100% - 2rem, 48rem); margin-inline: auto; }
+    header { padding: 3rem 0; background: linear-gradient(120deg, #1a3263, #385da0); color: white; }
+    .eyebrow { color: #b7d9ff; text-transform: uppercase; letter-spacing: .15em; font-size: .8rem; font-weight: 800; }
+    h1 { margin: .3rem 0; font-size: clamp(2.2rem, 6vw, 3.5rem); }
+    header p { margin-bottom: 0; color: #deebff; }
+    main { padding-block: 2rem 4rem; }
+    .progress { position: sticky; top: 0; z-index: 2; padding: .8rem 0; background: #f4f7fcf2; backdrop-filter: blur(10px); }
+    .progress label { display: flex; justify-content: space-between; font-size: .85rem; font-weight: 700; }
+    progress { display: block; width: 100%; height: .65rem; margin-top: .35rem; accent-color: #265cb5; }
+    fieldset { margin: 1.2rem 0; padding: 1.4rem; border: 1px solid #d8e2f2; border-radius: .9rem; background: white; box-shadow: 0 .4rem 1.5rem #19366009; }
+    fieldset.correct { border-color: #249b73; } fieldset.incorrect { border-color: #d7675b; }
+    legend { padding: 0 .35rem; font-weight: 800; font-size: 1.1rem; }
+    .question-type { margin: 0 0 .8rem; color: #587089; font-size: .85rem; }
+    .choice { display: flex; gap: .7rem; align-items: flex-start; padding: .5rem; border-radius: .4rem; cursor: pointer; }
+    .choice:hover { background: #f2f6fc; }
+    .choice input { margin-top: .3rem; accent-color: #285db1; }
+    .numeric { width: min(100%, 12rem); padding: .65rem; border: 1px solid #aebed3; border-radius: .5rem; font: inherit; }
+    .feedback { margin-top: 1rem; padding: .8rem; border-radius: .5rem; background: #f2f6fc; }
+    .feedback[hidden], #result[hidden] { display: none; }
+    .actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+    button { border: 0; border-radius: .6rem; padding: .8rem 1.2rem; background: #265bb0; color: white; font: inherit; font-weight: 750; cursor: pointer; }
+    button.secondary { background: #e1e9f5; color: #25415f; }
+    button:hover { filter: brightness(1.08); }
+    button:focus-visible, input:focus-visible { outline: 3px solid #f5a94d; outline-offset: 3px; }
+    #result { margin-top: 1.5rem; padding: 1.4rem; border-radius: .9rem; background: #e6f3ef; border: 1px solid #b8dfcf; }
+    #result h2 { margin-top: 0; }
+    footer { padding: 1.5rem 0; color: #587089; border-top: 1px solid #d8e2f2; }
+  </style>
+</head>
+<body>
+  <header><div class="wrap"><span class="eyebrow">Sprawdź wiedzę</span><h1>Quiz: rzut ukośny</h1><p>10 pytań · jeden wybór, wiele odpowiedzi i zadania liczbowe · po sprawdzeniu zobaczysz wyjaśnienia.</p></div></header>
+  <main class="wrap">
+    <div class="progress"><label for="progress"><span>Odpowiedziano</span><span id="progress-label">0 / 10</span></label><progress id="progress" max="10" value="0"></progress></div>
+    <form id="quiz" novalidate></form>
+    <div class="actions"><button id="check" type="button">Sprawdź odpowiedzi</button><button id="restart" class="secondary" type="button">Rozpocznij od nowa</button></div>
+    <div id="result" hidden role="status" aria-live="polite"></div>
+  </main>
+  <footer><div class="wrap">Quiz dotyczy idealnego modelu bez oporu powietrza; przyjmuj g podane w treści zadania.</div></footer>
+  <script>
+    'use strict';
+    const questions = [
+      { type: 'single', text: 'Który wzór opisuje poziomą składową prędkości początkowej?', options: ['v₀ sin α', 'v₀ cos α', 'g · t'], answer: [1], why: 'Składowa pozioma to rzut wektora prędkości na oś x: v₀ cos α.' },
+      { type: 'single', text: 'Jakie jest pionowe przyspieszenie podczas całego lotu?', options: ['0', '+g', '−g'], answer: [2], why: 'Przy osi y skierowanej w górę grawitacja działa w dół, więc aᵧ = −g.' },
+      { type: 'single', text: 'Jaki kąt daje największy zasięg przy tej samej wysokości startu i lądowania?', options: ['30°', '45°', '60°'], answer: [1], why: 'Zasięg R = v₀² sin(2α)/g jest największy, gdy sin(2α) = 1, czyli dla α = 45°.' },
+      { type: 'single', text: 'Co dzieje się z pionową składową prędkości w najwyższym punkcie toru?', options: ['Jest równa zero', 'Jest równa g', 'Jest maksymalna'], answer: [0], why: 'Na chwilę przed opadaniem pionowa prędkość zmienia znak i przechodzi przez zero.' },
+      { type: 'multi', text: 'Które założenia należą do idealnego modelu użytego w tym quizie?', options: ['Pomijamy opór powietrza', 'Przyspieszenie g jest stałe', 'Grawitacja działa poziomo'], answer: [0, 1], why: 'Model zakłada brak oporu powietrza i stałe pionowe przyspieszenie grawitacyjne.' },
+      { type: 'multi', text: 'Które kąty dają taki sam zasięg przy jednakowym v₀ i g?', options: ['15°', '30°', '45°', '60°'], answer: [1, 3], why: 'Kąty dopełniające się do 90° mają taką samą wartość sin(2α); 30° i 60° dają równy zasięg.' },
+      { type: 'multi', text: 'Co rośnie, gdy zwiększymy v₀, zachowując ten sam kąt i g?', options: ['Czas lotu', 'Zasięg', 'Maksymalna wysokość', 'Wartość g'], answer: [0, 1, 2], why: 'Czas jest proporcjonalny do v₀, a zasięg i wysokość do v₀². Wartość g się nie zmienia.' },
+      { type: 'number', text: 'Ciało spada z wysokości 20 m bez początkowej prędkości pionowej. Ile sekund trwa spadanie przy g = 10 m/s²?', answer: 2, unit: 's', why: 'Z równania h = ½gt² mamy t = √(2h/g) = √4 = 2 s.' },
+      { type: 'number', text: 'Jaki jest zasięg rzutu dla v₀ = 10 m/s, α = 45° i g = 10 m/s²?', answer: 10, unit: 'm', why: 'R = v₀² sin(2α)/g = 100 · 1 / 10 = 10 m.' },
+      { type: 'number', text: 'Jaka jest maksymalna wysokość dla v₀ = 20 m/s, α = 30° i g = 10 m/s²?', answer: 5, unit: 'm', why: 'Pionowa prędkość początkowa wynosi 10 m/s, a H = vᵧ₀²/(2g) = 100/20 = 5 m.' }
+    ];
+    const quiz = document.getElementById('quiz');
+    const result = document.getElementById('result');
+    function build() {
+      quiz.replaceChildren(); result.hidden = true; result.replaceChildren();
+      questions.forEach((q, i) => {
+        const field = document.createElement('fieldset');
+        field.dataset.index = i;
+        const legend = document.createElement('legend'); legend.textContent = `${i + 1}. ${q.text}`; field.append(legend);
+        const hint = document.createElement('p'); hint.className = 'question-type'; hint.textContent = q.type === 'single' ? 'Wybierz jedną odpowiedź.' : q.type === 'multi' ? 'Wybierz wszystkie poprawne odpowiedzi.' : `Wpisz liczbę w ${q.unit}; możesz użyć przecinka.`; field.append(hint);
+        if (q.type === 'number') {
+          const input = document.createElement('input'); input.className = 'numeric'; input.type = 'text'; input.inputMode = 'decimal'; input.autocomplete = 'off'; input.setAttribute('aria-label', `Odpowiedź liczbowa na pytanie ${i + 1}`); field.append(input);
+        } else q.options.forEach((option, j) => {
+          const label = document.createElement('label'); label.className = 'choice';
+          const input = document.createElement('input'); input.type = q.type === 'single' ? 'radio' : 'checkbox'; input.name = `q${i}`; input.value = j;
+          const span = document.createElement('span'); span.textContent = option; label.append(input, span); field.append(label);
+        });
+        const feedback = document.createElement('div'); feedback.className = 'feedback'; feedback.hidden = true; field.append(feedback); quiz.append(field);
+      });
+      document.getElementById('check').disabled = false;
+      updateProgress();
+    }
+    function answered(field, q) { return q.type === 'number' ? field.querySelector('.numeric').value.trim() !== '' : !!field.querySelector('input:checked'); }
+    function updateProgress() {
+      const count = questions.filter((q, i) => answered(quiz.children[i], q)).length;
+      document.getElementById('progress').value = count;
+      document.getElementById('progress-label').textContent = `${count} / ${questions.length}`;
+    }
+    function isCorrect(field, q) {
+      if (q.type === 'number') {
+        const raw = field.querySelector('.numeric').value.trim().replace(',', '.');
+        if (raw === '' || !Number.isFinite(Number(raw))) return false;
+        return Math.abs(Number(raw) - q.answer) <= .05;
+      }
+      const selected = [...field.querySelectorAll('input:checked')].map(input => Number(input.value));
+      return selected.length === q.answer.length && q.answer.every(value => selected.includes(value));
+    }
+    document.getElementById('check').addEventListener('click', () => {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const field = quiz.children[i], correct = isCorrect(field, q);
+        if (correct) score++;
+        field.classList.add(correct ? 'correct' : 'incorrect');
+        const feedback = field.querySelector('.feedback');
+        const right = q.type === 'number' ? `${q.answer} ${q.unit}` : q.answer.map(index => q.options[index]).join(', ');
+        feedback.textContent = `${correct ? 'Poprawnie.' : 'Niepoprawnie. Poprawna odpowiedź: ' + right + '.'} ${q.why}`;
+        feedback.hidden = false;
+        field.querySelectorAll('input').forEach(input => { input.disabled = true; });
+      });
+      document.getElementById('check').disabled = true;
+      const title = document.createElement('h2'); title.textContent = `Wynik: ${score} / ${questions.length}`;
+      const detail = document.createElement('p'); detail.textContent = score === questions.length ? 'Świetnie! Wszystkie odpowiedzi są poprawne.' : 'Przejrzyj wyjaśnienia pod pytaniami i spróbuj ponownie.';
+      result.replaceChildren(title, detail); result.hidden = false; result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+    document.getElementById('restart').addEventListener('click', () => { build(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    quiz.addEventListener('input', updateProgress);
+    quiz.addEventListener('change', updateProgress);
+    build();
+  </script>
+</body>
+</html>

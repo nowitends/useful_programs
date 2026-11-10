@@ -1,4 +1,4 @@
-# Zadania
+# Zadania: LaTeX
 
 Idea jest taka, aby **wykonać całą pracę** w Overleafie, a na koniec **przenieść wyniki do odpowiednich miejsc na GitHubie**. Wynikiem jest wynikowy **pdf** oraz **pliki źródłowe LaTeX**.
 
